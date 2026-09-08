@@ -84,6 +84,8 @@
   .delete-x { left: 8px; background: #ff1744; }
   .edit-btn { left: 40px; background: #2196f3; }
   .admin-mode .delete-x, .admin-mode .edit-btn { display: flex; }
+  .admin-only-filter { display: none; }
+  .admin-mode .admin-only-filter { display: block; }
 
   .card-info { padding: 14px 15px; }
   .card h3 { color: #ff2d4a; margin-bottom: 6px; font-size: 14px; }
@@ -267,6 +269,11 @@
           <option value="LH">Izquierdo (LH)</option>
           <option value="RH">Derecho (RH)</option>
           <option value="N/A">No aplica</option>
+        </select>
+        <select class="filter-select admin-only-filter" id="estadoVenta" onchange="mostrar()">
+          <option value="">Disponibles y vendidas</option>
+          <option value="vendidas">Solo VENDIDAS</option>
+          <option value="disponibles">Solo disponibles</option>
         </select>
         <select class="filter-select" id="ordenar">
           <option value="">Sin ordenar</option>
@@ -555,13 +562,15 @@
     const busqueda = document.getElementById("buscar").value.toLowerCase();
     const categoria = document.getElementById("categoria").value;
     const lado = document.getElementById("lado").value;
+    const estadoV = adminMode ? ((document.getElementById("estadoVenta") || {}).value || "") : "";
 
     const resultado = productos.filter(p => {
       const texto = `${p.codigo} ${p.marca} ${p.modelo} ${p.categoria} ${p.alias||""}`.toLowerCase();
       return texto.includes(busqueda) &&
         (!categoria || p.categoria === categoria) &&
         (!lado || p.lado === lado) &&
-        (!p.vendido || adminMode);
+        (!p.vendido || adminMode) &&
+        (!estadoV || (estadoV === "vendidas" ? !!p.vendido : !p.vendido));
     });
 
     const orden = document.getElementById("ordenar").value;
