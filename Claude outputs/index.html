@@ -942,6 +942,12 @@
     alert("Link sin precios copiado:\n\n" + url);
   }
   window.copiarSinPrecios = copiarSinPrecios;
+
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("sw.js").catch(function () {});
+    });
+  }
 </script>
 </body>
 </html>
