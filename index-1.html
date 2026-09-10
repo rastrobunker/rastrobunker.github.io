@@ -20,36 +20,6 @@
   body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #000000; color: #fff; padding-bottom: 40px; }
 
 
-  /* ---------- Secciones y exclusivas (2026-09-10) ---------- */
-  .nav-cats { position: sticky; top: var(--barra, 52px); z-index: 40; background: #000; padding: 10px 0 8px; margin-bottom: 6px;
-              display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-  .nav-cats::-webkit-scrollbar { display: none; }
-  .nav-cats button { flex: 0 0 auto; background: #151515; color: #ddd; border: 1px solid #2f2f2f; border-radius: 999px;
-                     padding: 8px 14px; font-size: 12px; font-weight: bold; cursor: pointer; white-space: nowrap; }
-  .nav-cats button:hover { border-color: #ff1744; color: #fff; }
-  .nav-cats button.top { background: linear-gradient(90deg,#c2001f,#ff1744); color:#fff; border-color:#ff1744; }
-
-  .sec-head { grid-column: 1 / -1; position: sticky; top: calc(var(--barra, 52px) + 46px); z-index: 30; scroll-margin-top: calc(var(--barra, 52px) + 50px);
-              margin: 22px 0 2px; padding: 11px 16px; border-radius: 8px;
-              background: linear-gradient(180deg, #1a0d10 0%, #0a0a0a 100%);
-              border-left: 4px solid #ff1744; box-shadow: 0 6px 14px rgba(0,0,0,0.75);
-              display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
-  .sec-head span { font-weight: bold; font-size: 15px; letter-spacing: 0.6px; color: #fff; }
-  .sec-head small { color: #999; font-size: 11px; white-space: nowrap; }
-
-  .exclus-head { grid-column: 1 / -1; margin: 4px 0 2px; padding: 12px 16px; border-radius: 8px;
-                 background: linear-gradient(90deg, rgba(255,23,68,0.22), rgba(255,23,68,0));
-                 border-left: 4px solid #ffb300; }
-  .exclus-head span { font-weight: bold; font-size: 15px; letter-spacing: 0.6px; color: #ffb300; }
-  .exclus-head small { display: block; color: #999; font-size: 11px; margin-top: 3px; }
-  .card.exclusiva { border-color: #6a4a00; }
-  .card.exclusiva .card-category { background: #ffb300; color: #101010; }
-  @media (max-width: 600px) {
-    .sec-head { padding: 9px 12px; }
-    .sec-head span { font-size: 13px; }
-    .nav-cats button { padding: 7px 12px; font-size: 11px; }
-  }
-
   /* ---------- Barra superior ---------- */
   .top-bar { background: linear-gradient(90deg, #c2001f 0%, #ff1744 100%); padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(255, 23, 68, 0.3); position: sticky; top: 0; z-index: 60; }
   .top-bar span { font-weight: bold; font-size: 15px; letter-spacing: 0.5px; }
@@ -346,8 +316,7 @@
       <span id="total">Mostrando 0 productos</span>
     </div>
 
-    <div class="nav-cats" id="navCats"></div>
-<div class="grid" id="productos"></div>
+    <div class="grid" id="productos"></div>
     <div class="no-results" id="noResults" style="display:none;">
       <div class="big">📦</div>
       <div id="noResultsText">Todavía no hay piezas en el catálogo.<br>Abrí el panel de administrador y tocá "+" para agregar la primera.</div>
@@ -611,12 +580,6 @@
     catSelect.value = valorActual;
   }
 
-  function ajustarBarra() {
-    const tb = document.querySelector(".top-bar");
-    if (tb) document.documentElement.style.setProperty("--barra", Math.round(tb.getBoundingClientRect().height) + "px");
-  }
-  window.addEventListener("resize", ajustarBarra);
-
   function mostrar() {
     const busqueda = document.getElementById("buscar").value.toLowerCase();
     const categoria = document.getElementById("categoria").value;
@@ -652,21 +615,21 @@
       });
     }
 
-    // ---------- Bloques del catálogo (2026-09-10) ----------
+    // El catálogo va en tres bloques: usadas, flares y piezas importadas
     const esImportada = (p) => /^RH-/i.test(String(p.codigo));
     const esFlare = (p) => /^FL/i.test(String(p.codigo)) || p.categoria === "Flare";
+    const usadas = resultado.filter(p => !esImportada(p) && !esFlare(p));
+    const flares = resultado.filter(esFlare);
+    const nuevas = resultado.filter(esImportada);
 
     document.getElementById("total").textContent = `Mostrando ${resultado.length} de ${productos.length} producto${productos.length !== 1 ? "s" : ""}`;
 
     const grid = document.getElementById("productos");
     const noResults = document.getElementById("noResults");
     const noResultsText = document.getElementById("noResultsText");
-    const navCats = document.getElementById("navCats");
-    ajustarBarra();
 
     if (resultado.length === 0) {
       grid.innerHTML = "";
-      if (navCats) navCats.innerHTML = "";
       noResults.style.display = "block";
       noResultsText.innerHTML = productos.length === 0
         ? 'Todavía no hay piezas en el catálogo.<br>Abrí el panel de administrador y tocá "+" para agregar la primera.'
@@ -675,7 +638,7 @@
     }
     noResults.style.display = "none";
 
-    const tarjeta = (p, exclusiva) => {
+    const tarjeta = (p) => {
       const condTexto = p.condicion === "ORG" ? "Original" : (p.condicion === "NEW" ? "Nuevo" : "Genérico");
       const msg = encodeURIComponent(`Hola, me interesa la pieza: ${p.marca} ${p.modelo} ${p.anio || ""} (${p.lado}) - Código #${p.codigo}${SINPRECIOS ? "" : " - $" + p.precio}`);
       const waLink = `https://wa.me/${WHATSAPP_NUM}?text=${msg}`;
@@ -685,7 +648,7 @@
         : `<div class="no-photo"><div class="no-photo-icon">📷</div>Sin foto</div>`;
 
       return `
-        <div class="card ${p.vendido ? "vendido admin-mode-card" : ""} ${esImportada(p) ? "importada" : ""} ${exclusiva ? "exclusiva" : ""}">
+        <div class="card ${p.vendido ? "vendido admin-mode-card" : ""} ${esImportada(p) ? "importada" : ""}">
           <div class="delete-x" onclick="event.stopPropagation(); borrarProducto(${p.id})">✕</div>
           <div class="edit-btn" onclick="event.stopPropagation(); abrirEdicion(${p.id})">✎</div>
           <div onclick="abrirModal(${p.id})">
@@ -713,89 +676,15 @@
         </div>`;
     };
 
-    // --- Exclusivas: lo más top, mezclado entre categorías ---
-    const MARCAS_PREMIUM = ["BMW","MERCEDES","MERCEDES BENZ","AUDI","LINCOLN","LAND ROVER","RANGE ROVER","PORSCHE","VOLVO","JAGUAR","LEXUS","INFINITI","CADILLAC"];
-    const esPremium = (p) => MARCAS_PREMIUM.some(m => String(p.marca).toUpperCase().startsWith(m)) || (p.precio || 0) >= 150;
-    const sinFiltro = !busqueda && !categoria && !lado && !estadoV;
-
-    let exclusivas = [];
-    if (sinFiltro) {
-      const cand = resultado.filter(p => esPremium(p) && !p.vendido);
-      // una ronda por categoría para que no salgan 12 lámparas seguidas
-      const porCat = {};
-      cand.forEach(p => { (porCat[p.categoria] = porCat[p.categoria] || []).push(p); });
-      Object.values(porCat).forEach(l => l.sort((a,b) => (b.precio||0) - (a.precio||0)));
-      const cats = Object.keys(porCat).sort((a,b) => (porCat[b][0].precio||0) - (porCat[a][0].precio||0));
-      let ronda = 0;
-      while (exclusivas.length < 12 && cats.some(c => porCat[c][ronda])) {
-        for (const c of cats) {
-          const p = porCat[c][ronda];
-          if (p) exclusivas.push(p);
-          if (exclusivas.length >= 12) break;
-        }
-        ronda++;
-      }
-    }
-    const idsExcl = new Set(exclusivas.map(p => p.id));
-
-    // --- Secciones por categoría ---
-    const ORDEN_CAT = ["Lámpara Delantera","Lámpara Trasera","Defensa Delantera","Defensa Trasera",
-      "Parrilla","Moldura Delantera","Moldura Trasera","Moldura Inferior","Faro Antiniebla",
-      "Cover de Alógena","Soporte de Defensa","Copa"];
-    const NOMBRE_SEC = {
-      "Lámpara Delantera":"FAROS DELANTEROS", "Lámpara Trasera":"LÁMPARAS TRASERAS",
-      "Defensa Delantera":"DEFENSAS DELANTERAS", "Defensa Trasera":"DEFENSAS TRASERAS",
-      "Parrilla":"PARRILLAS", "Moldura Delantera":"MOLDURAS DELANTERAS",
-      "Moldura Trasera":"MOLDURAS TRASERAS", "Moldura Inferior":"MOLDURAS INFERIORES",
-      "Faro Antiniebla":"FAROS ANTINIEBLA", "Cover de Alógena":"COVERS DE HALÓGENA",
-      "Soporte de Defensa":"SOPORTES DE DEFENSA", "Copa":"COPAS DE RIN"
-    };
-    const slug = (t) => "sec-" + String(t).normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9]+/g,"-").toLowerCase();
-
-    const usadas = resultado.filter(p => !esImportada(p) && !esFlare(p));
-    const flares = resultado.filter(esFlare);
-    const nuevas = resultado.filter(esImportada);
-
-    const grupos = {};
-    usadas.forEach(p => { (grupos[p.categoria] = grupos[p.categoria] || []).push(p); });
-    const catsOrdenadas = ORDEN_CAT.filter(c => grupos[c]).concat(
-      Object.keys(grupos).filter(c => !ORDEN_CAT.includes(c)).sort());
-
-    const cabecera = (titulo, n, extra) =>
-      `<div class="sec-head" id="${slug(titulo)}"><span>${titulo}</span><small>${n} pieza${n!==1?"s":""}${extra?" · "+extra:""}</small></div>`;
-
-    let html = "";
-    if (exclusivas.length) {
-      html += `<div class="exclus-head"><span>★ PIEZAS EXCLUSIVAS</span><small>Lo más top del inventario: europeas, de lujo y piezas sobre $150</small></div>`;
-      html += exclusivas.map(p => tarjeta(p, true)).join("");
-    }
-    catsOrdenadas.forEach(c => {
-      const lista = grupos[c];
-      html += cabecera(NOMBRE_SEC[c] || String(c).toUpperCase(), lista.length);
-      html += lista.map(p => tarjeta(p)).join("");
-    });
-    if (flares.length) {
-      html += cabecera("FLARES", flares.length, "molduras de guardafango");
-      html += flares.map(p => tarjeta(p)).join("");
-    }
-    if (nuevas.length) {
-      html += cabecera("PIEZAS NUEVAS IMPORTADAS", nuevas.length, "con existencia en bodega");
-      html += nuevas.map(p => tarjeta(p)).join("");
-    }
-    grid.innerHTML = html;
-
-    // --- Barra de accesos rápidos ---
-    if (navCats) {
-      const items = [];
-      if (exclusivas.length) items.push(["★ Exclusivas", null, true]);
-      catsOrdenadas.forEach(c => items.push([NOMBRE_SEC[c] || c, slug(NOMBRE_SEC[c] || String(c).toUpperCase()), false]));
-      if (flares.length) items.push(["Flares", slug("FLARES"), false]);
-      if (nuevas.length) items.push(["Importadas", slug("PIEZAS NUEVAS IMPORTADAS"), false]);
-      navCats.innerHTML = items.map(([t, id, top]) =>
-        `<button class="${top?"top":""}" onclick="${id ? `document.getElementById('${id}').scrollIntoView({behavior:'smooth',block:'start'})` : `window.scrollTo({top:0,behavior:'smooth'})`}">${t}</button>`
-      ).join("");
-    }
-
+    const sepFlare = flares.length
+      ? `<div class="sep-flare"><span>FLARES</span><small>Molduras de guardafango, en forma de U · ${flares.length} pieza${flares.length!==1?"s":""}</small></div>`
+      : "";
+    const sepNuevas = nuevas.length
+      ? `<div class="sep-nuevas"><span>PIEZAS NUEVAS IMPORTADAS</span><small>${nuevas.length} referencia${nuevas.length!==1?"s":""} · con existencia en bodega</small></div>`
+      : "";
+    grid.innerHTML = usadas.map(tarjeta).join("")
+                   + sepFlare + flares.map(tarjeta).join("")
+                   + sepNuevas + nuevas.map(tarjeta).join("");
     actualizarStatsFooter();
   }
 
