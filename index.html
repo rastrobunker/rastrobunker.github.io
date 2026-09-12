@@ -20,7 +20,7 @@
   body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #000000; color: #fff; padding-bottom: 40px; }
 
 
-  /* ---------- Secciones y exclusivas (2026-09-10) ---------- */
+  /* ---------- Secciones (2026-09-10) ---------- */
   .nav-cats { position: sticky; top: var(--barra, 52px); z-index: 40; background: #000; padding: 10px 0 8px; margin-bottom: 6px;
               display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .nav-cats::-webkit-scrollbar { display: none; }
@@ -37,13 +37,6 @@
   .sec-head span { font-weight: bold; font-size: 15px; letter-spacing: 0.6px; color: #fff; }
   .sec-head small { color: #999; font-size: 11px; white-space: nowrap; }
 
-  .exclus-head { grid-column: 1 / -1; margin: 4px 0 2px; padding: 12px 16px; border-radius: 8px;
-                 background: linear-gradient(90deg, rgba(255,23,68,0.22), rgba(255,23,68,0));
-                 border-left: 4px solid #ffb300; }
-  .exclus-head span { font-weight: bold; font-size: 15px; letter-spacing: 0.6px; color: #ffb300; }
-  .exclus-head small { display: block; color: #999; font-size: 11px; margin-top: 3px; }
-  .card.exclusiva { border-color: #6a4a00; }
-  .card.exclusiva .card-category { background: #ffb300; color: #101010; }
   @media (max-width: 600px) {
     .sec-head { padding: 9px 12px; }
     .sec-head span { font-size: 13px; }
@@ -675,7 +668,7 @@
     }
     noResults.style.display = "none";
 
-    const tarjeta = (p, exclusiva) => {
+    const tarjeta = (p) => {
       const condTexto = p.condicion === "ORG" ? "Original" : (p.condicion === "NEW" ? "Nuevo" : "Genérico");
       const msg = encodeURIComponent(`Hola, me interesa la pieza: ${p.marca} ${p.modelo} ${p.anio || ""} (${p.lado}) - Código #${p.codigo}${SINPRECIOS ? "" : " - $" + p.precio}`);
       const waLink = `https://wa.me/${WHATSAPP_NUM}?text=${msg}`;
@@ -685,7 +678,7 @@
         : `<div class="no-photo"><div class="no-photo-icon">📷</div>Sin foto</div>`;
 
       return `
-        <div class="card ${p.vendido ? "vendido admin-mode-card" : ""} ${esImportada(p) ? "importada" : ""} ${exclusiva ? "exclusiva" : ""}">
+        <div class="card ${p.vendido ? "vendido admin-mode-card" : ""} ${esImportada(p) ? "importada" : ""}">
           <div class="delete-x" onclick="event.stopPropagation(); borrarProducto(${p.id})">✕</div>
           <div class="edit-btn" onclick="event.stopPropagation(); abrirEdicion(${p.id})">✎</div>
           <div onclick="abrirModal(${p.id})">
@@ -713,31 +706,6 @@
         </div>`;
     };
 
-    // --- Exclusivas: lo más top, mezclado entre categorías ---
-    const MARCAS_PREMIUM = ["BMW","MERCEDES","MERCEDES BENZ","AUDI","LINCOLN","LAND ROVER","RANGE ROVER","PORSCHE","VOLVO","JAGUAR","LEXUS","INFINITI","CADILLAC"];
-    const esPremium = (p) => MARCAS_PREMIUM.some(m => String(p.marca).toUpperCase().startsWith(m)) || (p.precio || 0) >= 150;
-    const sinFiltro = !busqueda && !categoria && !lado && !estadoV;
-
-    let exclusivas = [];
-    if (sinFiltro) {
-      const cand = resultado.filter(p => esPremium(p) && !p.vendido);
-      // una ronda por categoría para que no salgan 12 lámparas seguidas
-      const porCat = {};
-      cand.forEach(p => { (porCat[p.categoria] = porCat[p.categoria] || []).push(p); });
-      Object.values(porCat).forEach(l => l.sort((a,b) => (b.precio||0) - (a.precio||0)));
-      const cats = Object.keys(porCat).sort((a,b) => (porCat[b][0].precio||0) - (porCat[a][0].precio||0));
-      let ronda = 0;
-      while (exclusivas.length < 12 && cats.some(c => porCat[c][ronda])) {
-        for (const c of cats) {
-          const p = porCat[c][ronda];
-          if (p) exclusivas.push(p);
-          if (exclusivas.length >= 12) break;
-        }
-        ronda++;
-      }
-    }
-    const idsExcl = new Set(exclusivas.map(p => p.id));
-
     // --- Secciones por categoría ---
     const ORDEN_CAT = ["Lámpara Delantera","Lámpara Trasera","Defensa Delantera","Defensa Trasera",
       "Parrilla","Moldura Delantera","Moldura Trasera","Moldura Inferior","Faro Antiniebla",
@@ -756,6 +724,13 @@
     const flares = resultado.filter(esFlare);
     const nuevas = resultado.filter(esImportada);
 
+    // "Todas las categorías" = sin filtro de categoría: se muestran las
+    // piezas usadas en una sola lista corrida por número (respeta el orden
+    // elegido en #ordenar, "N° de item menor a mayor" por defecto), sin
+    // separarlas por categoría. Si hay una categoría específica elegida,
+    // se agrupan como antes (en la práctica queda un solo grupo).
+    const todasLasCategorias = !categoria;
+
     const grupos = {};
     usadas.forEach(p => { (grupos[p.categoria] = grupos[p.categoria] || []).push(p); });
     const catsOrdenadas = ORDEN_CAT.filter(c => grupos[c]).concat(
@@ -765,15 +740,15 @@
       `<div class="sec-head" id="${slug(titulo)}"><span>${titulo}</span><small>${n} pieza${n!==1?"s":""}${extra?" · "+extra:""}</small></div>`;
 
     let html = "";
-    if (exclusivas.length) {
-      html += `<div class="exclus-head"><span>★ PIEZAS EXCLUSIVAS</span><small>Lo más top del inventario: europeas, de lujo y piezas sobre $150</small></div>`;
-      html += exclusivas.map(p => tarjeta(p, true)).join("");
+    if (todasLasCategorias) {
+      html += usadas.map(p => tarjeta(p)).join("");
+    } else {
+      catsOrdenadas.forEach(c => {
+        const lista = grupos[c];
+        html += cabecera(NOMBRE_SEC[c] || String(c).toUpperCase(), lista.length);
+        html += lista.map(p => tarjeta(p)).join("");
+      });
     }
-    catsOrdenadas.forEach(c => {
-      const lista = grupos[c];
-      html += cabecera(NOMBRE_SEC[c] || String(c).toUpperCase(), lista.length);
-      html += lista.map(p => tarjeta(p)).join("");
-    });
     if (flares.length) {
       html += cabecera("FLARES", flares.length, "molduras de guardafango");
       html += flares.map(p => tarjeta(p)).join("");
@@ -787,8 +762,9 @@
     // --- Barra de accesos rápidos ---
     if (navCats) {
       const items = [];
-      if (exclusivas.length) items.push(["★ Exclusivas", null, true]);
-      catsOrdenadas.forEach(c => items.push([NOMBRE_SEC[c] || c, slug(NOMBRE_SEC[c] || String(c).toUpperCase()), false]));
+      if (!todasLasCategorias) {
+        catsOrdenadas.forEach(c => items.push([NOMBRE_SEC[c] || c, slug(NOMBRE_SEC[c] || String(c).toUpperCase()), false]));
+      }
       if (flares.length) items.push(["Flares", slug("FLARES"), false]);
       if (nuevas.length) items.push(["Importadas", slug("PIEZAS NUEVAS IMPORTADAS"), false]);
       navCats.innerHTML = items.map(([t, id, top]) =>
