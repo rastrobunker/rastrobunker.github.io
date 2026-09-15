@@ -92,6 +92,19 @@
 
   /* ---------- Grid de tarjetas ---------- */
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; margin-bottom: 30px; }
+  .cat-tile { background: #151515; border: 2px solid #2a2a2a; border-radius: 10px; padding: 18px 16px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; gap: 8px; }
+  .cat-tile:hover { border-color: #ff1744; box-shadow: 0 8px 25px rgba(255, 23, 68, 0.2); transform: translateY(-3px); }
+  .cat-tile-name { color: #ff2d4a; font-weight: bold; font-size: 15px; letter-spacing: 0.3px; }
+  .cat-tile-count { color: #999; font-size: 12px; }
+  .ver-mas-wrap { grid-column: 1 / -1; display: flex; justify-content: center; padding: 20px 0; }
+  .ver-mas-btn { background: linear-gradient(135deg, #ff1744 0%, #8a0016 100%); color: #fff; border: none; border-radius: 8px; padding: 13px 26px; font-weight: bold; font-size: 14px; cursor: pointer; }
+  .ver-mas-btn:hover { filter: brightness(1.1); }
+  .volver-cats { grid-column: 1 / -1; background: none; border: 1px solid #ff2d4a; color: #ff2d4a; border-radius: 8px; padding: 10px 16px; font-weight: bold; font-size: 13px; cursor: pointer; margin-bottom: 4px; align-self: flex-start; }
+  .volver-cats:hover { background: #ff1744; color: #fff; border-color: #ff1744; }
+  @media (max-width: 480px) {
+    .cat-tile { padding: 14px 12px; }
+    .cat-tile-name { font-size: 13px; }
+  }
 
   .card { background: #151515; border-radius: 10px; overflow: hidden; border: 2px solid #2a2a2a; transition: all 0.25s; position: relative; cursor: pointer; }
   .card:hover { border-color: #ff1744; box-shadow: 0 8px 25px rgba(255, 23, 68, 0.2); transform: translateY(-4px); }
@@ -522,6 +535,9 @@
   let productos = [];
   let adminMode = false;
   let editingId = null;
+  const PAGINA_TAM = 30;
+  let mostrarN = PAGINA_TAM;
+  let claveFiltroAnterior = "";
 
   function recalcProductos() {
     const base = PRODUCTOS_INICIALES
@@ -599,8 +615,10 @@
 
     const catSelect = document.getElementById("categoria");
     const valorActual = catSelect.value;
+    const hayImportadas = productos.some(p => /^RH-/i.test(String(p.codigo)));
     catSelect.innerHTML = '<option value="">Todas las categorías</option>' +
-      categorias.map(c => `<option value="${c}">${c}</option>`).join("");
+      categorias.map(c => `<option value="${c}">${c}</option>`).join("") +
+      (hayImportadas ? '<option value="__RH__">Piezas Nuevas Importadas</option>' : "");
     catSelect.value = valorActual;
   }
 
@@ -615,17 +633,32 @@
     const categoria = document.getElementById("categoria").value;
     const lado = document.getElementById("lado").value;
     const estadoV = adminMode ? ((document.getElementById("estadoVenta") || {}).value || "") : "";
+    const orden = document.getElementById("ordenar").value;
+
+    // ---------- Bloques del catálogo (2026-09-10) ----------
+    const esImportada = (p) => /^RH-/i.test(String(p.codigo));
+    const esFlare = (p) => /^FL/i.test(String(p.codigo)) || p.categoria === "Flare";
+    const esCubrepolvo = (p) => /^CP/i.test(String(p.codigo)) || p.categoria === "Cubrepolvo";
 
     const resultado = productos.filter(p => {
       const texto = `${p.codigo} ${p.marca} ${p.modelo} ${p.categoria} ${p.alias||""}`.toLowerCase();
       return texto.includes(busqueda) &&
-        (!categoria || p.categoria === categoria) &&
+        (!categoria || (categoria === "__RH__" ? esImportada(p) : p.categoria === categoria)) &&
         (!lado || p.lado === lado) &&
         (!p.vendido || adminMode) &&
         (!estadoV || (estadoV === "vendidas" ? !!p.vendido : !p.vendido));
     });
 
-    const orden = document.getElementById("ordenar").value;
+    // Pantalla de selección por categoría: sin búsqueda ni categoría elegida
+    // no se listan las piezas de una — se guardan agrupadas y el usuario
+    // entra a la que quiera ver (evita el "bajar infinito" en el inicio).
+    const modoSelector = !busqueda && !categoria;
+
+    // Reinicia la paginación cada vez que cambia algún filtro real
+    const claveFiltro = `${busqueda}|${categoria}|${lado}|${estadoV}|${orden}`;
+    if (claveFiltro !== claveFiltroAnterior) { mostrarN = PAGINA_TAM; }
+    claveFiltroAnterior = claveFiltro;
+
     if (orden) {
       const numItem = (p) => {
         const n = parseInt(String(p.codigo).replace(/[^0-9]/g, ""), 10);
@@ -644,11 +677,6 @@
         }
       });
     }
-
-    // ---------- Bloques del catálogo (2026-09-10) ----------
-    const esImportada = (p) => /^RH-/i.test(String(p.codigo));
-    const esFlare = (p) => /^FL/i.test(String(p.codigo)) || p.categoria === "Flare";
-    const esCubrepolvo = (p) => /^CP/i.test(String(p.codigo)) || p.categoria === "Cubrepolvo";
 
     document.getElementById("total").textContent = `Mostrando ${resultado.length} de ${productos.length} producto${productos.length !== 1 ? "s" : ""}`;
 
@@ -726,13 +754,6 @@
     const cubre = resultado.filter(esCubrepolvo);
     const nuevas = resultado.filter(esImportada);
 
-    // "Todas las categorías" = sin filtro de categoría: se muestran las
-    // piezas usadas en una sola lista corrida por número (respeta el orden
-    // elegido en #ordenar, "N° de item menor a mayor" por defecto), sin
-    // separarlas por categoría. Si hay una categoría específica elegida,
-    // se agrupan como antes (en la práctica queda un solo grupo).
-    const todasLasCategorias = !categoria;
-
     const grupos = {};
     usadas.forEach(p => { (grupos[p.categoria] = grupos[p.categoria] || []).push(p); });
     const catsOrdenadas = ORDEN_CAT.filter(c => grupos[c]).concat(
@@ -741,8 +762,50 @@
     const cabecera = (titulo, n, extra) =>
       `<div class="sec-head" id="${slug(titulo)}"><span>${titulo}</span><small>${n} pieza${n!==1?"s":""}${extra?" · "+extra:""}</small></div>`;
 
+    const tituloCategoria = (c) => {
+      if (c === "__RH__") return "PIEZAS NUEVAS IMPORTADAS";
+      if (c === "Flare") return "FLARES";
+      if (c === "Cubrepolvo") return "CUBREPOLVO";
+      return NOMBRE_SEC[c] || String(c).toUpperCase();
+    };
+
+    if (modoSelector) {
+      // --- Selector de categorías (pantalla principal) ---
+      const tiles = catsOrdenadas.map(c => ({ nombre: NOMBRE_SEC[c] || c, valor: c, n: grupos[c].length }));
+      if (flares.length) tiles.push({ nombre: "Flares", valor: "Flare", n: flares.length });
+      if (cubre.length) tiles.push({ nombre: "Cubrepolvo", valor: "Cubrepolvo", n: cubre.length });
+      if (nuevas.length) tiles.push({ nombre: "Piezas Nuevas Importadas", valor: "__RH__", n: nuevas.length });
+
+      grid.innerHTML = tiles.map(t =>
+        `<div class="cat-tile" onclick="elegirCategoria('${String(t.valor).replace(/'/g, "\\'")}')">` +
+          `<span class="cat-tile-name">${t.nombre}</span>` +
+          `<span class="cat-tile-count">${t.n} pieza${t.n !== 1 ? "s" : ""}</span>` +
+        `</div>`
+      ).join("");
+      if (navCats) navCats.innerHTML = "";
+      actualizarStatsFooter();
+      return;
+    }
+
+    if (!busqueda && categoria) {
+      // --- Una sola categoría elegida: piezas por tandas ---
+      const listaCompleta = usadas.concat(flares, cubre, nuevas);
+      const visibles = listaCompleta.slice(0, mostrarN);
+      let htmlCat = `<button type="button" class="volver-cats" onclick="volverCategorias()">← Todas las categorías</button>`;
+      htmlCat += cabecera(tituloCategoria(categoria), listaCompleta.length);
+      htmlCat += visibles.map(p => tarjeta(p)).join("");
+      if (listaCompleta.length > mostrarN) {
+        htmlCat += `<div class="ver-mas-wrap"><button type="button" class="ver-mas-btn" onclick="verMas()">Ver más (${mostrarN} de ${listaCompleta.length})</button></div>`;
+      }
+      grid.innerHTML = htmlCat;
+      if (navCats) navCats.innerHTML = "";
+      actualizarStatsFooter();
+      return;
+    }
+
+    // --- Búsqueda activa: lista completa con secciones (sin paginar) ---
     let html = "";
-    if (todasLasCategorias) {
+    if (!categoria) {
       html += usadas.map(p => tarjeta(p)).join("");
     } else {
       catsOrdenadas.forEach(c => {
@@ -768,7 +831,7 @@
     // --- Barra de accesos rápidos ---
     if (navCats) {
       const items = [];
-      if (!todasLasCategorias) {
+      if (categoria) {
         catsOrdenadas.forEach(c => items.push([NOMBRE_SEC[c] || c, slug(NOMBRE_SEC[c] || String(c).toUpperCase()), false]));
       }
       if (flares.length) items.push(["Flares", slug("FLARES"), false]);
@@ -780,6 +843,20 @@
     }
 
     actualizarStatsFooter();
+  }
+
+  function verMas() { mostrarN += PAGINA_TAM; mostrar(); }
+  function volverCategorias() {
+    document.getElementById("categoria").value = "";
+    mostrarN = PAGINA_TAM;
+    mostrar();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  function elegirCategoria(valor) {
+    document.getElementById("categoria").value = valor;
+    mostrarN = PAGINA_TAM;
+    mostrar();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
 
