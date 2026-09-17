@@ -1,0 +1,40 @@
+org: ronylasso07
+app: rastro-bunker
+service: rastro-bunker-api
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  memorySize: 512
+  timeout: 15
+  httpApi:
+    cors:
+      allowedOrigins:
+        - '*'
+      allowedMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+      allowedHeaders:
+        - Content-Type
+        - x-admin-code
+  environment:
+    NODE_ENV: production
+    DATABASE_URL: ${env:DATABASE_URL}
+    ADMIN_CODE: ${env:ADMIN_CODE}
+
+package:
+  patterns:
+    - '!**'
+    - '.output/server/**'
+
+functions:
+  api:
+    handler: .output/server/index.handler
+    events:
+      - httpApi: '*'
