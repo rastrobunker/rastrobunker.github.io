@@ -71,6 +71,7 @@ section{display:none}section.on{display:block}
 .bk{font-size:.85rem;color:var(--mute);margin-top:8px}
 body.rol-vendedor .no-vend{display:none!important}body.rol-vendedor .tot{grid-template-columns:1fr}
 body.rol-caja .no-caja{display:none!important}
+.chk{display:flex;align-items:center;gap:8px;color:var(--ink);font-size:.9rem;margin-top:10px}.chk input{width:20px;height:20px;margin:0}
 #login{max-width:420px;margin:40px auto;padding:0 16px}
 body.dentro #login{display:none}
 main,nav{display:none}body.dentro main{display:block}body.dentro nav{display:flex}
@@ -107,6 +108,7 @@ main,nav{display:none}body.dentro main{display:block}body.dentro nav{display:fle
         <div><label for="vTot">Total cobrado ($)</label><input id="vTot" inputmode="decimal" placeholder="40"></div>
       </div>
       <div class="hint" id="vHint"></div>
+      <label class="chk"><input type="checkbox" id="vSinInv"> Pieza sin inventario (no está en el catálogo)</label>
       <label for="vNom">Nombre de la pieza</label><input id="vNom" placeholder="Lámpara trasera Kia Rio RH">
       <label for="vObs">Observación</label><textarea id="vObs" rows="2" placeholder="Con detalle, cliente de taller…"></textarea>
       <button class="btn" id="vBtn">Guardar venta</button>
@@ -145,7 +147,7 @@ main,nav{display:none}body.dentro main{display:block}body.dentro nav{display:fle
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, getDoc, setDoc, getDocs, writeBatch } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, getDoc, setDoc, getDocs, writeBatch, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const app = initializeApp({
   apiKey: "AIzaSyDmVL8mLvzjWr69Ab-s8Lf0A-H_JtWaTXk",
@@ -215,6 +217,12 @@ async function cambiar(r, patch, accion){
   return updateDoc(doc(fs, r._t, r._id), {...patch, hist: [...(r.hist||[]), h].slice(-30)});
 }
 
+const enCatalogo = r => r && r.codigo && !r.sinInventario && CAT[r.codigo];
+async function marcarVendido(codigo, n){
+  try { await setDoc(doc(fs, 'vendidos', codigo), {codigo, unidades: increment(n)}, {merge: true}); }
+  catch(e) { console.warn('No se pudo actualizar el catálogo', e); }
+}
+
 /* ---------- solo dueño: carga inicial y respaldo diario ---------- */
 let arrancado = false;
 async function arranqueDueno(){
@@ -267,7 +275,7 @@ $('vCod').addEventListener('input', () => {
   const c = normCod($('vCod').value), p = CAT[c], h = $('vHint');
   h.className = 'hint';
   if (!c) { h.textContent = ''; return; }
-  if (!p) { h.textContent = 'No está en el catálogo; escribe el nombre a mano.'; return; }
+  if (!p) { h.textContent = 'No está en el catálogo: se guardará como pieza sin inventario.'; h.className = 'hint warn'; return; }
   if (!$('vNom').value || $('vNom').dataset.auto) { $('vNom').value = p[0]; $('vNom').dataset.auto = 1; }
   const ya = datos.ventas.some(v => v.codigo === c && !v.borrado);
   h.textContent = `Precio de lista ${money(p[1])}` + (p[2] || ya ? ' · ya figura como vendida' : '');
@@ -277,13 +285,17 @@ $('vNom').addEventListener('input', () => delete $('vNom').dataset.auto);
 const fechaParaMes = () => { const hoy = new Date(); return mesKey(cur) === mesKey(hoy) ? hoy : new Date(cur.getFullYear(), cur.getMonth(), 1, 12); };
 $('vBtn').onclick = async () => {
   const codigo = normCod($('vCod').value), nombre = $('vNom').value.trim(), total = parseFloat($('vTot').value.replace(',', '.'));
+  const sinInventario = $('vSinInv').checked || (codigo && !CAT[codigo]);
+  if (!codigo && !sinInventario) return alert('Escribe el número de pieza, o marca "Pieza sin inventario".');
   if (!nombre) return alert('Falta el nombre de la pieza.');
   if (!(total >= 0)) return alert('Escribe el total cobrado.');
   $('vBtn').disabled = true;
   try {
     const f = fechaParaMes();
-    await guardar('ventas', {codigo, nombre, obs: $('vObs').value.trim(), total, fecha: f.toISOString(), mes: mesKey(f)});
-    ['vCod','vTot','vNom','vObs'].forEach(i => $(i).value = ''); $('vHint').textContent = 'Venta guardada.';
+    await guardar('ventas', {codigo, nombre, obs: $('vObs').value.trim(), total, fecha: f.toISOString(), mes: mesKey(f), sinInventario: !!sinInventario, marcado: !sinInventario});
+    if (!sinInventario) await marcarVendido(codigo, 1);
+    ['vCod','vTot','vNom','vObs'].forEach(i => $(i).value = ''); $('vSinInv').checked = false;
+    $('vHint').textContent = sinInventario ? 'Venta guardada (sin inventario).' : 'Venta guardada y marcada en el catálogo.';
   } catch(e) { alert('No se pudo guardar: ' + (e.code || e.message)); }
   $('vBtn').disabled = false;
 };
@@ -330,7 +342,7 @@ function item(r, papelera){
     : puedoTocar(r) ? `${r._t === 'ventas' ? `<button data-a="tot" ${k}>Cambiar total</button>` : ''}<button data-a="del" ${k}>Borrar</button>` : '';
   const editado = (r.hist||[]).length > 1 ? '<span class="tag">editado</span>' : '';
   return `<li><span class="code">${esc(r.codigo || (r._t === 'gastos' ? '$' : '—'))}</span>
-    <div><div class="nm">${esc(r.nombre || r.concepto)}${editado}</div>${r.obs ? `<div class="ob">${esc(r.obs)}</div>` : ''}
+    <div><div class="nm">${esc(r.nombre || r.concepto)}${editado}${r.sinInventario ? '<span class="tag">sin inventario</span>' : ''}</div>${r.obs ? `<div class="ob">${esc(r.obs)}</div>` : ''}
     <div class="who">${fechaCorta(r.fecha)} · ${esc(quien(r.por))}${papelera && r.borradoPor ? ' · lo borró ' + esc(quien(r.borradoPor)) : ''}</div></div>
     <span class="amt">${money(r.total ?? r.monto)}</span><div class="acts">${acts}</div></li>`;
 }
@@ -359,8 +371,8 @@ document.body.addEventListener('click', async e => {
   const b = e.target, a = b.dataset && b.dataset.a; if (!a) return;
   const r = (datos[b.dataset.t] || []).find(x => x._id === b.dataset.id); if (!r) return;
   try {
-    if (a === 'del' && confirm('¿Mandar este registro a la papelera?')) await cambiar(r, {borrado: true, borradoPor: yo, borradoEn: ahora()}, 'borró');
-    if (a === 'rest') await cambiar(r, {borrado: false}, 'recuperó');
+    if (a === 'del' && confirm('¿Mandar este registro a la papelera?')) { await cambiar(r, {borrado: true, borradoPor: yo, borradoEn: ahora()}, 'borró'); if (r._t === 'ventas' && r.marcado && enCatalogo(r)) await marcarVendido(r.codigo, -1); }
+    if (a === 'rest') { await cambiar(r, {borrado: false}, 'recuperó'); if (r._t === 'ventas' && r.marcado && enCatalogo(r)) await marcarVendido(r.codigo, 1); }
     if (a === 'fin' && confirm('Esto no se puede deshacer. ¿Eliminar para siempre?')) await deleteDoc(doc(fs, r._t, r._id));
     if (a === 'tot') { const v = parseFloat(String(prompt('Nuevo total ($):') || '').replace(',', '.')); if (v >= 0) await cambiar(r, {total: v}, 'cambió total'); }
   } catch(x) { alert('No tienes permiso para cambiar ese registro.'); }
