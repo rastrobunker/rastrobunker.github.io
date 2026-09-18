@@ -142,7 +142,7 @@ main,nav{display:none}body.dentro main{display:block}body.dentro nav{display:fle
 
   <section id="s-gastos">
     <div class="card">
-      <h2>Lo que nos debe la empresa</h2>
+      <h2>Deuda Engel</h2>
       <div class="ob">Pendiente por cobrar</div><div class="big" id="dTot">$0</div>
       <div id="dList"></div>
       <label for="aDeu">Abonar a</label><select id="aDeu"></select>
@@ -216,7 +216,8 @@ const ahora = () => new Date().toISOString();
 const mesKey = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0');
 let cur = new Date(); cur = new Date(cur.getFullYear(), cur.getMonth(), 1);
 let yo = null, dueno = false, rol = null;
-const REDES = { instagram: '@rastrobunker', tiktok: '@rastrobunker', whatsapp: '+507 6848-3285', web: 'rastrobunker.github.io' };
+const REDES = { instagram: '@rastrobunker', tiktok: '@rastrobunker' };
+const VENTAS_DESDE = '2026-09-18T04:50:00Z'; // el conteo de ventas arranca en 0 desde aquí (17-sep-2026, noche)
 const AVISOS = 'rb-ventas-ccfb6a27'; // tema de la app ntfy para las notificaciones de venta
 const DEUDAS_INI = [['deuda-vieja','Deuda vieja',1119.29,'2026-09-01T12:00:00Z'],['deuda-nueva','Deuda nueva',370.40,'2026-09-02T12:00:00Z']];
 const esGasto = r => !r.tipo || r.tipo === 'gasto';
@@ -589,9 +590,8 @@ async function dibujarRecibo(v){
     x.beginPath(); x.arc(px + 38, py + 38, 11, 0, Math.PI * 2); x.stroke(); x.fillStyle = '#fff'; x.beginPath(); x.arc(px + 52, py + 24, 4, 0, Math.PI * 2); x.fill(); }, REDES.instagram);
   red(590, (px, py) => { x.fillStyle = '#000'; x.strokeStyle = '#333'; x.lineWidth = 2; rr(x, px, py, 76, 76, 20); x.fill(); x.stroke();
     x.font = `700 52px ${BR}`; x.textAlign = 'center'; [['#25f4ee', -3, -3], ['#fe2c55', 3, 3], ['#fff', 0, 0]].forEach(([col, dx, dy]) => { x.fillStyle = col; x.fillText('♪', px + 38 + dx, py + 58 + dy); }); }, REDES.tiktok);
-  y += 76 + 70;
-  x.textAlign = 'center'; x.fillStyle = '#bdb6ad'; x.font = `500 30px ${BR}`; x.fillText(`WhatsApp ${REDES.whatsapp} · ${REDES.web}`, W/2, y);
-  y += 50; x.fillStyle = '#c2001f'; x.fillRect(0, y, W, 12); y += 12;
+  y += 76 + 60;
+  x.fillStyle = '#c2001f'; x.fillRect(0, y, W, 12); y += 12;
   const out = document.createElement('canvas'); out.width = W; out.height = y; out.getContext('2d').drawImage(c, 0, 0);
   return new Promise(r => out.toBlob(r, 'image/png'));
 }
@@ -632,7 +632,7 @@ function pintar(){
   const k = mesKey(cur), ml = cur.toLocaleDateString('es-PA',{month:'long',year:'numeric'});
   $('mesLbl').textContent = ml.charAt(0).toUpperCase() + ml.slice(1);
   const orden = (a,b) => String(b.fecha).localeCompare(String(a.fecha));
-  const vm = datos.ventas.filter(v => v.mes === k && !v.borrado).sort(orden);
+  const vm = datos.ventas.filter(v => v.mes === k && !v.borrado && String(v.fecha) >= VENTAS_DESDE).sort(orden);
   const gm = datos.gastos.filter(g => g.mes === k && !g.borrado && esGasto(g)).sort(orden);
   const tv = vm.reduce((s,v) => s + (+v.total||0), 0), tg = gm.reduce((s,g) => s + (+g.monto||0), 0);
   $('tV').textContent = money(tv); $('tG').textContent = money(tg); $('tN').textContent = money(tv - tg);
@@ -648,7 +648,7 @@ function pintar(){
     <div class="res-row"><span>Queda</span><b>${money(tv - tg)}</b></div>`;
   const porCat = {}; gm.forEach(g => { const c = g.cat || 'otros'; porCat[c] = (porCat[c]||0) + (+g.monto||0); });
   $('resumen').innerHTML += Object.keys(CATS).filter(c => porCat[c]).map(c => `<div class="res-row"><span style="padding-left:12px">${CATS[c].i} ${CATS[c].n}</span><b>${money(porCat[c])}</b></div>`).join('')
-    + (dueno || rol === 'caja' ? `<div class="res-row"><span>Nos debe la empresa</span><b>${money(deudas().reduce((s,d) => s + d.pend, 0))}</b></div>` : '');
+    + (dueno || rol === 'caja' ? `<div class="res-row"><span>Deuda Engel</span><b>${money(deudas().reduce((s,d) => s + d.pend, 0))}</b></div>` : '');
   pintarGastos();
   const cods = vm.map(v => v.codigo).filter(Boolean);
   $('codsMes').textContent = cods.length ? cods.join(' · ') : 'Ninguna todavía.';
