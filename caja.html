@@ -136,6 +136,8 @@ main,nav{display:none}body.dentro main{display:block}body.dentro nav{display:fle
         <div><label for="vTel">WhatsApp del cliente</label><input id="vTel" inputmode="tel" placeholder="6123-4567" autocomplete="off"></div>
         <div><label for="vCant">Cantidad</label><input id="vCant" inputmode="numeric" value="1"></div>
       </div>
+      <button type="button" id="vAdd" style="width:100%;margin-top:12px;padding:11px;border-radius:12px;border:1px dashed #666;background:transparent;color:inherit;font:inherit;font-weight:600">+ Agregar otra pieza a esta venta</button>
+      <div id="vCarro" style="display:none;margin-top:10px;padding:10px 12px;border:1px solid #333;border-radius:12px"></div>
       <label for="vVend">¿Quién lo vendió?</label><select id="vVend"></select>
       <input id="vVendOtro" placeholder="Nombre del nuevo revendedor" autocomplete="off" style="display:none;margin-top:6px">
       <label>Forma de pago</label><div class="pagos" id="vPago"><button type="button" data-p="Efectivo">💵 Efectivo</button><button type="button" data-p="Transferencia">🏦 Transferencia</button><button type="button" data-p="Yappy">📱 Yappy</button></div>
@@ -353,31 +355,67 @@ $('vCod').addEventListener('input', () => {
 });
 $('vNom').addEventListener('input', () => delete $('vNom').dataset.auto);
 const fechaParaMes = () => { const hoy = new Date(); return mesKey(cur) === mesKey(hoy) ? hoy : new Date(cur.getFullYear(), cur.getMonth(), 1, 12); };
+let carro = [];
+function piezaForm(){
+  const codigo = normCod($('vCod').value), nombre = $('vNom').value.trim(), tot = $('vTot').value.trim();
+  if (!codigo && !nombre && !tot) return null;
+  const total = parseFloat(tot.replace(',', '.')), sinInventario = $('vSinInv').checked || (codigo && !CAT[codigo]);
+  if (!codigo && !sinInventario) throw 'Escribe el número de pieza, o marca "Pieza sin inventario".';
+  if (!nombre) throw 'Falta el nombre de la pieza.';
+  if (!(total >= 0)) throw 'Escribe el total cobrado de esa pieza.';
+  return {codigo, nombre, total, cantidad: Math.max(1, parseInt($('vCant').value, 10) || 1), sinInventario: !!sinInventario};
+}
+function limpiarPieza(){ ['vCod','vTot','vNom'].forEach(i => $(i).value = ''); delete $('vNom').dataset.auto; $('vCant').value = 1; $('vSinInv').checked = false; $('vHint').textContent = ''; }
+function pintarCarro(){
+  const b = $('vCarro'); b.style.display = carro.length ? 'block' : 'none';
+  b.innerHTML = '<b>Piezas en esta venta</b>' + carro.map((p, k) => `<div style="display:flex;justify-content:space-between;gap:8px;margin-top:6px"><span>${esc(p.codigo || 'Sin código')} · ${esc(p.nombre)}${p.cantidad > 1 ? ' x' + p.cantidad : ''}</span><span style="white-space:nowrap">${money(p.total)} <button type="button" data-quita="${k}" style="border:0;background:transparent;color:#ff4d63;font-size:1.1rem">✕</button></span></div>`).join('')
+    + `<div style="margin-top:8px;opacity:.8">Llevas ${money(carro.reduce((s, p) => s + p.total, 0))}. Si falta otra pieza, llénala arriba; al final toca Guardar.</div>`;
+}
+$('vCarro').onclick = e => { const k = e.target.dataset.quita; if (k != null) { carro.splice(+k, 1); pintarCarro(); } };
+$('vAdd').onclick = () => {
+  let p; try { p = piezaForm(); } catch(m) { return alert(m); }
+  if (!p) return alert('Primero llena la pieza (número o "sin inventario", nombre y total) y luego toca Agregar.');
+  carro.push(p); limpiarPieza(); pintarCarro(); $('vCod').focus();
+};
 $('vBtn').onclick = async () => {
-  const codigo = normCod($('vCod').value), nombre = $('vNom').value.trim(), total = parseFloat($('vTot').value.replace(',', '.'));
-  const sinInventario = $('vSinInv').checked || (codigo && !CAT[codigo]);
-  if (!codigo && !sinInventario) return alert('Escribe el número de pieza, o marca "Pieza sin inventario".');
-  if (!nombre) return alert('Falta el nombre de la pieza.');
-  if (!(total >= 0)) return alert('Escribe el total cobrado.');
+  let actual; try { actual = piezaForm(); } catch(m) { return alert(m); }
+  const piezas = [...carro, ...(actual ? [actual] : [])];
+  if (!piezas.length) return alert('Escribe el número de pieza, o marca "Pieza sin inventario".');
   let vend = $('vVend').value; if (vend === '__otro') vend = $('vVendOtro').value.trim().replace(/\s+/g, ' ');
   if (!vend) return alert('Elige quién lo vendió (o escribe el nombre del nuevo revendedor).');
   if (!vPago) return alert('Elige la forma de pago: Efectivo, Transferencia o Yappy.');
   if (!$('vCli').value.trim() && !confirm('No escribiste el nombre del cliente. ¿Guardar igual?')) return;
-  $('vBtn').disabled = true;
+  $('vBtn').disabled = true; $('vAdd').disabled = true;
+  const hechas = [];
   try {
-    const f = fechaParaMes();
-    const cantidad = Math.max(1, parseInt($('vCant').value, 10) || 1), cliente = $('vCli').value.trim(), tel = $('vTel').value.trim();
-    const v = {codigo, nombre, obs: $('vObs').value.trim(), total, cantidad, cliente, tel, fecha: f.toISOString(), mes: mesKey(f), sinInventario: !!sinInventario, marcado: !sinInventario, pago: vPago, ...datosVend(vend, total)};
+    const f = fechaParaMes(), cliente = $('vCli').value.trim(), tel = $('vTel').value.trim(), obs = $('vObs').value.trim();
+    const grupo = piezas.length > 1 ? 'G' + Date.now().toString(36) : null;
     if ($('vVend').value === '__otro') guardarNombre(vend);
-    const ref = await guardar('ventas', v);
-    if (!sinInventario) await marcarVendido(codigo, cantidad);
-    avisarVenta(v);
-    ['vCod','vTot','vNom','vObs','vCli','vTel'].forEach(i => $(i).value = ''); $('vCant').value = 1; $('vSinInv').checked = false; $('vVend').value = rol === 'vendedor' ? PLANTA : ''; $('vVendOtro').value = ''; $('vVendOtro').style.display = 'none'; vPago = ''; $('vPago').querySelectorAll('button').forEach(x => x.classList.remove('on'));
-    abrirRecibo({...v, _id: ref.id, por: yo});
-    $('vHint').textContent = sinInventario ? 'Venta guardada (sin inventario).' : 'Venta guardada y marcada en el catálogo.';
-  } catch(e) { alert('No se pudo guardar: ' + (e.code || e.message)); }
-  $('vBtn').disabled = false;
+    for (const p of piezas) {
+      const v = {...p, obs, cliente, tel, fecha: f.toISOString(), mes: mesKey(f), marcado: !p.sinInventario, pago: vPago, ...datosVend(vend, p.total)};
+      if (grupo) v.grupo = grupo;
+      const ref = await guardar('ventas', v);
+      if (!p.sinInventario) await marcarVendido(p.codigo, p.cantidad);
+      hechas.push({...v, _id: ref.id, por: yo});
+    }
+    const rec = juntarRecibo(hechas);
+    avisarVenta(rec);
+    carro = []; pintarCarro(); limpiarPieza();
+    ['vObs','vCli','vTel'].forEach(i => $(i).value = ''); $('vVend').value = rol === 'vendedor' ? PLANTA : ''; $('vVendOtro').value = ''; $('vVendOtro').style.display = 'none'; vPago = ''; $('vPago').querySelectorAll('button').forEach(x => x.classList.remove('on'));
+    abrirRecibo(rec);
+    $('vHint').textContent = `Venta guardada (${hechas.length} pieza${hechas.length === 1 ? '' : 's'}).`;
+  } catch(e) {
+    alert('No se pudo guardar: ' + (e.code || e.message) + (hechas.length ? `\n\nOjo: ya se guardaron ${hechas.length} de ${piezas.length} piezas. Revisa la lista antes de repetir.` : ''));
+    if (hechas.length) { carro = piezas.slice(hechas.length); pintarCarro(); limpiarPieza(); }
+  }
+  $('vBtn').disabled = false; $('vAdd').disabled = false;
 };
+function juntarRecibo(vs){
+  if (vs.length === 1) return vs[0];
+  const t = r2(vs.reduce((s, v) => s + (+v.total || 0), 0));
+  return {...vs[0], items: vs, total: t, nombre: vs.map(v => v.nombre).join(' + '), codigo: vs.map(v => v.codigo).filter(Boolean).join(', '), cantidad: vs.reduce((s, v) => s + (+v.cantidad || 1), 0)};
+}
+const reciboDe = v => v.grupo ? juntarRecibo(datos.ventas.filter(x => x.grupo === v.grupo && !x.borrado).sort((a, b) => String(a.creado || a.fecha).localeCompare(String(b.creado || b.fecha)))) : v;
 
 /* ---------- gastos por categoría ---------- */
 const CATS = {
@@ -639,10 +677,11 @@ async function dibujarRecibo(v){
   x.fillStyle = '#c2001f'; x.fillRect(W/2 - 70, y + 20, 140, 6);
   // tarjeta blanca
   y += 60; const cx = 60, cw = W - 120, top = y;
-  const filas = [['Cliente', v.cliente || 'Cliente general'], ['Pieza', v.nombre], ['Código', v.codigo || 'Sin código'], ['Cantidad', String(v.cantidad || 1)]];
+  const filas = v.items ? [['Cliente', v.cliente || 'Cliente general'], ...v.items.map((it, k) => [`Pieza ${k + 1}`, `${it.nombre} (${it.codigo || 'sin código'})${(it.cantidad || 1) > 1 ? ' x' + it.cantidad : ''} · ${money(it.total)}`])]
+    : [['Cliente', v.cliente || 'Cliente general'], ['Pieza', v.nombre], ['Código', v.codigo || 'Sin código'], ['Cantidad', String(v.cantidad || 1)]];
   if (v.vendedor) filas.push(['Vendido por', v.vendedor]);
   if (v.pago) filas.push(['Forma de pago', v.pago]);
-  if ((v.cantidad || 1) > 1) filas.push(['Precio por unidad', money(v.total / v.cantidad)]);
+  if (!v.items && (v.cantidad || 1) > 1) filas.push(['Precio por unidad', money(v.total / v.cantidad)]);
   x.font = `600 36px ${BR}`; const altoFilas = filas.reduce((s, f) => s + Math.max(1, lineas(x, f[1], 560).length) * 46 + 34, 0);
   const ch = 350 + altoFilas;
   x.save(); x.shadowColor = 'rgba(0,0,0,.5)'; x.shadowBlur = 30; x.fillStyle = '#f7f4ef'; rr(x, cx, top, cw, ch, 34); x.fill(); x.restore();
@@ -684,14 +723,14 @@ async function dibujarRecibo(v){
   return new Promise(r => out.toBlob(r, 'image/png'));
 }
 const telWA = t => { let d = String(t || '').replace(/\D/g, ''); if (d.length === 8) d = '507' + d; return d; };
-const textoRecibo = v => `*Rastro Búnker · Comprobante de venta*\nCliente: ${v.cliente || '—'}\nPieza: ${v.nombre}${v.codigo ? ' (código ' + v.codigo + ')' : ''}\nCantidad: ${v.cantidad || 1}\nTotal: ${money(v.total)}${v.vendedor ? '\nVendido por: ' + v.vendedor : ''}${v.pago ? '\nForma de pago: ' + v.pago : ''}\n\nTiene 3 días hábiles para revisar la pieza. Pasado ese plazo no hay devolución.`;
+const textoRecibo = v => `*Rastro Búnker · Comprobante de venta*\nCliente: ${v.cliente || '—'}\n${v.items ? v.items.map((it, k) => `Pieza ${k + 1}: ${it.nombre}${it.codigo ? ' (código ' + it.codigo + ')' : ' (sin código)'}${(it.cantidad || 1) > 1 ? ' x' + it.cantidad : ''} · ${money(it.total)}`).join('\n') : `Pieza: ${v.nombre}${v.codigo ? ' (código ' + v.codigo + ')' : ''}\nCantidad: ${v.cantidad || 1}`}\nTotal: ${money(v.total)}${v.vendedor ? '\nVendido por: ' + v.vendedor : ''}${v.pago ? '\nForma de pago: ' + v.pago : ''}\n\nTiene 3 días hábiles para revisar la pieza. Pasado ese plazo no hay devolución.`;
 async function abrirRecibo(v){
   recV = v; recBlob = null; $('recImg').removeAttribute('src'); $('modal').classList.add('on');
   $('recCli').style.display = telWA(v.tel).length >= 10 ? 'block' : 'none';
   try { recBlob = await dibujarRecibo(v); $('recImg').src = URL.createObjectURL(recBlob); }
   catch(e) { alert('No se pudo dibujar el recibo: ' + e.message); }
 }
-const nombreArchivo = () => `recibo-${recV.codigo || 'venta'}-${String(recV._id || '').slice(0, 6)}.png`;
+const nombreArchivo = () => `recibo-${recV.items ? 'varias' : (recV.codigo || 'venta')}-${String(recV._id || '').slice(0, 6)}.png`;
 $('recShare').onclick = async () => {
   if (!recBlob) return;
   const file = new File([recBlob], nombreArchivo(), {type: 'image/png'});
@@ -744,7 +783,7 @@ function pintar(){
 document.body.addEventListener('click', async e => {
   const b = e.target, a = b.dataset && b.dataset.a; if (!a) return;
   const r = (datos[b.dataset.t] || []).find(x => x._id === b.dataset.id); if (!r) return;
-  if (a === 'rec') return abrirRecibo(r);
+  if (a === 'rec') return abrirRecibo(reciboDe(r));
   try {
     if (a === 'del' && confirm('¿Mandar este registro a la papelera?')) { await cambiar(r, {borrado: true, borradoPor: yo, borradoEn: ahora()}, 'borró'); if (r._t === 'ventas' && r.marcado && enCatalogo(r)) await marcarVendido(r.codigo, -(r.cantidad || 1)); }
     if (a === 'rest') { await cambiar(r, {borrado: false}, 'recuperó'); if (r._t === 'ventas' && r.marcado && enCatalogo(r)) await marcarVendido(r.codigo, r.cantidad || 1); }
