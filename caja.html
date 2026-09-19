@@ -445,6 +445,8 @@ function perLbl(cat, p){
   if (cat === 'marketing') { const a = new Date(p + 'T12:00'), b = new Date(a); b.setDate(b.getDate() + 6); return `semana del ${a.getDate()} ${MESES[a.getMonth()]} al ${b.getDate()} ${MESES[b.getMonth()]}`; }
   return p;
 }
+const yaPagoCom = p => r2(datos.gastos.filter(g => !g.borrado && esGasto(g) && g.cat === 'comisiones' && g.periodo === p).reduce((s, g) => s + (+g.monto || 0), 0));
+const faltaCom = (sab, p) => r2(p.com - yaPagoCom(perCom(sab, p.n)));
 const pagado = (cat, p) => datos.gastos.some(g => !g.borrado && esGasto(g) && g.cat === cat && g.periodo === p);
 
 let gCat = 'lotes', fallos = new Set();
@@ -487,10 +489,10 @@ function pintarComisiones(){
   if (!$('cList')) return;
   const {ini, sab, lista} = comisionesSem();
   $('cLbl').textContent = `Dom ${fCorta(ini)} – Sáb ${fCorta(sab)}`;
-  $('cList').innerHTML = lista.length ? lista.map(p => { const pag = pagado('comisiones', perCom(sab, p.n));
+  $('cList').innerHTML = lista.length ? lista.map(p => { const falta = faltaCom(sab, p), pag = falta <= 0.009, ya = yaPagoCom(perCom(sab, p.n));
     return `<div class="com"><div><div class="nm">${esc(p.n)} · ${pctDe(p.n)}%</div><div class="ob">${p.ventas.length} pieza${p.ventas.length === 1 ? '' : 's'} · vendió ${money(p.vendido)}</div></div>
-      <div style="text-align:right"><b>${money(p.com)}</b><br>${pag ? '<span class="ok">✓ pagada</span>' : `<button data-com="${esc(p.n)}">Pagar</button>`}</div></div>`; }).join('')
-    + `<div class="res-row"><span>Total a pagar</span><b>${money(lista.filter(p => !pagado('comisiones', perCom(sab, p.n))).reduce((s,p) => s + p.com, 0))}</b></div>`
+      <div style="text-align:right"><b>${money(p.com)}</b><br>${pag ? '<span class="ok">✓ pagada</span>' : `${ya ? `<span class="ob">ya pagó ${money(ya)}</span><br>` : ''}<button data-com="${esc(p.n)}">Pagar ${money(falta)}</button>`}</div></div>`; }).join('')
+    + `<div class="res-row"><span>Total a pagar</span><b>${money(lista.reduce((s,p) => s + Math.max(0, faltaCom(sab, p)), 0))}</b></div>`
     : '<div class="empty">Sin ventas con vendedor esta semana.</div>';
 }
 $('cPrev').onclick = () => { semOff--; pintarComisiones(); };
@@ -498,15 +500,16 @@ $('cNext').onclick = () => { if (semOff < 0) { semOff++; pintarComisiones(); } }
 $('cList').onclick = async e => {
   const n = e.target.dataset && e.target.dataset.com; if (!n) return;
   const {sab, lista} = comisionesSem(), p = lista.find(x => x.n === n); if (!p) return;
-  if (!confirm(`¿Registrar el pago de ${money(p.com)} de comisión a ${n}? Se guarda como gasto.`)) return;
+  const falta = faltaCom(sab, p), ya = yaPagoCom(perCom(sab, n)); if (falta <= 0.009) return alert('Esa comisión ya está pagada completa.');
+  if (!confirm(`¿Registrar el pago de ${money(falta)} de comisión a ${n}?${ya ? ` (ya se le habían pagado ${money(ya)} esta semana)` : ''} Se guarda como gasto.`)) return;
   const f = new Date();
-  try { await guardar('gastos', {tipo: 'gasto', cat: 'comisiones', concepto: 'Comisión ' + n, detalle: `Semana al ${fCorta(sab)} · ${p.ventas.length} pieza(s)`, monto: r2(p.com), periodo: perCom(sab, n), fecha: f.toISOString(), mes: mesKey(f)}); }
+  try { await guardar('gastos', {tipo: 'gasto', cat: 'comisiones', concepto: 'Comisión ' + n, detalle: `Semana al ${fCorta(sab)} · ${p.ventas.length} pieza(s)${ya ? ' · resto pendiente' : ''}`, monto: falta, periodo: perCom(sab, n), fecha: f.toISOString(), mes: mesKey(f)}); }
   catch(x) { alert('No se pudo guardar: ' + (x.code || x.message)); }
 };
 $('cWa').onclick = () => {
   const {ini, sab, lista} = comisionesSem(); if (!lista.length) return alert('No hay comisiones esta semana.');
   const bloques = lista.map(p => `*${p.n}* (${pctDe(p.n)}%)\n` + p.ventas.map(v => `• ${fechaCorta(v.fecha)} · ${v.codigo ? v.codigo + ' ' : ''}${v.nombre} — vendió ${money(v.total)} → ${money(v.comision)}`).join('\n')
-    + `\nTotal: *${money(p.com)}*${pagado('comisiones', perCom(sab, p.n)) ? ' ✓ pagada' : ''}`).join('\n\n');
+    + `\nTotal: *${money(p.com)}*${faltaCom(sab, p) <= 0.009 ? ' ✓ pagada' : (yaPagoCom(perCom(sab, p.n)) ? ' · falta ' + money(faltaCom(sab, p)) : '')}`).join('\n\n');
   const tot = lista.reduce((s,p) => s + p.com, 0);
   const txt = `*Rastro Búnker · Comisiones*\nSemana del ${fCorta(ini)} al sábado ${fCorta(sab)}\nRevendedores 10% · vendedor de planta 2%\n\n${bloques}\n\n*TOTAL COMISIONES: ${money(tot)}*`;
   window.open('https://wa.me/?text=' + encodeURIComponent(txt), '_blank');
