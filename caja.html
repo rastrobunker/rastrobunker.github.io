@@ -787,6 +787,14 @@ $('repDia').onclick = () => {
     + `\n━━━━━━━━━━\n*💵 ${q < 0 ? 'FALTA EN MANO' : 'QUEDA EN MANO'}: ${money(Math.abs(q))}*`
     + `\n*📌 QUEDA EN DEUDA: ${money(deuda)}*`
     + (pagCom.length ? `\n\nHoy se pagaron comisiones de la semana (${money(pagCom.reduce((s,g) => s + (+g.monto||0), 0))}); no se restan otra vez porque ya se descontaron el día de cada venta.` : '');
+  // ---- global desde que arrancó la caja ----
+  const desde = x => !x.borrado && String(x.fecha) >= VENTAS_DESDE;
+  const Vt = datos.ventas.filter(desde), Gt = datos.gastos.filter(x => desde(x) && esGasto(x) && x.cat !== 'comisiones'), At = datos.gastos.filter(x => desde(x) && x.tipo === 'abono');
+  const gv = r2(Vt.reduce((s,v) => s + (+v.total||0), 0)), gg = r2(Gt.reduce((s,x) => s + (+x.monto||0), 0)), gc = r2(Vt.reduce((s,v) => s + (+v.comision||0), 0)), ga = r2(At.reduce((s,x) => s + (+x.monto||0), 0));
+  const saldo = r2(gv - gg - gc - ga), fi = new Date(VENTAS_DESDE).toLocaleDateString('es-PA', {day:'numeric', month:'long'});
+  txt += `\n\n*🌎 GLOBAL (desde el ${fi})*\nVentas: ${money(gv)}\nMenos gastos: − ${money(gg)}\nMenos comisiones: − ${money(gc)}` + (ga ? `\nMenos abonos a deudas: − ${money(ga)}` : '')
+    + `\n\n*🧾 DEUDAS*\n` + deudas().map(d => `${d.concepto || d.nombre || 'Deuda'}: ${money(d.pend)}`).join('\n') + `\n*Total en deuda: ${money(deuda)}*`
+    + `\n━━━━━━━━━━\n*🟢 SALDO TOTAL EN MANO: ${money(saldo)}*`;
   window.open('https://wa.me/?text=' + encodeURIComponent(txt), '_blank');
 };
 $('prev').onclick = () => { cur = new Date(cur.getFullYear(), cur.getMonth()-1, 1); pintar(); };
