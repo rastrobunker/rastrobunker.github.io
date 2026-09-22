@@ -765,8 +765,9 @@ function pintar(){
   const vm = datos.ventas.filter(v => v.mes === k && !v.borrado && String(v.fecha) >= VENTAS_DESDE).sort(orden);
   const gm = datos.gastos.filter(g => g.mes === k && !g.borrado && esGasto(g)).sort(orden);
   const tv = vm.reduce((s,v) => s + (+v.total||0), 0), tg = gm.reduce((s,g) => s + (+g.monto||0), 0);
-  $('tV').textContent = money(tv); $('tG').textContent = money(tg); $('tN').textContent = money(tv - tg);
-  $('tGbox').className = (tv - tg < 0 ? 'neg' : 'g') + ' no-vend';
+  const am = datos.gastos.filter(g => g.mes === k && !g.borrado && g.tipo === 'abono'), ta = am.reduce((s,g) => s + (+g.monto||0), 0), tq = tv - tg - ta;
+  $('tV').textContent = money(tv); $('tG').textContent = money(tg); $('tN').textContent = money(tq);
+  $('tGbox').className = (tq < 0 ? 'neg' : 'g') + ' no-vend';
   $('vTit').textContent = `Ventas del mes (${vm.length})`;
   $('vList').innerHTML = vm.length ? vm.map(r => item(r)).join('') : '<li class="empty">Sin ventas este mes.</li>';
   $('gList').innerHTML = gm.length ? gm.map(r => item(r)).join('') : '<li class="empty">Sin gastos este mes.</li>';
@@ -775,7 +776,9 @@ function pintar(){
   $('resumen').innerHTML = `<div class="res-row"><span>Piezas vendidas</span><b>${vm.length}</b></div>
     <div class="res-row"><span>Total vendido</span><b>${money(tv)}</b></div>
     <div class="res-row"><span>Gastos (${gm.length})</span><b>${money(tg)}</b></div>
-    <div class="res-row"><span>Queda</span><b>${money(tv - tg)}</b></div>`;
+    <div class="res-row"><span>Subtotal (ventas − gastos)</span><b>${money(tv - tg)}</b></div>
+    <div class="res-row"><span>Abonos a Deuda Engel (${am.length})</span><b>${money(ta)}</b></div>
+    <div class="res-row"><span>Queda</span><b>${money(tq)}</b></div>`;
   const porCat = {}; gm.forEach(g => { const c = g.cat || 'otros'; porCat[c] = (porCat[c]||0) + (+g.monto||0); });
   $('resumen').innerHTML += Object.keys(CATS).filter(c => porCat[c]).map(c => `<div class="res-row"><span style="padding-left:12px">${CATS[c].i} ${CATS[c].n}</span><b>${money(porCat[c])}</b></div>`).join('')
     + (dueno || rol === 'caja' ? `<div class="res-row"><span>Deuda Engel</span><b>${money(deudas().reduce((s,d) => s + d.pend, 0))}</b></div>` : '');
@@ -816,28 +819,31 @@ $('repDia').onclick = () => {
   const f = hoy.toLocaleDateString('es-PA',{weekday:'long', day:'numeric', month:'long', year:'numeric'});
   const linV = vs.length ? vs.map((v,i) => `${i+1}. ${v.codigo ? v.codigo + ' · ' : ''}${v.nombre}${v.cantidad > 1 ? ' (x' + v.cantidad + ')' : ''}${v.cliente ? ' · cliente: ' + v.cliente : ''}${v.vendedor ? ' · vendió ' + v.vendedor : ''}${v.pago ? ' · ' + v.pago : ''} — ${money(v.total)}`).join('\n') : 'No hubo ventas hoy.';
   const linG = gs.length ? gs.map((g,i) => { const c = CATS[g.cat] || CATS.otros; return `${i+1}. ${c.i} ${c.n}: ${g.concepto}${g.detalle ? ' (' + g.detalle + ')' : ''} — ${money(g.monto)}`; }).join('\n') : 'No hubo gastos hoy.';
-  let txt = `*Rastro Búnker · Reporte del día*\n${f.charAt(0).toUpperCase() + f.slice(1)}\n\n*💰 VENTAS DE HOY*\n${linV}\n➡️ Se vendieron ${vs.length} pieza${vs.length === 1 ? '' : 's'} por un total de *${money(tv)}*`;
-  const porPago = {}; vs.forEach(v => { const k = v.pago || 'Sin indicar'; porPago[k] = (porPago[k] || 0) + (+v.total || 0); });
-  if (vs.length) txt += '\n' + Object.entries(porPago).map(([k, m]) => `   · ${k}: ${money(m)}`).join('\n');
+  const deuda = r2(deudas().reduce((s, d) => s + d.pend, 0));
   const porCom = {}; vs.forEach(v => { if (v.vendedor && +v.comision) porCom[v.vendedor] = r2((porCom[v.vendedor] || 0) + (+v.comision)); });
   const tc = r2(Object.values(porCom).reduce((s, m) => s + m, 0)), q = r2(q0 - tc);
-  const linC = Object.entries(porCom).map(([n, m]) => `   ${n === PLANTA ? 'Comisión ' + n : 'Comisión vendedor ' + n}: − ${money(m)}`).join('\n');
-  const deuda = r2(deudas().reduce((s, d) => s + d.pend, 0));
-  if (conGastos) txt += `\n\n*🧾 GASTOS DE HOY*\n${linG}\n➡️ Se hicieron ${gs.length} gasto${gs.length === 1 ? '' : 's'} por un total de *${money(tg)}*`
-;
-  txt += `\n\n*📊 CUENTA DEL DÍA*\nVentas: ${money(tv)}\nMenos gastos: − ${money(tg)}` + (tc ? `\nMenos comisiones:\n${linC}` : '')
-    + `\n━━━━━━━━━━\n*💵 ${q < 0 ? 'FALTA EN MANO' : 'QUEDA EN MANO'}: ${money(Math.abs(q))}*`
-    + `\n*📌 QUEDA EN DEUDA: ${money(deuda)}*`
-    + (pagCom.length ? `\n\nHoy se pagaron comisiones de la semana (${money(pagCom.reduce((s,g) => s + (+g.monto||0), 0))}); no se restan otra vez porque ya se descontaron el día de cada venta.` : '');
-  // ---- global: igual que el "Queda" de la pantalla, sumando todos los meses ----
+  const L = '━━━━━━━━━━━━';
+  let txt = `*🔧 RASTRO BÚNKER · ACTUALIZACIÓN*\n📅 ${f.charAt(0).toUpperCase() + f.slice(1)}\n${L}`;
+  txt += `\n\n*💰 VENTAS DE HOY (${vs.length})*\n${linV}`;
+  const porPago = {}; vs.forEach(v => { const k = v.pago || 'Sin indicar'; porPago[k] = (porPago[k] || 0) + (+v.total || 0); });
+  if (vs.length) txt += `\n_Por forma de pago:_ ` + Object.entries(porPago).map(([k, m]) => `${k} ${money(m)}`).join(' · ');
+  txt += `\n*Total ventas: ${money(tv)}*`;
+  txt += `\n\n*🧾 GASTOS DE HOY (${gs.length})*\n${linG}\n*Total gastos: ${money(tg)}*`;
+  txt += `\n\n*📊 CUENTA DEL DÍA*\n  ${money(tv)}  ventas\n− ${money(tg)}  gastos`
+    + Object.entries(porCom).map(([n, m]) => `\n− ${money(m)}  comisión ${n}`).join('')
+    + `\n*= ${money(q)}  ${q < 0 ? 'FALTA EN MANO' : 'queda en mano hoy'}*`
+    + (pagCom.length ? `\n_(Hoy se pagaron comisiones de la semana por ${money(pagCom.reduce((s,g) => s + (+g.monto||0), 0))}; no se restan otra vez.)_` : '');
+  // ---- acumulado: igual que el "Queda" de la pantalla ----
   const Vt = datos.ventas.filter(v => !v.borrado && String(v.fecha) >= VENTAS_DESDE), Gt = datos.gastos.filter(x => !x.borrado && esGasto(x)), At = datos.gastos.filter(x => !x.borrado && x.tipo === 'abono');
   const gv = r2(Vt.reduce((s,v) => s + (+v.total||0), 0)), gg = r2(Gt.reduce((s,x) => s + (+x.monto||0), 0)), ga = r2(At.reduce((s,x) => s + (+x.monto||0), 0));
   const gcPend = r2(Vt.reduce((s,v) => s + (+v.comision||0), 0) - Gt.filter(x => x.cat === 'comisiones').reduce((s,x) => s + (+x.monto||0), 0));
-  const saldo = r2(gv - gg - ga);
-  txt += `\n\n*🌎 TOTAL GENERAL*\nVentas: ${money(gv)}\nMenos gastos (con comisiones pagadas): − ${money(gg)}` + (ga ? `\nMenos abonos a deudas: − ${money(ga)}` : '')
-    + `\n\n*🧾 DEUDAS*\n` + deudas().map(d => `${d.concepto || 'Deuda'}: ${money(d.pend)}`).join('\n') + `\n*Total en deuda: ${money(deuda)}*`
-    + `\n━━━━━━━━━━\n*🟢 QUEDA EN TOTAL GENERAL: ${money(saldo)}*`
-    + (gcPend > 0 ? `\n(De eso, ${money(gcPend)} son comisiones que todavía no se han pagado)` : '');
+  const sub = r2(gv - gg), saldo = r2(sub - ga);
+  txt += `\n\n${L}\n*🏦 SUBTOTAL BÚNKER (acumulado)*\n  ${money(gv)}  ventas\n− ${money(gg)}  gastos (con comisiones pagadas)\n*= ${money(sub)}  subtotal*`
+    + `\n− ${money(ga)}  abonado a Deuda Engel`
+    + `\n*= ${money(saldo)}  QUEDA EN BÚNKER* ${saldo < 0 ? '🔴' : '🟢'}`
+    + (gcPend > 0 ? `\n_(De eso, ${money(gcPend)} son comisiones por pagar el sábado)_` : '');
+  txt += `\n\n${L}\n*🔴 DEUDA ENGEL (Tarjeta & Préstamo)*\n` + deudas().map(d => `• ${d.concepto || 'Deuda'}: era ${money(d.monto)} · abonado ${money(d.pag)} · *quedan ${money(d.pend)}*`).join('\n')
+    + `\n\n🔴 *TOTAL PENDIENTE: ${money(deuda)}* 🔴`;
   window.open('https://wa.me/?text=' + encodeURIComponent(txt), '_blank');
 };
 $('prev').onclick = () => { cur = new Date(cur.getFullYear(), cur.getMonth()-1, 1); pintar(); };
