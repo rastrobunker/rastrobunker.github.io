@@ -135,7 +135,7 @@ main,nav{display:none}body.dentro main{display:block}body.dentro nav{display:fle
   <div class="tot">
     <div><span>Ventas</span><b id="tV">$0</b></div>
     <div class="no-vend"><span>Gastos</span><b id="tG">$0</b></div>
-    <div id="tGbox" class="g no-vend"><span>Queda en Búnker</span><b id="tN">$0</b><small id="tNm" style="display:block;font-size:11px;opacity:.85"></small></div>
+    <div id="tGbox" class="g no-vend"><span>Saldo del mes</span><b id="tN">$0</b><small id="tNm" style="display:block;font-size:11px;opacity:.85"></small></div>
   </div>
 
   <section id="s-ventas" class="on">
@@ -273,7 +273,9 @@ let yo = null, dueno = false, rol = null;
 const REDES = { instagram: '@rastrobunker', tiktok: '@autopartes.bunker' };
 const VENTAS_DESDE = '2026-09-18T04:50:00Z'; // el conteo de ventas arranca en 0 desde aquí (17-sep-2026, noche)
 const SALDO_DESDE = '2026-10-12T05:00:00Z'; // el saldo total (Queda) arranca en 0 desde el 12-oct-2026: lo de antes se fue en la renta
-const PAGOS_HECHOS = {'renta|2026-10': 1}; // pagados fuera de la caja (renta oct con préstamos)
+const PAGOS_HECHOS = {'renta|2026-10': 1};
+const EN_MANO_INI = 70; // efectivo que había en mano el lunes 12-oct-2026
+const rentaFuera = k => PAGOS_HECHOS['renta|' + k] ? 1284 : 0; // renta pagada fuera de la caja: se resta del saldo de ese mes // pagados fuera de la caja (renta oct con préstamos)
 const DEUDAS_OCULTAS = r => r._id === 'deuda-astrid' || /^(deuda )?astrid/.test(String(r.concepto||'').trim().toLowerCase()); // deuda de Astrid ya no va (12-oct)
 const enSaldo = v => String(v.fecha) >= SALDO_DESDE || (String(v.fecha) >= '2026-10-11T05:00:00Z' && JSON.stringify(v).toLowerCase().includes('apv')); // defensa APV vendida el 12-oct sí cuenta
 const AVISOS = 'rb-ventas-ccfb6a27'; // tema de la app ntfy para las notificaciones de venta
@@ -871,13 +873,10 @@ function pintar(){
   const am = datos.gastos.filter(g => g.mes === k && !g.borrado && g.tipo === 'abono'), ta = am.reduce((s,g) => s + (+g.monto||0), 0), tq = tv - credEN(vm) - tg - ta, cm = credEN(vm);
   $('tV').textContent = money(tv); $('tG').textContent = money(tg); const Vq = datos.ventas.filter(v => !v.borrado && String(v.fecha) >= VENTAS_DESDE && enSaldo(v)), Gq = datos.gastos.filter(x => !x.borrado && esGasto(x) && String(x.fecha) >= SALDO_DESDE), Aq = datos.gastos.filter(x => !x.borrado && x.tipo === 'abono' && String(x.fecha) >= SALDO_DESDE);
   const tqT = Math.round((Vq.reduce((s,v) => s + ventaB(v), 0) - credEN(Vq) - Gq.reduce((s,x) => s + (+x.monto||0), 0) - Aq.reduce((s,x) => s + (+x.monto||0), 0)) * 100) / 100;
-  $('tN').textContent = money(tqT);
-  const desde = String(SALDO_DESDE), hoyK = mesKey(new Date());
-  const antes = Math.round((tq - tqT) * 100) / 100;
-  $('tNm').innerHTML = (k === desde.slice(0,7) && hoyK === k && antes >= 0.01)
-    ? `Mes: ${money(tq)}<br>− se fue en la renta (1–11 oct): ${money(antes)}<br>= queda ${money(tqT)}`
-    : 'Este mes: ' + money(tq);
-  $('tGbox').className = (tqT < 0 ? 'neg' : 'g') + ' no-vend';
+  const rf = rentaFuera(k), sm = Math.round((tq - rf) * 100) / 100, mano = Math.round((tqT + EN_MANO_INI) * 100) / 100;
+  $('tN').textContent = money(sm);
+  $('tNm').innerHTML = (rf ? `Ventas − gastos: ${money(tq)}<br>− renta: ${money(rf)}<br>` : '') + `<b style="color:#1a7a3a;font-size:13px">En mano (desde lun 12 oct): ${money(mano)}</b>`;
+  $('tGbox').className = (sm < 0 ? 'neg' : 'g') + ' no-vend';
   $('vTit').textContent = `Ventas del mes (${vm.length})`;
   $('vList').innerHTML = vm.length ? vm.map(r => item(r)).join('') : '<li class="empty">Sin ventas este mes.</li>';
   $('gList').innerHTML = gm.length ? gm.map(r => item(r)).join('') : '<li class="empty">Sin gastos este mes.</li>';
@@ -889,7 +888,8 @@ function pintar(){
     <div class="res-row"><span>Gastos (${gm.length})</span><b>${money(tg)}</b></div>
     <div class="res-row"><span>Subtotal (ventas − gastos)</span><b>${money(tv - cm - tg)}</b></div>
     <div class="res-row"><span>Abonos a deudas (${am.length})</span><b>${money(ta)}</b></div>
-    <div class="res-row"><span>Queda</span><b>${money(tq)}</b></div>`;
+    ${rentaFuera(k) ? `<div class="res-row"><span>Renta (pagada por fuera)</span><b>${money(rentaFuera(k))}</b></div>` : ''}
+    <div class="res-row"><span>Saldo del mes</span><b>${money(tq - rentaFuera(k))}</b></div>`;
   const porCat = {}; gm.forEach(g => { const c = g.cat || 'otros'; porCat[c] = (porCat[c]||0) + (+g.monto||0); });
   $('resumen').innerHTML += Object.keys(CATS).filter(c => porCat[c]).map(c => `<div class="res-row"><span style="padding-left:12px">${CATS[c].i} ${CATS[c].n}</span><b>${money(porCat[c])}</b></div>`).join('')
     + (dueno || rol === 'caja' ? `<div class="res-row"><span>Deudas</span><b>${money(deudas().reduce((s,d) => s + d.pend, 0))}</b></div>` : '');
@@ -953,9 +953,10 @@ $('repDia').onclick = () => {
   const Vt = datos.ventas.filter(v => !v.borrado && String(v.fecha) >= VENTAS_DESDE && enSaldo(v)), Gt = datos.gastos.filter(x => !x.borrado && esGasto(x) && String(x.fecha) >= SALDO_DESDE), At = datos.gastos.filter(x => !x.borrado && x.tipo === 'abono' && String(x.fecha) >= SALDO_DESDE);
   const gv = r2(Vt.reduce((s,v) => s + ventaB(v), 0)), gg = r2(Gt.reduce((s,x) => s + (+x.monto||0), 0)), ga = r2(At.reduce((s,x) => s + (+x.monto||0), 0));
   const gcPend = r2(Vt.reduce((s,v) => s + (+v.comision||0), 0) - Gt.filter(x => x.cat === 'comisiones').reduce((s,x) => s + (+x.monto||0), 0));
-  const ct = credEN(Vt), sub = r2(gv - ct - gg), saldo = r2(sub - ga);
+  const ct = credEN(Vt), sub = r2(gv - ct - gg), saldo = r2(sub - ga + EN_MANO_INI);
   txt += `\n\n${L}\n*🏦 SUBTOTAL BÚNKER (acumulado)*\n  ${money(gv)}  ventas\n` + (ct ? `− ${money(ct)}  pago tapas de rin Toyota (crédito)\n` : '') + `− ${money(gg)}  gastos (con comisiones pagadas)\n*= ${money(sub)}  subtotal*`
     + `\n− ${money(ga)}  abonado a deudas`
+    + `\n+ ${money(EN_MANO_INI)}  que había en mano el lunes 12 oct`
     + `\n*= ${money(saldo)}  QUEDA EN BÚNKER* ${saldo < 0 ? '🔴' : '🟢'}`
     + (gcPend > 0 ? `\n_(De eso, ${money(gcPend)} son comisiones por pagar el sábado)_` : '');
   txt += `\n\n${L}\n*🔴 DEUDAS PENDIENTES*\n` + deudas().filter(d => d.pend > 0).map(d => `• ${d.concepto || 'Deuda'}: era ${money(d.monto)} · abonado ${money(d.pag)} · *quedan ${money(d.pend)}*`).join('\n')
