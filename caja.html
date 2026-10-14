@@ -135,7 +135,7 @@ main,nav{display:none}body.dentro main{display:block}body.dentro nav{display:fle
   <div class="tot">
     <div><span>Ventas</span><b id="tV">$0</b></div>
     <div class="no-vend"><span>Gastos</span><b id="tG">$0</b></div>
-    <div id="tGbox" class="g no-vend"><span>Queda (total)</span><b id="tN">$0</b><small id="tNm" style="display:block;font-size:11px;opacity:.85"></small></div>
+    <div id="tGbox" class="g no-vend"><span>Queda en Búnker</span><b id="tN">$0</b><small id="tNm" style="display:block;font-size:11px;opacity:.85"></small></div>
   </div>
 
   <section id="s-ventas" class="on">
@@ -871,7 +871,12 @@ function pintar(){
   const am = datos.gastos.filter(g => g.mes === k && !g.borrado && g.tipo === 'abono'), ta = am.reduce((s,g) => s + (+g.monto||0), 0), tq = tv - credEN(vm) - tg - ta, cm = credEN(vm);
   $('tV').textContent = money(tv); $('tG').textContent = money(tg); const Vq = datos.ventas.filter(v => !v.borrado && String(v.fecha) >= VENTAS_DESDE && enSaldo(v)), Gq = datos.gastos.filter(x => !x.borrado && esGasto(x) && String(x.fecha) >= SALDO_DESDE), Aq = datos.gastos.filter(x => !x.borrado && x.tipo === 'abono' && String(x.fecha) >= SALDO_DESDE);
   const tqT = Math.round((Vq.reduce((s,v) => s + ventaB(v), 0) - credEN(Vq) - Gq.reduce((s,x) => s + (+x.monto||0), 0) - Aq.reduce((s,x) => s + (+x.monto||0), 0)) * 100) / 100;
-  $('tN').textContent = money(tqT); $('tNm').textContent = 'Este mes: ' + money(tq);
+  $('tN').textContent = money(tqT);
+  const desde = String(SALDO_DESDE), hoyK = mesKey(new Date());
+  const antes = Math.round((tq - tqT) * 100) / 100;
+  $('tNm').innerHTML = (k === desde.slice(0,7) && hoyK === k && antes >= 0.01)
+    ? `Mes: ${money(tq)}<br>− se fue en la renta (1–11 oct): ${money(antes)}<br>= queda ${money(tqT)}`
+    : 'Este mes: ' + money(tq);
   $('tGbox').className = (tqT < 0 ? 'neg' : 'g') + ' no-vend';
   $('vTit').textContent = `Ventas del mes (${vm.length})`;
   $('vList').innerHTML = vm.length ? vm.map(r => item(r)).join('') : '<li class="empty">Sin ventas este mes.</li>';
