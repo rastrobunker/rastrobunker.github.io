@@ -274,6 +274,11 @@ const REDES = { instagram: '@rastrobunker', tiktok: '@autopartes.bunker' };
 const VENTAS_DESDE = '2026-09-18T04:50:00Z'; // el conteo de ventas arranca en 0 desde aquí (17-sep-2026, noche)
 const SALDO_DESDE = '2026-10-12T05:00:00Z'; // el saldo total (Queda) arranca en 0 desde el 12-oct-2026: lo de antes se fue en la renta
 const PAGOS_HECHOS = {'renta|2026-10': 1};
+const GASTOS_INI = [ // gastos que se cargan solos una vez (id fijo, no se duplican)
+  ['gasto-renta-2026-10', {cat: 'renta', periodo: '2026-10', concepto: 'Renta · octubre 2026 (parte de caja)', detalle: 'Renta $1,284 = $781 de caja + $400 préstamo Maxuel + $103 Leonardo (los préstamos están en Deudas)', monto: 781, fecha: '2026-10-11T12:00:00Z'}],
+  ['gasto-municipio-2026-10-12', {cat: 'otros', concepto: 'Municipio de Panamá', detalle: 'Bunker · confirmación #589354575', monto: 22, fecha: '2026-10-12T22:04:00Z'}],
+  ['gasto-naturgy-2026-10-12', {cat: 'otros', concepto: 'Luz (Naturgy)', detalle: 'Pago del 12 oct', monto: 7.67, fecha: '2026-10-12T22:05:00Z'}]
+];
 const EN_MANO_INI = 70; // efectivo que había en mano el lunes 12-oct-2026
 const rentaFuera = k => PAGOS_HECHOS['renta|' + k] ? 1284 : 0; // renta pagada fuera de la caja: se resta del saldo de ese mes // pagados fuera de la caja (renta oct con préstamos)
 const DEUDAS_OCULTAS = r => r._id === 'deuda-astrid' || /^(deuda )?astrid/.test(String(r.concepto||'').trim().toLowerCase()); // deuda de Astrid ya no va (12-oct)
@@ -701,6 +706,10 @@ async function sembrarDeudas(){
   for (const [id, concepto, monto, fecha] of DEUDAS_INI) {
     try { const ref = doc(fs, 'gastos', id); if (!(await getDoc(ref)).exists()) await setDoc(ref, {tipo: 'deuda', concepto, monto, fecha, mes: fecha.slice(0,7), por: yo, creado: ahora(), borrado: false, hist: [{accion: 'creó', por: yo, en: ahora()}]}); }
     catch(e) { console.warn('deuda', e); }
+  }
+  for (const [id, g] of GASTOS_INI) {
+    try { const ref = doc(fs, 'gastos', id); if (!(await getDoc(ref)).exists()) await setDoc(ref, {tipo: 'gasto', ...g, mes: g.fecha.slice(0,7), por: yo, creado: ahora(), borrado: false, hist: [{accion: 'creó', por: yo, en: ahora()}]}); }
+    catch(e) { console.warn('gasto', e); }
   }
 }
 function deudas(){
