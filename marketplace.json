@@ -1,0 +1,4829 @@
+{
+"nota": "Piezas ya publicadas en Marketplace. Lo lee Claude antes de armar packs nuevos para no repetir.",
+"faltan_packs": [
+"B2-53 a B2-102",
+"Salomón SA-01 a SA-40",
+"Maxuel MX-01 a MX-40",
+"Engel EG-01 a EG-65",
+"Grimaldo GR-01 a GR-50"
+],
+"piezas": {
+"646": [
+{
+"ref": "B2-01",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 160
+}
+],
+"FL021": [
+{
+"ref": "B2-02",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 50
+}
+],
+"197": [
+{
+"ref": "B2-03",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 580
+}
+],
+"DT160": [
+{
+"ref": "B2-04",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 190
+}
+],
+"CH033": [
+{
+"ref": "B2-05",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 50
+}
+],
+"825": [
+{
+"ref": "B2-06",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 460
+}
+],
+"RV001": [
+{
+"ref": "B2-07",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 70
+}
+],
+"230": [
+{
+"ref": "B2-08",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 235
+}
+],
+"PT063": [
+{
+"ref": "B2-09",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 250
+}
+],
+"621": [
+{
+"ref": "B2-10",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 115
+}
+],
+"211": [
+{
+"ref": "B2-11",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 380
+}
+],
+"GF138": [
+{
+"ref": "B2-12",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 200
+}
+],
+"DT165": [
+{
+"ref": "B2-13",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 180
+}
+],
+"829": [
+{
+"ref": "B2-14",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 415
+}
+],
+"RB019": [
+{
+"ref": "B2-15",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 135
+}
+],
+"241": [
+{
+"ref": "B2-16",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 185
+}
+],
+"FL143": [
+{
+"ref": "B2-17",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 50
+}
+],
+"680": [
+{
+"ref": "B2-18",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 105
+}
+],
+"686": [
+{
+"ref": "B2-19",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 105
+}
+],
+"GF008": [
+{
+"ref": "B2-20",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 160
+}
+],
+"MR024": [
+{
+"ref": "B2-21",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 120
+}
+],
+"039": [
+{
+"ref": "B2-22",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 275
+}
+],
+"TM051": [
+{
+"ref": "B2-23",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 350
+},
+{
+"ref": "B2-276",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 350
+}
+],
+"DT157": [
+{
+"ref": "B2-24",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 160
+}
+],
+"873": [
+{
+"ref": "B2-25",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 280
+}
+],
+"040": [
+{
+"ref": "B2-26",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 275
+}
+],
+"DT053": [
+{
+"ref": "B2-27",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 150
+}
+],
+"658": [
+{
+"ref": "B2-28",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 90
+}
+],
+"938": [
+{
+"ref": "B2-29",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 280
+}
+],
+"PT054": [
+{
+"ref": "B2-30",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 220
+}
+],
+"368": [
+{
+"ref": "B2-31",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 170
+}
+],
+"FL102": [
+{
+"ref": "B2-32",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 50
+}
+],
+"274": [
+{
+"ref": "B2-33",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 155
+}
+],
+"567": [
+{
+"ref": "B2-34",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 80
+}
+],
+"FL104": [
+{
+"ref": "B2-35",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 50
+}
+],
+"154": [
+{
+"ref": "B2-36",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 235
+}
+],
+"P002": [
+{
+"ref": "B2-37",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 80
+}
+],
+"DT153": [
+{
+"ref": "B2-38",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 150
+}
+],
+"GF143": [
+{
+"ref": "B2-39",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 150
+}
+],
+"939": [
+{
+"ref": "B2-40",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 250
+}
+],
+"CP086": [
+{
+"ref": "B2-43",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 25
+}
+],
+"CP087": [
+{
+"ref": "B2-44",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 15
+}
+],
+"RV029": [
+{
+"ref": "B2-103",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"DT195": [
+{
+"ref": "B2-104",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 55
+}
+],
+"GF053": [
+{
+"ref": "B2-105",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 45
+}
+],
+"LT011": [
+{
+"ref": "B2-106",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 180
+},
+{
+"ref": "B2-211",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 180
+}
+],
+"MR052": [
+{
+"ref": "B2-107",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 60
+},
+{
+"ref": "B2-197",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 60
+}
+],
+"GF122": [
+{
+"ref": "B2-108",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 40
+}
+],
+"FL108": [
+{
+"ref": "B2-109",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 35
+}
+],
+"FL126": [
+{
+"ref": "B2-110",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 35
+}
+],
+"FL062": [
+{
+"ref": "B2-111",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 35
+}
+],
+"RV019": [
+{
+"ref": "B2-112",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CP041": [
+{
+"ref": "B2-113",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 15
+}
+],
+"TM059": [
+{
+"ref": "B2-114",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 100
+}
+],
+"LD017": [
+{
+"ref": "B2-115",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 150
+},
+{
+"ref": "B2-226",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 150
+}
+],
+"LD012": [
+{
+"ref": "B2-116",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 60
+},
+{
+"ref": "B2-221",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 60
+}
+],
+"475": [
+{
+"ref": "B2-117",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"MR048": [
+{
+"ref": "B2-118",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 90
+},
+{
+"ref": "B2-186",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 90
+}
+],
+"MR061": [
+{
+"ref": "B2-119",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 50
+},
+{
+"ref": "B2-206",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 50
+}
+],
+"DT045": [
+{
+"ref": "B2-120",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 70
+}
+],
+"TM063": [
+{
+"ref": "B2-121",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 150
+},
+{
+"ref": "B2-156",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 150
+}
+],
+"440": [
+{
+"ref": "B2-122",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"DT128": [
+{
+"ref": "B2-123",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 75
+}
+],
+"RV012": [
+{
+"ref": "B2-124",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 35
+}
+],
+"090": [
+{
+"ref": "B2-125",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 90
+}
+],
+"CH035": [
+{
+"ref": "B2-126",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"490": [
+{
+"ref": "B2-127",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"GF033": [
+{
+"ref": "B2-128",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 45
+}
+],
+"TM064": [
+{
+"ref": "B2-129",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 100
+},
+{
+"ref": "B2-157",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 100
+}
+],
+"LT005": [
+{
+"ref": "B2-130",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 300
+},
+{
+"ref": "B2-169",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 300
+}
+],
+"HA003": [
+{
+"ref": "B2-131",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 50
+},
+{
+"ref": "B2-172",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 50
+}
+],
+"CH059": [
+{
+"ref": "B2-132",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+},
+{
+"ref": "B2-193",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 20
+}
+],
+"MR042": [
+{
+"ref": "B2-133",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 80
+},
+{
+"ref": "B2-180",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 80
+}
+],
+"931": [
+{
+"ref": "B2-134",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 90
+}
+],
+"815": [
+{
+"ref": "B2-135",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 70
+}
+],
+"RB040": [
+{
+"ref": "B2-136",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 75
+}
+],
+"FL101": [
+{
+"ref": "B2-137",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 35
+}
+],
+"GF005": [
+{
+"ref": "B2-138",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 60
+}
+],
+"PT058": [
+{
+"ref": "B2-139",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 150
+}
+],
+"793": [
+{
+"ref": "B2-140",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 75
+}
+],
+"RB012": [
+{
+"ref": "B2-141",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 60
+}
+],
+"PD002": [
+{
+"ref": "B2-142",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 100
+}
+],
+"DT081": [
+{
+"ref": "B2-143",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 45
+}
+],
+"041": [
+{
+"ref": "B2-144",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 140
+}
+],
+"CH006": [
+{
+"ref": "B2-145",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 15
+}
+],
+"LT006": [
+{
+"ref": "B2-146",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 220
+},
+{
+"ref": "B2-170",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 220
+}
+],
+"CP061": [
+{
+"ref": "B2-147",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 15
+}
+],
+"PT024": [
+{
+"ref": "B2-148",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 150
+}
+],
+"425": [
+{
+"ref": "B2-149",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 12
+}
+],
+"878": [
+{
+"ref": "B2-150",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 80
+}
+],
+"CP083": [
+{
+"ref": "B2-151",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 15
+}
+],
+"RB007": [
+{
+"ref": "B2-152",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 60
+}
+],
+"TM061": [
+{
+"ref": "B2-153",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 170
+},
+{
+"ref": "MX-51",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 170
+}
+],
+"TM030": [
+{
+"ref": "B2-154",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 180
+},
+{
+"ref": "MX-78",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 180
+}
+],
+"TM062": [
+{
+"ref": "B2-155",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 180
+}
+],
+"TM060": [
+{
+"ref": "B2-158",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 400
+},
+{
+"ref": "HI-30",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 400
+}
+],
+"TM037": [
+{
+"ref": "B2-159",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 300
+},
+{
+"ref": "HI-39",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 300
+}
+],
+"DD006": [
+{
+"ref": "B2-160",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 100
+},
+{
+"ref": "HI-15",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 100
+}
+],
+"DD007": [
+{
+"ref": "B2-161",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 75
+}
+],
+"DD008": [
+{
+"ref": "B2-162",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 150
+},
+{
+"ref": "HI-10",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 150
+}
+],
+"DD009": [
+{
+"ref": "B2-163",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 200
+},
+{
+"ref": "HI-3",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 200
+}
+],
+"DD010": [
+{
+"ref": "B2-164",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 91
+}
+],
+"DT222": [
+{
+"ref": "B2-165",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 90
+}
+],
+"DT223": [
+{
+"ref": "B2-166",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 85
+},
+{
+"ref": "HI-6",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 85
+}
+],
+"DT224": [
+{
+"ref": "B2-167",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 45
+},
+{
+"ref": "HI-8",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 45
+}
+],
+"DT227": [
+{
+"ref": "B2-168",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 50
+},
+{
+"ref": "HI-9",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 50
+}
+],
+"LT007": [
+{
+"ref": "B2-171",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 350
+},
+{
+"ref": "HI-35",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 350
+}
+],
+"CH015": [
+{
+"ref": "B2-173",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 45
+},
+{
+"ref": "HI-25",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 45
+}
+],
+"CP088": [
+{
+"ref": "B2-174",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 25
+}
+],
+"MR037": [
+{
+"ref": "B2-175",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 55
+}
+],
+"MR038": [
+{
+"ref": "B2-176",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 90
+}
+],
+"MR039": [
+{
+"ref": "B2-177",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 60
+}
+],
+"MR040": [
+{
+"ref": "B2-178",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 50
+},
+{
+"ref": "MX-71",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 50
+}
+],
+"MR041": [
+{
+"ref": "B2-179",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 45
+}
+],
+"MR043": [
+{
+"ref": "B2-181",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 70
+},
+{
+"ref": "HI-17",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 70
+}
+],
+"MR044": [
+{
+"ref": "B2-182",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 175
+}
+],
+"MR045": [
+{
+"ref": "B2-183",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 90
+}
+],
+"MR046": [
+{
+"ref": "B2-184",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 60
+},
+{
+"ref": "MX-67",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 60
+}
+],
+"MR047": [
+{
+"ref": "B2-185",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 90
+}
+],
+"MR049": [
+{
+"ref": "B2-187",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 150
+},
+{
+"ref": "HI-50",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 150
+}
+],
+"CH054": [
+{
+"ref": "B2-188",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 20
+},
+{
+"ref": "HI-18",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH055": [
+{
+"ref": "B2-189",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 20
+},
+{
+"ref": "MX-84",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH056": [
+{
+"ref": "B2-190",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 25
+},
+{
+"ref": "MX-52",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH057": [
+{
+"ref": "B2-191",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 25
+},
+{
+"ref": "HI-43",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH058": [
+{
+"ref": "B2-192",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 20
+},
+{
+"ref": "MX-70",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH060": [
+{
+"ref": "B2-194",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 40
+}
+],
+"MR050": [
+{
+"ref": "B2-195",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 60
+}
+],
+"MR051": [
+{
+"ref": "B2-196",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 60
+}
+],
+"MR053": [
+{
+"ref": "B2-198",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 45
+}
+],
+"MR054": [
+{
+"ref": "B2-199",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 45
+}
+],
+"MR055": [
+{
+"ref": "B2-200",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 45
+},
+{
+"ref": "MX-74",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 45
+}
+],
+"MR056": [
+{
+"ref": "B2-201",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 60
+}
+],
+"MR057": [
+{
+"ref": "B2-202",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 45
+}
+],
+"MR058": [
+{
+"ref": "B2-203",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 45
+}
+],
+"MR059": [
+{
+"ref": "B2-204",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 45
+}
+],
+"MR060": [
+{
+"ref": "B2-205",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 45
+}
+],
+"MR062": [
+{
+"ref": "B2-207",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 80
+}
+],
+"MR063": [
+{
+"ref": "B2-208",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 60
+},
+{
+"ref": "HI-34",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 60
+}
+],
+"LT009": [
+{
+"ref": "B2-209",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 60
+},
+{
+"ref": "HI-20",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 60
+}
+],
+"LT010": [
+{
+"ref": "B2-210",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 65
+}
+],
+"LT012": [
+{
+"ref": "B2-212",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 15
+},
+{
+"ref": "HI-22",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 15
+}
+],
+"LT013": [
+{
+"ref": "B2-213",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 45
+},
+{
+"ref": "MX-89",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 45
+}
+],
+"LT014": [
+{
+"ref": "B2-214",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 60
+},
+{
+"ref": "HI-4",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 60
+}
+],
+"LT015": [
+{
+"ref": "B2-215",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 80
+}
+],
+"LT016": [
+{
+"ref": "B2-216",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 80
+},
+{
+"ref": "MX-69",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 80
+}
+],
+"LT017": [
+{
+"ref": "B2-217",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 70
+},
+{
+"ref": "MX-62",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 70
+}
+],
+"LT018": [
+{
+"ref": "B2-218",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 65
+},
+{
+"ref": "MX-66",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 65
+}
+],
+"LD010": [
+{
+"ref": "B2-219",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 90
+}
+],
+"LD011": [
+{
+"ref": "B2-220",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 250
+},
+{
+"ref": "HI-13",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 250
+}
+],
+"LD013": [
+{
+"ref": "B2-222",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 80
+},
+{
+"ref": "MX-57",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 80
+}
+],
+"LD014": [
+{
+"ref": "B2-223",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 60
+},
+{
+"ref": "HI-36",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 60
+}
+],
+"LD015": [
+{
+"ref": "B2-224",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 60
+},
+{
+"ref": "HI-21",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 60
+}
+],
+"LD016": [
+{
+"ref": "B2-225",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 80
+}
+],
+"LD018": [
+{
+"ref": "B2-227",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 80
+},
+{
+"ref": "MX-64",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 80
+}
+],
+"LD019": [
+{
+"ref": "B2-228",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 600
+},
+{
+"ref": "MX-55",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 600
+}
+],
+"LD020": [
+{
+"ref": "B2-229",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 150
+},
+{
+"ref": "MX-44",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 150
+}
+],
+"LD021": [
+{
+"ref": "B2-230",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 250
+},
+{
+"ref": "HI-45",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 250
+}
+],
+"TM065": [
+{
+"ref": "B2-231",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 150
+},
+{
+"ref": "HI-49",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 150
+}
+],
+"P010": [
+{
+"ref": "B2-232",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 80
+}
+],
+"DD011": [
+{
+"ref": "B2-233",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 75
+},
+{
+"ref": "MX-46",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 75
+}
+],
+"DD012": [
+{
+"ref": "B2-234",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 100
+},
+{
+"ref": "HI-37",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 100
+}
+],
+"DT225": [
+{
+"ref": "B2-235",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 220
+}
+],
+"DT226": [
+{
+"ref": "B2-236",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-19",
+"precio": 180
+},
+{
+"ref": "HI-32",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 180
+}
+],
+"RB015": [
+{
+"ref": "HI-1",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 75
+}
+],
+"CP007": [
+{
+"ref": "HI-2",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 15
+}
+],
+"CP052": [
+{
+"ref": "HI-5",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 15
+}
+],
+"GF080": [
+{
+"ref": "HI-7",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 55
+}
+],
+"GF135": [
+{
+"ref": "HI-11",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 50
+}
+],
+"RV027": [
+{
+"ref": "HI-12",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"463": [
+{
+"ref": "HI-14",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"RB018": [
+{
+"ref": "HI-16",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 60
+}
+],
+"RV032": [
+{
+"ref": "HI-19",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"FL097": [
+{
+"ref": "HI-23",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 35
+}
+],
+"506": [
+{
+"ref": "HI-24",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 35
+}
+],
+"FL051": [
+{
+"ref": "HI-26",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 35
+}
+],
+"PT029": [
+{
+"ref": "HI-27",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 120
+}
+],
+"GF004": [
+{
+"ref": "HI-28",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 50
+}
+],
+"PD033": [
+{
+"ref": "HI-29",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 150
+}
+],
+"FL053": [
+{
+"ref": "HI-31",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 35
+}
+],
+"MLT002": [
+{
+"ref": "HI-33",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 40
+}
+],
+"CP002": [
+{
+"ref": "HI-38",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 15
+}
+],
+"398": [
+{
+"ref": "HI-40",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"GF001": [
+{
+"ref": "HI-41",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 60
+}
+],
+"PT020": [
+{
+"ref": "HI-42",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 150
+}
+],
+"RB025": [
+{
+"ref": "HI-44",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 75
+}
+],
+"RV036": [
+{
+"ref": "HI-46",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"418": [
+{
+"ref": "HI-47",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"FL128": [
+{
+"ref": "HI-48",
+"vendedor": "Hilario",
+"fecha": "2026-10-20",
+"precio": 35
+}
+],
+"617": [
+{
+"ref": "LE-01",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 65
+}
+],
+"881": [
+{
+"ref": "LE-02",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 115
+}
+],
+"369": [
+{
+"ref": "LE-03",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 180
+}
+],
+"050": [
+{
+"ref": "LE-04",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 180
+}
+],
+"182": [
+{
+"ref": "LE-05",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 150
+}
+],
+"PD004": [
+{
+"ref": "LE-06",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 220
+}
+],
+"TM046": [
+{
+"ref": "LE-07",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 300
+}
+],
+"391": [
+{
+"ref": "LE-08",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 40
+}
+],
+"329": [
+{
+"ref": "LE-09",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 90
+}
+],
+"DT162": [
+{
+"ref": "LE-10",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 140
+}
+],
+"FL093": [
+{
+"ref": "LE-11",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 40
+}
+],
+"548": [
+{
+"ref": "LE-12",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 110
+}
+],
+"298": [
+{
+"ref": "LE-13",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 90
+}
+],
+"MR034": [
+{
+"ref": "LE-14",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 90
+}
+],
+"920": [
+{
+"ref": "LE-15",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 100
+}
+],
+"762": [
+{
+"ref": "LE-16",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 150
+}
+],
+"012": [
+{
+"ref": "LE-17",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 205
+}
+],
+"GF081": [
+{
+"ref": "LE-18",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 75
+}
+],
+"149": [
+{
+"ref": "LE-19",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 150
+}
+],
+"RV033": [
+{
+"ref": "LE-20",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 50
+}
+],
+"340": [
+{
+"ref": "LE-21",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 145
+}
+],
+"GF109": [
+{
+"ref": "LE-22",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 280
+}
+],
+"196": [
+{
+"ref": "LE-23",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 650
+}
+],
+"466": [
+{
+"ref": "LE-24",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 40
+}
+],
+"107": [
+{
+"ref": "LE-25",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 155
+}
+],
+"TM050": [
+{
+"ref": "LE-26",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 180
+}
+],
+"GF083": [
+{
+"ref": "LE-27",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 65
+}
+],
+"224": [
+{
+"ref": "LE-28",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 145
+}
+],
+"DT074": [
+{
+"ref": "LE-29",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 90
+}
+],
+"640": [
+{
+"ref": "LE-30",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 50
+}
+],
+"PT009": [
+{
+"ref": "LE-31",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 200
+}
+],
+"906": [
+{
+"ref": "LE-32",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 90
+}
+],
+"124": [
+{
+"ref": "LE-33",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 250
+}
+],
+"PD014": [
+{
+"ref": "LE-34",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 170
+}
+],
+"DT032": [
+{
+"ref": "LE-35",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 100
+}
+],
+"843": [
+{
+"ref": "LE-36",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 355
+}
+],
+"DT015": [
+{
+"ref": "LE-37",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 90
+}
+],
+"RB026": [
+{
+"ref": "LE-38",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 90
+}
+],
+"DT167": [
+{
+"ref": "LE-39",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 180
+}
+],
+"726": [
+{
+"ref": "LE-40",
+"vendedor": "Leo",
+"fecha": "2026-10-19",
+"precio": 95
+}
+],
+"TM012": [
+{
+"ref": "MX-41",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 150
+}
+],
+"FL057": [
+{
+"ref": "MX-42",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 35
+}
+],
+"571": [
+{
+"ref": "MX-43",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"PT053": [
+{
+"ref": "MX-45",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 150
+}
+],
+"GF052": [
+{
+"ref": "MX-47",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 35
+}
+],
+"790": [
+{
+"ref": "MX-48",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 80
+}
+],
+"RB008": [
+{
+"ref": "MX-49",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 75
+}
+],
+"PD011": [
+{
+"ref": "MX-50",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 90
+}
+],
+"FL077": [
+{
+"ref": "MX-53",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 35
+}
+],
+"GF131": [
+{
+"ref": "MX-54",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 45
+}
+],
+"886": [
+{
+"ref": "MX-56",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 85
+}
+],
+"RV018": [
+{
+"ref": "MX-58",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"DT102": [
+{
+"ref": "MX-59",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 70
+}
+],
+"FL114": [
+{
+"ref": "MX-60",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 35
+}
+],
+"CP004": [
+{
+"ref": "MX-61",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 15
+}
+],
+"RB024": [
+{
+"ref": "MX-63",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 75
+}
+],
+"487": [
+{
+"ref": "MX-65",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"RV011": [
+{
+"ref": "MX-68",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"719": [
+{
+"ref": "MX-72",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 75
+}
+],
+"DT113": [
+{
+"ref": "MX-73",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 80
+}
+],
+"DT214": [
+{
+"ref": "MX-75",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 60
+}
+],
+"RB043": [
+{
+"ref": "MX-76",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 75
+}
+],
+"MLT003": [
+{
+"ref": "MX-77",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 40
+}
+],
+"GF038": [
+{
+"ref": "MX-79",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 40
+}
+],
+"435": [
+{
+"ref": "MX-80",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"GF127": [
+{
+"ref": "MX-81",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 40
+}
+],
+"DT209": [
+{
+"ref": "MX-82",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 80
+}
+],
+"RV039": [
+{
+"ref": "MX-83",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CP003": [
+{
+"ref": "MX-85",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 15
+}
+],
+"PT015": [
+{
+"ref": "MX-86",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 100
+}
+],
+"462": [
+{
+"ref": "MX-87",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CP066": [
+{
+"ref": "MX-88",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 18
+}
+],
+"FL074": [
+{
+"ref": "MX-90",
+"vendedor": "Maxuel",
+"fecha": "2026-10-20",
+"precio": 35
+}
+],
+"123": [
+{
+"ref": "B2-237",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 190
+}
+],
+"144": [
+{
+"ref": "B2-238",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 149
+}
+],
+"001": [
+{
+"ref": "B2-239",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 120
+}
+],
+"691": [
+{
+"ref": "B2-240",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 100
+}
+],
+"024": [
+{
+"ref": "B2-241",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 155
+}
+],
+"717": [
+{
+"ref": "B2-242",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 90
+}
+],
+"146": [
+{
+"ref": "B2-243",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 75
+}
+],
+"143": [
+{
+"ref": "B2-244",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 150
+}
+],
+"215": [
+{
+"ref": "B2-245",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 220
+}
+],
+"061": [
+{
+"ref": "B2-246",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 250
+}
+],
+"112": [
+{
+"ref": "B2-247",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 249
+}
+],
+"081": [
+{
+"ref": "B2-248",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 170
+}
+],
+"DT035": [
+{
+"ref": "B2-249",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 180
+}
+],
+"344": [
+{
+"ref": "B2-250",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 40
+}
+],
+"208": [
+{
+"ref": "B2-251",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 170
+}
+],
+"798": [
+{
+"ref": "B2-254",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 120
+}
+],
+"079": [
+{
+"ref": "B2-255",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 55
+}
+],
+"809": [
+{
+"ref": "B2-256",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 95
+}
+],
+"DT017": [
+{
+"ref": "B2-257",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 75
+}
+],
+"759": [
+{
+"ref": "B2-258",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 80
+}
+],
+"763": [
+{
+"ref": "B2-259",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 100
+}
+],
+"814": [
+{
+"ref": "B2-260",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 70
+}
+],
+"706": [
+{
+"ref": "B2-261",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 219
+}
+],
+"141": [
+{
+"ref": "B2-262",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 190
+}
+],
+"031": [
+{
+"ref": "B2-263",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 140
+}
+],
+"009": [
+{
+"ref": "B2-264",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 140
+}
+],
+"128": [
+{
+"ref": "B2-265",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 200
+}
+],
+"010": [
+{
+"ref": "B2-266",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 130
+}
+],
+"890": [
+{
+"ref": "B2-267",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 90
+}
+],
+"127": [
+{
+"ref": "B2-268",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 75
+}
+],
+"033": [
+{
+"ref": "B2-269",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 75
+}
+],
+"078": [
+{
+"ref": "B2-270",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 90
+}
+],
+"011": [
+{
+"ref": "B2-271",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 250
+}
+],
+"099": [
+{
+"ref": "B2-272",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 155
+}
+],
+"896": [
+{
+"ref": "B2-273",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 75
+}
+],
+"006": [
+{
+"ref": "B2-274",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 80
+}
+],
+"108": [
+{
+"ref": "B2-275",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 170
+}
+],
+"014": [
+{
+"ref": "B2-276",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 210
+}
+],
+"781": [
+{
+"ref": "B2-277",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 40
+}
+],
+"806": [
+{
+"ref": "B2-278",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 220
+}
+],
+"792": [
+{
+"ref": "B2-279",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 70
+}
+],
+"803": [
+{
+"ref": "B2-281",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 150
+}
+],
+"102": [
+{
+"ref": "B2-282",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 80
+}
+],
+"758": [
+{
+"ref": "B2-283",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 115
+}
+],
+"812": [
+{
+"ref": "B2-284",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 90
+}
+],
+"722": [
+{
+"ref": "B2-285",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 75
+}
+],
+"DT096": [
+{
+"ref": "B2-286",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 110
+}
+],
+"GF140": [
+{
+"ref": "B2-252",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 90
+}
+],
+"727": [
+{
+"ref": "B2-253",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 100
+}
+],
+"TM056": [
+{
+"ref": "B2-280",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 170
+}
+],
+"CH061": [
+{
+"ref": "B2-287",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH062": [
+{
+"ref": "B2-288",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH063": [
+{
+"ref": "B2-289",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH064": [
+{
+"ref": "B2-290",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH065": [
+{
+"ref": "B2-291",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH066": [
+{
+"ref": "B2-292",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH067": [
+{
+"ref": "B2-293",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH068": [
+{
+"ref": "B2-294",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH069": [
+{
+"ref": "B2-295",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH070": [
+{
+"ref": "B2-296",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH071": [
+{
+"ref": "B2-297",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH072": [
+{
+"ref": "B2-298",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH073": [
+{
+"ref": "B2-299",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH074": [
+{
+"ref": "B2-300",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH075": [
+{
+"ref": "B2-301",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH076": [
+{
+"ref": "B2-302",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH077": [
+{
+"ref": "B2-303",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH078": [
+{
+"ref": "B2-304",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 15
+}
+],
+"CH079": [
+{
+"ref": "B2-305",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 60
+}
+],
+"CH080": [
+{
+"ref": "B2-306",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH081": [
+{
+"ref": "B2-307",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 35
+}
+],
+"CH082": [
+{
+"ref": "B2-308",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 35
+}
+],
+"CH083": [
+{
+"ref": "B2-309",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"CH084": [
+{
+"ref": "B2-310",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"CH085": [
+{
+"ref": "B2-311",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH086": [
+{
+"ref": "B2-312",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH087": [
+{
+"ref": "B2-313",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH088": [
+{
+"ref": "B2-314",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH089": [
+{
+"ref": "B2-315",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH090": [
+{
+"ref": "B2-316",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH091": [
+{
+"ref": "B2-317",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH092": [
+{
+"ref": "B2-318",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH093": [
+{
+"ref": "B2-319",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH094": [
+{
+"ref": "B2-320",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"CH095": [
+{
+"ref": "B2-321",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH096": [
+{
+"ref": "B2-322",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH097": [
+{
+"ref": "B2-323",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH098": [
+{
+"ref": "B2-324",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"CH099": [
+{
+"ref": "B2-325",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH100": [
+{
+"ref": "B2-326",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 60
+}
+],
+"CH101": [
+{
+"ref": "B2-327",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"CH102": [
+{
+"ref": "B2-328",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH103": [
+{
+"ref": "B2-329",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH104": [
+{
+"ref": "B2-330",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"CH105": [
+{
+"ref": "B2-331",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH106": [
+{
+"ref": "B2-332",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"CH107": [
+{
+"ref": "B2-333",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"CH108": [
+{
+"ref": "B2-334",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"CH109": [
+{
+"ref": "B2-335",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH111": [
+{
+"ref": "B2-336",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH112": [
+{
+"ref": "B2-337",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH113": [
+{
+"ref": "B2-338",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH114": [
+{
+"ref": "B2-339",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 60
+}
+],
+"CH115": [
+{
+"ref": "B2-340",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH116": [
+{
+"ref": "B2-341",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH117": [
+{
+"ref": "B2-342",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH118": [
+{
+"ref": "B2-343",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH119": [
+{
+"ref": "B2-344",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH120": [
+{
+"ref": "B2-345",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH121": [
+{
+"ref": "B2-346",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH122": [
+{
+"ref": "B2-347",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH123": [
+{
+"ref": "B2-348",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH124": [
+{
+"ref": "B2-349",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH125": [
+{
+"ref": "B2-350",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH126": [
+{
+"ref": "B2-351",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH127": [
+{
+"ref": "B2-352",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH128": [
+{
+"ref": "B2-353",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH129": [
+{
+"ref": "B2-354",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"CH130": [
+{
+"ref": "B2-355",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 60
+}
+],
+"CH131": [
+{
+"ref": "B2-356",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH132": [
+{
+"ref": "B2-357",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"CH133": [
+{
+"ref": "B2-358",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"CH134": [
+{
+"ref": "B2-359",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 20
+}
+],
+"CH135": [
+{
+"ref": "B2-360",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH136": [
+{
+"ref": "B2-361",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"CH137": [
+{
+"ref": "B2-362",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 40
+}
+],
+"CH138": [
+{
+"ref": "B2-363",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 40
+}
+],
+"CH139": [
+{
+"ref": "B2-364",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH140": [
+{
+"ref": "B2-365",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH141": [
+{
+"ref": "B2-366",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"CH142": [
+{
+"ref": "B2-367",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"CH143": [
+{
+"ref": "B2-368",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"CH144": [
+{
+"ref": "B2-369",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 15
+}
+],
+"CH145": [
+{
+"ref": "B2-370",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"CH146": [
+{
+"ref": "B2-371",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"CH147": [
+{
+"ref": "B2-372",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH148": [
+{
+"ref": "B2-373",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 25
+}
+],
+"CH149": [
+{
+"ref": "B2-374",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-20",
+"precio": 30
+}
+],
+"HA033": [
+{
+"ref": "B2-375",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"HA019": [
+{
+"ref": "B2-375",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"HA021": [
+{
+"ref": "B2-375",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"HA031": [
+{
+"ref": "B2-375",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"HA022": [
+{
+"ref": "B2-375",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"HA034": [
+{
+"ref": "B2-375",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"HA020": [
+{
+"ref": "B2-375",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"HA032": [
+{
+"ref": "B2-375",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"HA027": [
+{
+"ref": "B2-376",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"HA029": [
+{
+"ref": "B2-376",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"HA025": [
+{
+"ref": "B2-376",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"HA023": [
+{
+"ref": "B2-376",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"HA024": [
+{
+"ref": "B2-376",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"HA028": [
+{
+"ref": "B2-376",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"HA030": [
+{
+"ref": "B2-376",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"HA026": [
+{
+"ref": "B2-376",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"HA036": [
+{
+"ref": "B2-377",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 20
+}
+],
+"HA035": [
+{
+"ref": "B2-377",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 20
+}
+],
+"HA037": [
+{
+"ref": "B2-378",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 45
+}
+],
+"HA038": [
+{
+"ref": "B2-378",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 45
+}
+],
+"HA039": [
+{
+"ref": "B2-378",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 45
+}
+],
+"HA011": [
+{
+"ref": "B2-379",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 40
+}
+],
+"HA012": [
+{
+"ref": "B2-379",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 40
+}
+],
+"HA017": [
+{
+"ref": "B2-380",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 30
+}
+],
+"HA018": [
+{
+"ref": "B2-380",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 30
+}
+],
+"HA013": [
+{
+"ref": "B2-381",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 35
+}
+],
+"HA014": [
+{
+"ref": "B2-381",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 35
+}
+],
+"HA007": [
+{
+"ref": "B2-382",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 60
+}
+],
+"HA008": [
+{
+"ref": "B2-382",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 60
+}
+],
+"HA015": [
+{
+"ref": "B2-383",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 40
+}
+],
+"HA016": [
+{
+"ref": "B2-383",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 40
+}
+],
+"HA004": [
+{
+"ref": "B2-384",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 35
+}
+],
+"HA042": [
+{
+"ref": "B2-384",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 35
+}
+],
+"HA005": [
+{
+"ref": "B2-385",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 40
+}
+],
+"HA006": [
+{
+"ref": "B2-385",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 40
+}
+],
+"HA040": [
+{
+"ref": "B2-386",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 20
+}
+],
+"HA041": [
+{
+"ref": "B2-386",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 20
+}
+],
+"CH151": [
+{
+"ref": "B2-387",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 35
+}
+],
+"CH150": [
+{
+"ref": "B2-387",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 35
+}
+],
+"CH153": [
+{
+"ref": "B2-388",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"CH152": [
+{
+"ref": "B2-389",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 45
+}
+],
+"LD026": [
+{
+"ref": "B2-390",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 75
+}
+],
+"LD025": [
+{
+"ref": "B2-390",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 75
+}
+],
+"LD028": [
+{
+"ref": "B2-391",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 50
+}
+],
+"LD027": [
+{
+"ref": "B2-392",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 60
+}
+],
+"LD024": [
+{
+"ref": "B2-393",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 40
+}
+],
+"LD023": [
+{
+"ref": "B2-394",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 80
+}
+],
+"LD022": [
+{
+"ref": "B2-395",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 45
+}
+],
+"TB002": [
+{
+"ref": "B2-396",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 150
+}
+],
+"TB001": [
+{
+"ref": "B2-397",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 120
+}
+],
+"TM068": [
+{
+"ref": "B2-398",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 100
+}
+],
+"TM067": [
+{
+"ref": "B2-399",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 120
+}
+],
+"TM066": [
+{
+"ref": "B2-400",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 150
+}
+],
+"P019": [
+{
+"ref": "B2-401",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"P020": [
+{
+"ref": "B2-401",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"P018": [
+{
+"ref": "B2-402",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 90
+}
+],
+"P017": [
+{
+"ref": "B2-403",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 60
+}
+],
+"P016": [
+{
+"ref": "B2-404",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 30
+}
+],
+"P015": [
+{
+"ref": "B2-405",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 40
+}
+],
+"P014": [
+{
+"ref": "B2-406",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 30
+}
+],
+"P013": [
+{
+"ref": "B2-407",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 30
+}
+],
+"P011": [
+{
+"ref": "B2-408",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 50
+}
+],
+"P012": [
+{
+"ref": "B2-409",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-22",
+"precio": 20
+}
+],
+"106": [
+{
+"ref": "MX-91",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 80
+}
+],
+"RB009": [
+{
+"ref": "MX-92",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 120
+}
+],
+"801": [
+{
+"ref": "MX-93",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 60
+}
+],
+"RV015": [
+{
+"ref": "MX-94",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 90
+}
+],
+"FL133": [
+{
+"ref": "MX-95",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 40
+}
+],
+"220": [
+{
+"ref": "MX-96",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 85
+}
+],
+"511": [
+{
+"ref": "MX-97",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 35
+}
+],
+"CP026": [
+{
+"ref": "MX-98",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"CP033": [
+{
+"ref": "MX-99",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 15
+}
+],
+"FL158": [
+{
+"ref": "MX-100",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 40
+}
+],
+"TM039": [
+{
+"ref": "MX-101",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 400
+}
+],
+"TM034": [
+{
+"ref": "MX-102",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 110
+}
+],
+"DT141": [
+{
+"ref": "MX-103",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 95
+}
+],
+"DT144": [
+{
+"ref": "MX-104",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 100
+}
+],
+"875": [
+{
+"ref": "MX-105",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 50
+}
+],
+"LD009": [
+{
+"ref": "MX-106",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 180
+}
+],
+"GF060": [
+{
+"ref": "MX-107",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 50
+}
+],
+"312": [
+{
+"ref": "MX-108",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 90
+}
+],
+"MR026": [
+{
+"ref": "MX-109",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 90
+}
+],
+"GF088": [
+{
+"ref": "MX-110",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 100
+}
+],
+"PD031": [
+{
+"ref": "MX-111",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 220
+}
+],
+"756": [
+{
+"ref": "MX-112",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 90
+}
+],
+"CH031": [
+{
+"ref": "MX-113",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 30
+}
+],
+"PT041": [
+{
+"ref": "MX-114",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 160
+}
+],
+"CH001": [
+{
+"ref": "MX-115",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"DT013": [
+{
+"ref": "MX-116",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 90
+}
+],
+"858": [
+{
+"ref": "MX-117",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 90
+}
+],
+"PT040": [
+{
+"ref": "MX-118",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 160
+}
+],
+"GF077": [
+{
+"ref": "MX-119",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 55
+}
+],
+"690": [
+{
+"ref": "MX-120",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 65
+}
+],
+"GF130": [
+{
+"ref": "MX-121",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 40
+}
+],
+"CP006": [
+{
+"ref": "MX-122",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 15
+}
+],
+"MR028": [
+{
+"ref": "MX-123",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 60
+}
+],
+"364": [
+{
+"ref": "MX-124",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 70
+}
+],
+"PT034": [
+{
+"ref": "MX-125",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 180
+}
+],
+"704": [
+{
+"ref": "MX-126",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 90
+}
+],
+"TM035": [
+{
+"ref": "MX-127",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 450
+}
+],
+"TM025": [
+{
+"ref": "MX-128",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 160
+}
+],
+"CH049": [
+{
+"ref": "MX-129",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"FL082": [
+{
+"ref": "MX-130",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 30
+}
+],
+"456": [
+{
+"ref": "MX-131",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 30
+}
+],
+"CP045": [
+{
+"ref": "MX-132",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"CH009": [
+{
+"ref": "MX-133",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 25
+}
+],
+"DT181": [
+{
+"ref": "MX-134",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 140
+}
+],
+"869": [
+{
+"ref": "MX-135",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 130
+}
+],
+"087": [
+{
+"ref": "MX-136",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 90
+}
+],
+"FL043": [
+{
+"ref": "MX-137",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 40
+}
+],
+"125": [
+{
+"ref": "MX-138",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 115
+}
+],
+"RV016": [
+{
+"ref": "MX-139",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 60
+}
+],
+"RB002": [
+{
+"ref": "MX-140",
+"vendedor": "Maxuel",
+"fecha": "2026-10-22",
+"precio": 120
+}
+],
+"773": [
+{
+"ref": "B2-237",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 75
+}
+],
+"CH023": [
+{
+"ref": "B2-238",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 15
+}
+],
+"MR005": [
+{
+"ref": "B2-239",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 70
+}
+],
+"GF142": [
+{
+"ref": "B2-240",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 45
+}
+],
+"698": [
+{
+"ref": "B2-241",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 90
+}
+],
+"DT146": [
+{
+"ref": "B2-242",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 100
+}
+],
+"RV034": [
+{
+"ref": "B2-243",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 35
+}
+],
+"248": [
+{
+"ref": "B2-244",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 65
+}
+],
+"FL054": [
+{
+"ref": "B2-245",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 35
+}
+],
+"063": [
+{
+"ref": "B2-246",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 155
+}
+],
+"MR019": [
+{
+"ref": "B2-247",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 45
+}
+],
+"CP009": [
+{
+"ref": "B2-248",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 30
+}
+],
+"DT023": [
+{
+"ref": "B2-249",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 85
+}
+],
+"DT126": [
+{
+"ref": "B2-250",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 80
+}
+],
+"729": [
+{
+"ref": "B2-251",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 100
+}
+],
+"MLT004": [
+{
+"ref": "B2-252",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 60
+}
+],
+"FL148": [
+{
+"ref": "B2-253",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 40
+}
+],
+"035": [
+{
+"ref": "B2-254",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 230
+}
+],
+"MR033": [
+{
+"ref": "B2-255",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 70
+}
+],
+"599": [
+{
+"ref": "B2-256",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 20
+}
+],
+"CH046": [
+{
+"ref": "B2-257",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 35
+}
+],
+"GF089": [
+{
+"ref": "B2-258",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 200
+}
+],
+"678": [
+{
+"ref": "B2-259",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 70
+}
+],
+"PT027": [
+{
+"ref": "B2-260",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 170
+}
+],
+"PT033": [
+{
+"ref": "B2-261",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 110
+}
+],
+"PD037": [
+{
+"ref": "B2-262",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 200
+}
+],
+"HA001": [
+{
+"ref": "B2-263",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 40
+}
+],
+"FL060": [
+{
+"ref": "B2-264",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 50
+}
+],
+"731": [
+{
+"ref": "B2-265",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 20
+}
+],
+"GF078": [
+{
+"ref": "B2-266",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 65
+}
+],
+"CP079": [
+{
+"ref": "B2-267",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 15
+}
+],
+"592": [
+{
+"ref": "B2-268",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 25
+}
+],
+"HA002": [
+{
+"ref": "B2-269",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 30
+}
+],
+"TM038": [
+{
+"ref": "B2-270",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 200
+}
+],
+"RB052": [
+{
+"ref": "B2-271",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 90
+}
+],
+"RV021": [
+{
+"ref": "B2-272",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 45
+}
+],
+"MLT005": [
+{
+"ref": "B2-273",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 100
+}
+],
+"RB037": [
+{
+"ref": "B2-274",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 90
+}
+],
+"CH044": [
+{
+"ref": "B2-275",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 30
+}
+],
+"TM015": [
+{
+"ref": "B2-277",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 150
+}
+],
+"RB053": [
+{
+"ref": "B2-278",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 90
+}
+],
+"037": [
+{
+"ref": "B2-280",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 230
+}
+],
+"CP008": [
+{
+"ref": "B2-281",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 15
+}
+],
+"512": [
+{
+"ref": "B2-282",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 75
+}
+],
+"RV022": [
+{
+"ref": "B2-283",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 55
+}
+],
+"629": [
+{
+"ref": "B2-284",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 30
+}
+],
+"072": [
+{
+"ref": "B2-285",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 35
+}
+],
+"375": [
+{
+"ref": "B2-286",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-10-21",
+"precio": 30
+}
+]
+},
+"nota_refs": "Ojo: B2-237 a B2-286 están repetidas: las usa un pack del 20-oct y también el kit 1 del 21-oct (Marketplace_Bunker2_kit1_21oct). Para saber cuál es, mirar el código de la pieza."
+}
