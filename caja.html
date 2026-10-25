@@ -541,11 +541,14 @@ const CATS = {
   renta:     {n: 'Renta', i: '🏠', fijo: 1284},
   super:     {n: 'Súper', i: '🛒'},
   salomon:   {n: 'Pago Salomón', i: '👷', fijo: 300},
+  adelanto:  {n: 'Adelanto Salomón', i: '💵'},
   marketing: {n: 'Marketing', i: '📣', fijo: 100},
   maxuel:    {n: 'Pago Maxuel', i: '🧑‍🔧', fijo: 15},
   otros:     {n: 'Otros', i: '🧾'}
 };
 const SAL_DIA = 20; // $300 netos por quincena = $20 por día
+// adelantos a la quincena de Salomón (gastos cat 'adelanto' con periodo AAAA-MM-Q1/Q2): se restan del neto de esa quincena
+const adelantoQ = p => Math.round(datos.gastos.filter(g => !g.borrado && esGasto(g) && g.cat === 'adelanto' && g.periodo === p).reduce((a, g) => a + (+g.monto || 0), 0) * 100) / 100;
 const MKT_SEM = 100, MKT_DIA = 100 / 6, MKT_INICIO = '2026-09-14'; // marketing: $20 por día, lunes a sábado, se paga el 30 de cada mes
 function diasMkt(p, hasta){ // días lun-sáb trabajados en el mes p (AAAA-MM) hasta la fecha "hasta" (o hasta el 30)
   const [y, m] = p.split('-').map(Number), fin = Math.min(30, ultimoDia(y, m-1));
@@ -568,7 +571,7 @@ function rangoQuin(p){ const [y, m] = p.slice(0,7).split('-').map(Number), q1 = 
 function perLbl(cat, p){
   if (!p) return '';
   if (cat === 'renta') { const [y, m] = p.split('-').map(Number); return `${MESES_L[m-1]} ${y}`; }
-  if (cat === 'salomon') { const r = rangoQuin(p); return `${r.a === 1 ? '1ª' : '2ª'} quincena de ${MESES[r.m]} (${r.a} al ${r.b})`; }
+  if (cat === 'salomon' || cat === 'adelanto') { const r = rangoQuin(p); return `${r.a === 1 ? '1ª' : '2ª'} quincena de ${MESES[r.m]} (${r.a} al ${r.b})`; }
   if (cat === 'marketing' && p.length === 7) { const [y, m] = p.split('-').map(Number); return `marketing de ${MESES_L[m-1]} ${y}`; }
   if (cat === 'marketing') { const a = new Date(p + 'T12:00'), b = new Date(a); b.setDate(b.getDate() + 6); return `semana del ${a.getDate()} ${MESES[a.getMonth()]} al ${b.getDate()} ${MESES[b.getMonth()]}`; }
   return p;
@@ -661,10 +664,10 @@ $('gCats').onclick = e => { const b = e.target.closest('button'); if (b) { gCat 
 function opciones(cat){
   const hoy = new Date(), o = [];
   if (cat === 'renta') for (let i = -2; i <= 1; i++) { const d = new Date(hoy.getFullYear(), hoy.getMonth() + i, 1); o.push(perRenta(d)); }
-  if (cat === 'salomon') for (let i = -1; i <= 0; i++) { const d = new Date(hoy.getFullYear(), hoy.getMonth() + i, 1); o.push(mesKey(d) + '-Q1', mesKey(d) + '-Q2'); }
+  if (cat === 'salomon' || cat === 'adelanto') for (let i = -1; i <= 0; i++) { const d = new Date(hoy.getFullYear(), hoy.getMonth() + i, 1); o.push(mesKey(d) + '-Q1', mesKey(d) + '-Q2'); }
   if (cat === 'marketing') for (let i = -2; i <= 0; i++) { const d = new Date(hoy.getFullYear(), hoy.getMonth() + i, 1); o.push(perRenta(d)); }
-  const act = cat === 'salomon' ? perQuin(hoy) : perRenta(hoy);
-  return o.map(p => `<option value="${p}" ${p === act ? 'selected' : ''}>${perLbl(cat, p)}${pagado(cat, p) ? ' ✓ pagado' : ''}</option>`).join('');
+  const act = (cat === 'salomon' || cat === 'adelanto') ? perQuin(hoy) : perRenta(hoy);
+  return o.map(p => `<option value="${p}" ${p === act ? 'selected' : ''}>${perLbl(cat, p)}${cat !== 'adelanto' && pagado(cat, p) ? ' ✓ pagado' : ''}</option>`).join('');
 }
 function formGasto(){
   if ($('gVolver')) $('gVolver').style.display = gCat === 'otros' ? 'none' : 'inline';
@@ -677,6 +680,7 @@ function formGasto(){
   if (gCat === 'otros') h = `<label for="gCon">¿Qué gasto es?</label><input id="gCon" placeholder="Súper, flete, gasolina, compra de lote…">` + `<label for="gDet">Detalles</label><input id="gDet" placeholder="Opcional">` + monto('Monto ($)');
   if (gCat === 'renta') h = `<label for="gPer">Renta del mes</label><select id="gPer">${opciones('renta')}</select>` + monto('Monto ($)', c.fijo) + `<div class="hint" id="gHint"></div>`;
   if (gCat === 'marketing') h = `<label for="gPer">Mes</label><select id="gPer">${opciones('marketing')}</select><label for="gDias2">Días trabajados (lunes a sábado)</label><input id="gDias2" inputmode="numeric">` + monto('Monto ($)') + `<div class="hint" id="gHint"></div>`;
+  if (gCat === 'adelanto') h = `<label for="gPer">¿De qué quincena se adelanta?</label><select id="gPer">${opciones('adelanto')}</select>` + monto('Monto del adelanto ($)') + `<div class="hint" id="gHint"></div>`;
   if (gCat === 'salomon') h = `<label for="gPer">Quincena</label><select id="gPer">${opciones('salomon')}</select>
     <label>Toca el día que Salomón falló</label><div class="dias" id="gDias"></div>
     <label for="gMonto">Neto a pagar ($)</label><input id="gMonto" inputmode="decimal">
@@ -694,11 +698,12 @@ function extrasGasto(){
     for (let d = r.a; d <= r.b; d++) ds.push(`<button data-d="${d}" class="${fallos.has(d) ? 'f' : ''}">${d}</button>`);
     $('gDias').innerHTML = ds.join('');
     $('gDias').onclick = e => { const b = e.target.closest('button'); if (!b) return; const d = +b.dataset.d; fallos.has(d) ? fallos.delete(d) : fallos.add(d); extrasGasto(); };
-    const neto = Math.max(0, CATS.salomon.fijo - SAL_DIA * fallos.size);
+    const adl = adelantoQ(p), neto = Math.max(0, CATS.salomon.fijo - SAL_DIA * fallos.size - adl);
     $('gMonto').value = neto;
-    $('gHint').textContent = `$300 netos por quincena, $20 por día.` + (fallos.size ? ` Faltó ${fallos.size} día${fallos.size > 1 ? 's' : ''}: se descuentan ${money(SAL_DIA * fallos.size)}.` : '') + (pagado('salomon', p) ? ' Esta quincena ya está pagada.' : '');
+    $('gHint').textContent = `$300 netos por quincena, $20 por día.` + (fallos.size ? ` Faltó ${fallos.size} día${fallos.size > 1 ? 's' : ''}: se descuentan ${money(SAL_DIA * fallos.size)}.` : '') + (adl ? ` Ya se le adelantaron ${money(adl)}: se le paga ${money(neto)}.` : '') + (pagado('salomon', p) ? ' Esta quincena ya está pagada.' : '');
     $('gHint').className = pagado('salomon', p) ? 'hint warn' : 'hint';
   }
+  if (gCat === 'adelanto') { const adl = adelantoQ(p); $('gHint').textContent = `Se descuenta de esa quincena: si no falta ningún día se le pagaría ${money(Math.max(0, CATS.salomon.fijo - adl - (num($('gMonto').value) || 0)))}.` + (adl ? ` Ya lleva ${money(adl)} adelantado.` : ''); $('gMonto').oninput = () => extrasGasto(); }
   if (gCat === 'marketing') {
     const dias = diasMkt(p), van = diasMkt(p, new Date());
     if (!$('gDias2').dataset.toc) $('gDias2').value = van;
@@ -715,7 +720,7 @@ $('gBtn').onclick = async () => {
   let concepto = gCat === 'maxuel' ? `Pago Maxuel · ${parseInt($('gDiasMx').value, 10)} día(s) de 8 a 2` : gCat === 'otros' ? $('gCon').value.trim() : c.n + (per ? ' · ' + perLbl(gCat, per) : '') + (gCat === 'lotes' && det ? ' · ' + det : '');
   if (gCat === 'otros' && !concepto) return alert('Escribe en qué se gastó.');
   if (!(monto > 0)) return alert('Escribe el monto.');
-  if (per && pagado(gCat, per) && !confirm(`${perLbl(gCat, per)} ya está pagado. ¿Registrar otro pago?`)) return;
+  if (per && gCat !== 'adelanto' && pagado(gCat, per) && !confirm(`${perLbl(gCat, per)} ya está pagado. ¿Registrar otro pago?`)) return;
   $('gBtn').disabled = true;
   try {
     const f = fechaParaMes(), g = {tipo: 'gasto', cat: gCat, concepto, detalle: gCat === 'lotes' ? '' : det, monto, fecha: f.toISOString(), mes: mesKey(f)};
@@ -736,7 +741,8 @@ function pintarFijos(){
   let h = fila('renta', `Renta de ${MESES_L[hoy.getMonth()]} · ${money(CATS.renta.fijo)}`,
     rOk ? '✓ Pagada' : falta > 0 ? `Vence el ${vr} (faltan ${falta} días)` : falta === 0 ? 'Vence HOY' : `Atrasada desde el ${vr}`, rOk ? 'ok' : falta < 0 ? 'late' : 'pend');
   const pq = perQuin(hoy), rq = rangoQuin(pq), qOk = pagado('salomon', pq);
-  h += fila('salomon', `Salomón · ${rq.a === 1 ? '1ª' : '2ª'} quincena`, qOk ? '✓ Pagada' : `Se paga el ${rq.b}`, qOk ? 'ok' : 'pend');
+  const qAd = adelantoQ(pq);
+  h += fila('salomon', `Salomón · ${rq.a === 1 ? '1ª' : '2ª'} quincena`, qOk ? '✓ Pagada' : `Se paga el ${rq.b}` + (qAd ? ` · adelanto ${money(qAd)}, se le paga ${money(Math.max(0, CATS.salomon.fijo - qAd))}` : ''), qOk ? 'ok' : 'pend');
   const pm = perRenta(hoy), mOk = pagado('marketing', pm), mVan = diasMkt(pm, hoy), mTot = diasMkt(pm);
   h += fila('marketing', `Marketing de ${MESES_L[hoy.getMonth()]} · $${MKT_SEM}/semana`, mOk ? '✓ Pagado' : `Van ${mVan} días = ${money(mVan * MKT_DIA)} · el 30 serían ${money(mTot * MKT_DIA)}`, mOk ? 'ok' : 'pend');
   const lu = lunes(hoy), mxSem = r2(datos.gastos.filter(g => !g.borrado && esGasto(g) && g.cat === 'maxuel' && new Date(g.fecha) >= lu).reduce((s, g) => s + (+g.monto || 0), 0));
