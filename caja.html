@@ -673,7 +673,7 @@ function opciones(cat){
   if (cat === 'renta') for (let i = -2; i <= 1; i++) { const d = new Date(hoy.getFullYear(), hoy.getMonth() + i, 1); o.push(perRenta(d)); }
   if (cat === 'salomon' || cat === 'adelanto') for (let i = -1; i <= 0; i++) { const d = new Date(hoy.getFullYear(), hoy.getMonth() + i, 1); o.push(mesKey(d) + '-Q1', mesKey(d) + '-Q2'); }
   if (cat === 'marketing') for (let i = -2; i <= 0; i++) { const d = new Date(hoy.getFullYear(), hoy.getMonth() + i, 1); o.push(perRenta(d)); }
-  if ['bunker1','bunker2','bunker3'].includes(cat) for (let i = 2; i >= 0; i--) { const d = new Date(hoy); d.setDate(d.getDate() - 7 * i); o.push(perSemana(d)); }
+  if (['bunker1','bunker2','bunker3'].includes(cat)) for (let i = 2; i >= 0; i--) { const d = new Date(hoy); d.setDate(d.getDate() - 7 * i); o.push(perSemana(d)); }
   if (cat === 'claude') for (let i = -1; i <= 1; i++) { const d = new Date(hoy.getFullYear(), hoy.getMonth() + i, 1); o.push(perRenta(d)); }
   const act = (cat === 'salomon' || cat === 'adelanto') ? perQuin(hoy) : ['bunker1','bunker2','bunker3'].includes(cat) ? perSemana(hoy) : perRenta(hoy);
   return o.map(p => `<option value="${p}" ${p === act ? 'selected' : ''}>${perLbl(cat, p)}${cat !== 'adelanto' && pagado(cat, p) ? ' ✓ pagado' : ''}</option>`).join('');
@@ -689,7 +689,7 @@ function formGasto(){
   if (gCat === 'otros') h = `<label for="gCon">¿Qué gasto es?</label><input id="gCon" placeholder="Súper, flete, gasolina, compra de lote…">` + `<label for="gDet">Detalles</label><input id="gDet" placeholder="Opcional">` + monto('Monto ($)');
   if (gCat === 'renta') h = `<label for="gPer">Renta del mes</label><select id="gPer">${opciones('renta')}</select>` + monto('Monto ($)', c.fijo) + `<div class="hint" id="gHint"></div>`;
   if (gCat === 'marketing') h = `<label for="gPer">Mes</label><select id="gPer">${opciones('marketing')}</select><label for="gDias2">Días trabajados (lunes a sábado)</label><input id="gDias2" inputmode="numeric">` + monto('Monto ($)') + `<div class="hint" id="gHint"></div>`;
-  if ['bunker1','bunker2','bunker3'].includes(gCat) h = `<label for="gPer">Semana</label><select id="gPer">${opciones(gCat)}</select>` + monto('Monto ($)', CATS[gCat].fijo) + `<div class="hint" id="gHint"></div>`;
+  if (['bunker1','bunker2','bunker3'].includes(gCat)) h = `<label for="gPer">Semana</label><select id="gPer">${opciones(gCat)}</select>` + monto('Monto ($)', CATS[gCat].fijo) + `<div class="hint" id="gHint"></div>`;
   if (gCat === 'claude') h = `<label for="gPer">Mes</label><select id="gPer">${opciones('claude')}</select>` + monto('Monto ($)', CATS.claude.fijo) + `<div class="hint" id="gHint"></div>`;
   if (gCat === 'hilario') h = monto('Monto ($)') + `<label for="gDet">Detalle</label><input id="gDet" placeholder="Semana, publicaciones, comisión…">`;
   if (gCat === 'adelanto') h = `<label for="gPer">¿De qué quincena se adelanta?</label><select id="gPer">${opciones('adelanto')}</select>` + monto('Monto del adelanto ($)') + `<div class="hint" id="gHint"></div>`;
@@ -715,7 +715,7 @@ function extrasGasto(){
     $('gHint').textContent = `$300 netos por quincena, $20 por día.` + (fallos.size ? ` Faltó ${fallos.size} día${fallos.size > 1 ? 's' : ''}: se descuentan ${money(SAL_DIA * fallos.size)}.` : '') + (adl ? ` Ya se le adelantaron ${money(adl)}: se le paga ${money(neto)}.` : '') + (pagado('salomon', p) ? ' Esta quincena ya está pagada.' : '');
     $('gHint').className = pagado('salomon', p) ? 'hint warn' : 'hint';
   }
-  if ['bunker1','bunker2','bunker3'].includes(gCat) { $('gHint').textContent = `${money(CATS[gCat].fijo)} por semana.` + (pagado(gCat, p) ? ' Esta semana ya está pagada.' : ''); $('gHint').className = pagado(gCat, p) ? 'hint warn' : 'hint'; }
+  if (['bunker1','bunker2','bunker3'].includes(gCat)) { $('gHint').textContent = `${money(CATS[gCat].fijo)} por semana.` + (pagado(gCat, p) ? ' Esta semana ya está pagada.' : ''); $('gHint').className = pagado(gCat, p) ? 'hint warn' : 'hint'; }
   if (gCat === 'claude') { const [y, m] = p.split('-').map(Number); $('gHint').textContent = `Se paga el 17 de ${MESES_L[m-1]}.` + (pagado('claude', p) ? ' Ya está pagado.' : ''); $('gHint').className = pagado('claude', p) ? 'hint warn' : 'hint'; }
   if (gCat === 'adelanto') { const adl = adelantoQ(p); $('gHint').textContent = `Se descuenta de esa quincena: si no falta ningún día se le pagaría ${money(Math.max(0, CATS.salomon.fijo - adl - (num($('gMonto').value) || 0)))}.` + (adl ? ` Ya lleva ${money(adl)} adelantado.` : ''); $('gMonto').oninput = () => extrasGasto(); }
   if (gCat === 'marketing') {
