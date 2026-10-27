@@ -164,9 +164,11 @@ main,nav{display:none}body.dentro main{display:block}body.dentro nav{display:fle
       <input id="vComOtro" inputmode="decimal" placeholder="¿Cuánto se le paga? ($)" autocomplete="off" style="display:none;margin-top:6px">
       <div class="hint" id="vComHint">Revendedor 10% · vendedor de planta siempre 2%.</div>
       <label>Forma de pago</label><div class="pagos" id="vPago"><button type="button" data-p="Efectivo">💵 Efectivo</button><button type="button" data-p="Transferencia">🏦 Transferencia</button><button type="button" data-p="Yappy">📱 Yappy</button></div>
+      <label>¿Cómo llegó el cliente?</label><div class="pagos" id="vOrig"><button type="button" data-o="Instagram">📸 Instagram</button><button type="button" data-o="Facebook">👍 Facebook</button><button type="button" data-o="TikTok">🎵 TikTok</button><button type="button" data-o="Marketplace">🛒 Marketplace</button><button type="button" data-o="WhatsApp">💬 WhatsApp</button><button type="button" data-o="Pasó al búnker">🚶 Pasó al búnker</button><button type="button" data-o="Recomendado">🤝 Recomendado</button></div>
       <label for="vObs">Observación (no sale en el recibo)</label><textarea id="vObs" rows="2" placeholder="Con detalle, cliente de taller…"></textarea>
       <button class="btn" id="vBtn">Guardar venta y hacer recibo</button>
     </div>
+    <div class="card" id="hoyCard"><h2>💵 Caja de hoy <span class="res" id="hoyFecha"></span></h2><div id="hoyBox"></div><div class="hint">Se reinicia solo cada día: cuenta únicamente lo registrado hoy.</div></div>
     <div class="card"><h2 id="vTit">Ventas del mes</h2><ul class="list" id="vList"></ul></div>
     <details class="card adm plega" id="pCard"><summary><h2>💲 Correcciones de precio</h2><span><span class="res" id="pCnt"></span> <span class="flecha">▾</span></span></summary>
       <div id="pList"><div class="ob">Sin propuestas pendientes.</div></div>
@@ -502,6 +504,7 @@ $('vBtn').onclick = async () => {
   }
   if (!vend) return alert('Elige quién lo vendió (o escribe el nombre del nuevo revendedor).');
   if (!vPago) return alert('Elige la forma de pago: Efectivo, Transferencia o Yappy.');
+  if (!vOrig && !confirm('No marcaste cómo llegó el cliente (Instagram, Facebook, TikTok…). ¿Guardar igual?')) return;
   if (!$('vCli').value.trim() && !confirm('No escribiste el nombre del cliente. ¿Guardar igual?')) return;
   $('vBtn').disabled = true; $('vAdd').disabled = true;
   const hechas = [];
@@ -512,6 +515,7 @@ $('vBtn').onclick = async () => {
     for (const p of piezas) {
       const v = {...p, obs, cliente, tel, fecha: f.toISOString(), mes: mesKey(f), marcado: !p.sinInventario, pago: vPago, ...datosVend(vend, p.total, comElegida, p.codigo)};
       if (grupo) v.grupo = grupo;
+      if (vOrig) v.origen = vOrig;
       const ref = await guardar('ventas', v);
       if (!p.sinInventario) await marcarVendido(p.codigo, p.cantidad);
       hechas.push({...v, _id: ref.id, por: yo});
@@ -519,7 +523,7 @@ $('vBtn').onclick = async () => {
     const rec = juntarRecibo(hechas);
     avisarVenta(rec);
     carro = []; pintarCarro(); limpiarPieza();
-    ['vObs','vCli','vTel'].forEach(i => $(i).value = ''); $('vVend').value = rol === 'vendedor' ? PLANTA : ''; $('vCom').value = ''; pintarCom(); $('vVendOtro').value = ''; $('vVendOtro').style.display = 'none'; vPago = ''; $('vPago').querySelectorAll('button').forEach(x => x.classList.remove('on'));
+    ['vObs','vCli','vTel'].forEach(i => $(i).value = ''); $('vVend').value = rol === 'vendedor' ? PLANTA : ''; $('vCom').value = ''; pintarCom(); $('vVendOtro').value = ''; $('vVendOtro').style.display = 'none'; vPago = ''; $('vPago').querySelectorAll('button').forEach(x => x.classList.remove('on')); vOrig = ''; $('vOrig').querySelectorAll('button').forEach(x => x.classList.remove('on'));
     abrirRecibo(rec);
     $('vHint').textContent = `Venta guardada (${hechas.length} pieza${hechas.length === 1 ? '' : 's'}).`;
   } catch(e) {
@@ -615,7 +619,7 @@ function pintarVend(){
 }
 $('vVend').onchange = () => { $('vVendOtro').style.display = $('vVend').value === '__otro' ? 'block' : 'none'; if ($('vVend').value === '__otro') $('vVendOtro').focus(); };
 function guardarNombre(n){ try { const l = JSON.parse(localStorage.getItem('rbVend') || '[]'); if (!l.includes(n)) localStorage.setItem('rbVend', JSON.stringify([...l, n])); } catch(e) {} }
-let vPago = '';
+let vPago = '', vOrig = '';
 function pintarCom(){
   const v = $('vCom').value;
   $('vComB').querySelectorAll('button').forEach(x => x.classList.toggle('on', x.dataset.v === v));
@@ -623,6 +627,7 @@ function pintarCom(){
   $('vComHint').textContent = v === '0' ? 'Esta venta no paga comisión.' : v === 'otro' ? 'Escribe cuánto se le paga en dólares por esta venta.' : 'Revendedor 10% · vendedor de planta siempre 2%.';
 }
 $('vComB').onclick = e => { const b = e.target.closest('button'); if (!b) return; $('vCom').value = b.dataset.v; pintarCom(); if (b.dataset.v === 'otro') $('vComOtro').focus(); };
+$('vOrig').onclick = e => { const b = e.target.closest('button'); if (!b) return; vOrig = vOrig === b.dataset.o ? '' : b.dataset.o; $('vOrig').querySelectorAll('button').forEach(x => x.classList.toggle('on', x.dataset.o === vOrig)); };
 $('vPago').onclick = e => { const b = e.target.closest('button'); if (!b) return; vPago = b.dataset.p; $('vPago').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); };
 const datosVend = (nombre, total, pct, cod) => { let p = (pct === undefined || pct === null || pct === '') ? pctDe(nombre) : +pct; if (/^EN\d/i.test(String(cod || ''))) p = nombre === PLANTA ? 2 : 0; /* tapas Toyota: solo planta 2% */ return {vendedor: nombre, comPct: p, comision: r2((+total || 0) * p / 100)}; };
 const pctTxt = p => { const u = [...new Set(p.ventas.map(v => v.comPct ?? pctDe(p.n)))]; return u.length === 1 ? u[0] + '%' : 'varios %'; };
@@ -938,12 +943,29 @@ function item(r, papelera){
     : (r._t === 'ventas' ? `<button data-a="rec" ${k}>Recibo</button>` : '') + (puedoTocar(r) ? `${r._t === 'ventas' ? `<button data-a="tot" ${k}>Cambiar total</button><button data-a="vp" ${k}>Vendedor y pago</button>${rol !== 'vendedor' && r.vendedor ? `<button data-a="com" ${k}>Comisión</button>` : ''}` : ''}<button data-a="del" ${k}>Borrar</button>` : '');
   const editado = (r.hist||[]).length > 1 ? '<span class="tag">editado</span>' : '';
   const ico = r._t === 'gastos' ? (r.tipo === 'abono' ? '↩' : r.tipo === 'deuda' ? '⚑' : (CATS[r.cat] || CATS.otros).i) : '—';
-  const extra = [r.cliente ? 'Cliente: ' + r.cliente : '', r.cantidad > 1 ? r.cantidad + ' unidades' : '', r.vendedor ? 'Vendió: ' + r.vendedor + (rol !== 'vendedor' && r.comision != null ? ` (${r.comPct}% = ${money(r.comision)})` : '') : '', r.pago || '', r.fallos && r.fallos.length ? 'Falló: día ' + r.fallos.join(', ') : ''].filter(Boolean).join(' · ');
+  const extra = [r.cliente ? 'Cliente: ' + r.cliente : '', r.cantidad > 1 ? r.cantidad + ' unidades' : '', r.vendedor ? 'Vendió: ' + r.vendedor + (rol !== 'vendedor' && r.comision != null ? ` (${r.comPct}% = ${money(r.comision)})` : '') : '', r.pago || '', r.origen ? 'Llegó por: ' + r.origen : '', r.fallos && r.fallos.length ? 'Falló: día ' + r.fallos.join(', ') : ''].filter(Boolean).join(' · ');
   return `<li><span class="code">${esc(r.codigo || ico)}</span>
     <div><div class="nm">${esc(r.nombre || r.concepto)}${editado}${r.sinInventario ? '<span class="tag">sin inventario</span>' : ''}</div>${extra ? `<div class="ob">${esc(extra)}</div>` : ''}${r.obs || r.detalle ? `<div class="ob">${esc(r.obs || r.detalle)}</div>` : ''}
     <div class="who">${fechaCorta(r.fecha)} · ${esc(quien(r.por))}${papelera && r.borradoPor ? ' · lo borró ' + esc(quien(r.borradoPor)) : ''}</div></div>
     <span class="amt">${money(r.total ?? r.monto)}</span><div class="acts">${acts}</div></li>`;
 }
+function pintarHoy(){
+  const hoy = new Date(), es = x => x && new Date(x).toDateString() === hoy.toDateString();
+  const vs = datos.ventas.filter(v => !v.borrado && String(v.fecha) >= VENTAS_DESDE && es(v.fecha));
+  const gs = datos.gastos.filter(g => !g.borrado && es(g.fecha) && (esGasto(g) || g.tipo === 'abono'));
+  const P = {Efectivo: [0, 0], Yappy: [0, 0], Transferencia: [0, 0]};
+  vs.forEach(v => { const k = v.pago || 'Sin indicar'; P[k] = P[k] || [0, 0]; P[k][0] = r2(P[k][0] + (+v.total || 0)); P[k][1]++; });
+  const tv = r2(vs.reduce((a, v) => a + (+v.total || 0), 0)), tg = r2(gs.reduce((a, g) => a + (+g.monto || 0), 0));
+  const ic = {Efectivo: '💵', Yappy: '📱', Transferencia: '🏦', 'Sin indicar': '❔'};
+  const fila = (l, m, b) => `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(128,128,128,.2)${b ? ';font-weight:700' : ''}"><span>${l}</span><span>${m}</span></div>`;
+  let h = Object.entries(P).map(([k, [m, n]]) => fila(`${ic[k] || '•'} ${k} <small>(${n} venta${n === 1 ? '' : 's'})</small>`, money(m))).join('');
+  h += fila('Total vendido hoy', money(tv), true);
+  h += fila(`🧾 Gastos y abonos de hoy <small>(${gs.length})</small>`, '−' + money(tg));
+  h += `<div style="margin-top:10px;padding:10px;border-radius:10px;background:rgba(255,196,0,.18);font-weight:700;display:flex;justify-content:space-between"><span>💵 Efectivo que debe haber</span><span>${money(r2(P.Efectivo[0] - tg))}</span></div><div class="hint">Efectivo vendido hoy menos los gastos y abonos de hoy (si se pagaron en efectivo). Yappy y transferencias van al banco.</div>`;
+  $('hoyBox').innerHTML = h; $('hoyCard').style.display = rol === 'vendedor' ? 'none' : '';
+  $('hoyFecha').textContent = hoy.toLocaleDateString('es-PA', {weekday: 'long', day: 'numeric', month: 'long'});
+}
+setInterval(() => { try { if ($('hoyBox') && datos && datos.ventas) pintarHoy(); } catch(e) {} }, 60000);
 function pintar(){
   const k = mesKey(cur), ml = cur.toLocaleDateString('es-PA',{month:'long',year:'numeric'});
   $('mesLbl').textContent = ml.charAt(0).toUpperCase() + ml.slice(1);
@@ -960,6 +982,7 @@ function pintar(){
   $('tNm').innerHTML = `Ganancia de ${mNom} (ventas − gastos): ${money(tq)}`;
   $('tGbox').className = (mano < 0 ? 'neg' : 'g') + ' no-vend';
   $('vTit').textContent = `Ventas del mes (${vm.length})`;
+  pintarHoy();
   $('vList').innerHTML = vm.length ? vm.map(r => item(r)).join('') : '<li class="empty">Sin ventas este mes.</li>';
   $('gList').innerHTML = gm.length ? gm.map(r => item(r)).join('') : '<li class="empty">Sin gastos este mes.</li>';
   const pap = [...datos.ventas, ...datos.gastos].filter(r => r.borrado).sort((a,b) => String(b.borradoEn).localeCompare(String(a.borradoEn)));
@@ -1024,6 +1047,8 @@ $('repDia').onclick = () => {
   txt += `\n\n*💰 VENTAS DE HOY (${vs.length})*\n${linV}`;
   const porPago = {}; vs.forEach(v => { const k = v.pago || 'Sin indicar'; porPago[k] = (porPago[k] || 0) + (+v.total || 0); });
   if (vs.length) txt += `\n_Por forma de pago:_ ` + Object.entries(porPago).map(([k, m]) => `${k} ${money(m)}`).join(' · ');
+  const porOrig = {}; vs.forEach(v => { const k = v.origen || 'Sin indicar'; porOrig[k] = (porOrig[k] || 0) + (+v.total || 0); });
+  if (vs.length) txt += `\n_Cómo llegaron los clientes:_ ` + Object.entries(porOrig).map(([k, m]) => `${k} ${money(m)}`).join(' · ');
   txt += `\n*Total ventas: ${money(tv)}*`;
   txt += `\n\n*🧾 GASTOS DE HOY (${gs.length})*\n${linG}\n*Total gastos: ${money(tg)}*`;
   txt += `\n\n*📊 CUENTA DEL DÍA*\n  ${money(tv)}  ventas` + (cd ? `\n− ${money(cd)}  pago de venta de tapas de rin Toyota (crédito)` : '') + `\n− ${money(tg)}  gastos`
