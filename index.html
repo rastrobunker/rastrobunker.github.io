@@ -398,6 +398,44 @@
   .admin-status { color: #1C1C1E; }
   select, input, textarea { background: #FFFFFF; color: #1C1C1E; border-color: #E2E0DB; }
 </style>
+<style id="rb-envio-css">
+/* ===== envío de varias piezas (2026-10-30) ===== */
+.sel-toggle{display:flex;align-items:center;gap:8px;margin:10px 0 0;padding:10px 14px;border-radius:10px;border:1.5px dashed var(--rb-red);background:var(--rb-card);color:var(--rb-cream);font-size:15px;font-weight:700;cursor:pointer;width:100%;justify-content:center}
+.sel-toggle.on{background:var(--rb-red);color:#fff;border-style:solid}
+.card .sel-check{display:none;position:absolute;top:8px;left:8px;z-index:5;width:34px;height:34px;border-radius:50%;border:3px solid #fff;background:rgba(0,0,0,.45);color:#fff;font-weight:900;font-size:18px;align-items:center;justify-content:center}
+body.rb-sel .card .sel-check{display:flex}
+.card.sel{outline:4px solid var(--rb-red);outline-offset:-4px}
+.card.sel .sel-check{background:var(--rb-red)}
+.rb-bar{position:fixed;left:0;right:0;bottom:0;z-index:90;background:#1C1C1E;color:#fff;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));display:none;gap:8px;align-items:center;box-shadow:0 -6px 20px rgba(0,0,0,.35)}
+.rb-bar.show{display:flex}
+.rb-bar .n{font-weight:800;font-size:15px;flex:1;min-width:0}
+.rb-bar .n small{display:block;font-weight:500;color:#bbb;font-size:12px}
+.rb-bar button{border:0;border-radius:10px;padding:11px 12px;font-weight:800;font-size:14px;cursor:pointer}
+.rb-bar .b-sug{background:#3a3a3d;color:#fff}
+.rb-bar .b-env{background:#25D366;color:#fff}
+.rb-bar .b-x{background:transparent;color:#bbb;padding:11px 6px}
+body.rb-sel .wa-fab{bottom:86px}
+.rb-panel{position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center}
+.rb-panel.show{display:flex}
+.rb-sheet{background:var(--rb-bg);width:100%;max-width:720px;max-height:86vh;overflow:auto;border-radius:18px 18px 0 0;padding:16px 14px 90px}
+.rb-sheet h3{margin:4px 0 4px;font-size:19px;color:var(--rb-cream)}
+.rb-sheet .ayuda{color:var(--rb-mute);font-size:13px;margin:0 0 12px}
+.rb-sheet h4{margin:16px 0 8px;font-size:15px;color:var(--rb-red)}
+.rb-it{display:flex;gap:10px;align-items:center;background:var(--rb-card);border:1px solid var(--rb-line);border-radius:12px;padding:8px;margin-bottom:8px}
+.rb-it img{width:96px;height:72px;object-fit:contain;background:#e9eaec;border-radius:8px;flex:none}
+.rb-it .t{flex:1;min-width:0;font-size:13px;color:var(--rb-cream)}
+.rb-it .t b{display:block;font-size:14px}
+.rb-it button{border:0;border-radius:9px;padding:9px 11px;font-weight:800;cursor:pointer;flex:none}
+.rb-it .add{background:var(--rb-red);color:#fff}
+.rb-it .quitar{background:#e7e4df;color:#333}
+.rb-opc{display:flex;align-items:center;gap:8px;margin:12px 0;font-size:14px;color:var(--rb-cream)}
+.rb-sheet .acciones{display:flex;gap:8px;position:sticky;bottom:-90px;background:var(--rb-bg);padding:10px 0}
+.rb-sheet .acciones button{flex:1;border:0;border-radius:12px;padding:14px;font-weight:800;font-size:15px;cursor:pointer}
+.rb-vacio{color:var(--rb-mute);font-size:14px;padding:6px 0}
+.modal-btns .btn-sel{background:#1C1C1E;color:#fff;border:0;border-radius:10px;padding:12px 14px;font-weight:800;font-size:15px;cursor:pointer;width:100%;margin-top:8px}
+.modal-btns .btn-sel.on{background:#e7e4df;color:#333}
+@media (prefers-reduced-motion:reduce){.rb-sheet{transition:none}}
+</style>
 <body>
 
   <div class="top-bar">
@@ -409,8 +447,9 @@
   </div>
   <div class="buscador-top">
       <div class="buscador-main">
-        <input type="search" class="search-box" id="buscar" placeholder="Busca: Kia Rio 2019, faro, código…" autocomplete="off" enterkeyhint="search">
+        <input type="search" class="search-box" id="buscar" placeholder="Busca: faro Yaris 2016, bumper trasero RAV4, código…" autocomplete="off" enterkeyhint="search">
       </div>
+      <button class="sel-toggle" id="rbToggle" onclick="rbModoSel()">☐ Seleccionar varias piezas para enviar</button>
   </div>
   <div class="search-drawer" id="searchDrawer">
     <button class="drawer-close" onclick="toggleBuscador(false)" aria-label="Cerrar">✕</button>
@@ -522,6 +561,7 @@
         <div class="modal-price" id="modalPrice"></div>
         <div class="modal-btns">
           <a class="btn" id="modalWaBtn" href="" target="_blank" style="display:none">💬 Consultar por WhatsApp</a>
+          <button class="btn-sel" id="modalSelBtn" onclick="rbModalSel()">＋ Agregar al envío</button>
         </div>
         <div class="location-box">
           <div class="location-title">📍 Ubicación de Rastro Búnker</div>
@@ -689,6 +729,195 @@ function rbReintentar(el){if(el.dataset.r){rbFin();return;}var s=document.create
 <script async src="fotos-puerta.js?v=513ebf2a" onerror="rbReintentar(this)"></script>
 <script async src="fotos-cubrepolvo.js?v=63c1d8f9" onerror="rbReintentar(this)"></script>
 <script async src="fotos-marco-de-radiador.js?v=5fe43e17" onerror="rbReintentar(this)"></script>
+<script id="rb-envio-js">
+/* ===== Buscador por nombre de pieza + envío de varias piezas + sugerencias (2026-10-30) ===== */
+const RB_NORM = s => String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+const RB_SIN = [
+  ['Lámpara Delantera',['lampara delantera','luz delantera','faro delantero','faros delanteros','faro','faros','foco','focos','farola','farolas','optica','opticas','headlight','lampara de frente']],
+  ['Lámpara Trasera',['lampara trasera','lamparas traseras','luz trasera','luces traseras','stop','stops','calavera','calaveras','piloto','pilotos','taillight','farol trasero']],
+  ['Defensa Delantera',['defensa delantera','bumper delantero','bomper delantero','parachoque delantero','parachoques delantero','paragolpe delantero','fascia delantera','bumper de frente','defensa de frente']],
+  ['Defensa Trasera',['defensa trasera','bumper trasero','bomper trasero','parachoque trasero','parachoques trasero','paragolpe trasero','fascia trasera','defensa de atras','bumper de atras']],
+  ['Capó',['capo','capot','cofre','bonete','tapa de motor','tapa del motor','tapa motor','hood']],
+  ['Guardafango',['guardafango','guardafangos','guardabarro','guardabarros','salpicadera','salpicaderas','aleta','aletas','fender','tapabarro']],
+  ['Parrilla',['parrilla','parrillas','rejilla','grill','grille','mascara','mascarilla','careta']],
+  ['Halógenas / Faros antiniebla',['halogena','halogenas','alogena','alogenas','antiniebla','neblinero','neblineros','exploradora','exploradoras','faro antiniebla','fog']],
+  ['Cover de Alógena',['cover','covers','marco de halogena','tapa de halogena','bisel','moldura de halogena','cover de halogena']],
+  ['Retrovisor',['retrovisor','retrovisores','espejo','espejos','retro','vidrio de retrovisor']],
+  ['Puerta',['puerta','puertas','door']],
+  ['Tapa de Baúl',['compuerta','compuertas','tapa de baul','tapa baul','baul','maletero','cajuela','porton','porton trasero','quinta puerta','tapa trasera','tailgate']],
+  ['Estribo',['estribo','estribos','pisadera','pisaderas','rolling board','stribo']],
+  ['Flare',['flare','flares','moldura de guardafango','arco de guardafango','extension de guardafango','fender flare']],
+  ['Cubrepolvo',['cubrepolvo','cubrepolvos','guardapolvo','forro','tolva','lodera','loderas','forro de guardafango']],
+  ['Marco de Radiador',['marco de radiador','marco radiador','soporte de radiador','panel frontal','frente','alma']],
+  ['Ventilador',['ventilador','ventiladores','electroventilador','abanico','abanicos','fan']],
+  ['Copa',['copa','copas','tapacubo','tapacubos','tapa de rin','embellecedor']],
+  ['Moldura Trasera',['moldura trasera','difusor']],
+  ['Soporte de Defensa',['soporte de defensa','base de defensa']],
+];
+const RB_GEN = {defensa:['Defensa Delantera','Defensa Trasera'],bumper:['Defensa Delantera','Defensa Trasera'],bomper:['Defensa Delantera','Defensa Trasera'],parachoque:['Defensa Delantera','Defensa Trasera'],parachoques:['Defensa Delantera','Defensa Trasera'],defensas:['Defensa Delantera','Defensa Trasera'],lampara:['Lámpara Delantera','Lámpara Trasera'],lamparas:['Lámpara Delantera','Lámpara Trasera'],luz:['Lámpara Delantera','Lámpara Trasera'],luces:['Lámpara Delantera','Lámpara Trasera'],moldura:['Moldura Trasera','Flare','Cover de Alógena']};
+const RB_LADO = {izquierdo:'LH',izquierda:'LH',izq:'LH',lh:'LH',chofer:'LH',conductor:'LH',piloto_:'LH',derecho:'RH',derecha:'RH',der:'RH',rh:'RH',pasajero:'RH',copiloto:'RH'};
+const RB_STOP = new Set(['de','del','la','el','los','las','para','mi','un','una','carro','auto','carros','pieza','piezas','y','con','al','busco','tienen','tiene','hay','se','me','que','lo']);
+const RB_FRASES = []; RB_SIN.forEach(([cat,l])=>l.forEach(f=>RB_FRASES.push([RB_NORM(f),cat]))); RB_FRASES.sort((a,b)=>b[0].length-a[0].length);
+let rbQCache = {q:null};
+function rbParse(q){
+  if (rbQCache.q === q) return rbQCache.r;
+  let s = ' ' + RB_NORM(q).replace(/[^a-z0-9#\-\/ ]+/g,' ').replace(/\s+/g,' ') + ' ';
+  const cats = new Set(); let lado = '';
+  for (const [f,cat] of RB_FRASES){ const k=' '+f+' '; if (s.includes(k)){ cats.add(cat); s = s.split(k).join(' '); } }
+  const toks = []; let anio = null;
+  for (let t of s.trim().split(' ')){ if(!t) continue;
+    if (RB_GEN[t]){ RB_GEN[t].forEach(c=>cats.add(c)); continue; }
+    if (t==='delantera'||t==='delantero'||t==='frente'){ toks.push({lado:'del'}); continue; }
+    if (t==='trasera'||t==='trasero'||t==='atras'){ toks.push({lado:'tra'}); continue; }
+    if (RB_LADO[t]){ lado = RB_LADO[t]; continue; }
+    if (RB_STOP.has(t)) continue;
+    if (/^(19|20)\d\d$/.test(t)){ anio = +t; continue; }
+    toks.push({t});
+  }
+  // "delantera/trasera" sueltos refinan las categorías genéricas
+  const pos = toks.filter(x=>x.lado).map(x=>x.lado);
+  let catsF = [...cats];
+  if (pos.length && catsF.length){ const w = pos[0]==='del' ? /Delanter|Capó|Parrilla|Halóg|Cover|Marco/ : /Traser|Baúl|Moldura Trasera/; const f = catsF.filter(c=>w.test(c)); if (f.length) catsF = f; }
+  const r = {cats:catsF, lado, anio, toks:toks.filter(x=>x.t).map(x=>x.t), posSolo: (!catsF.length && pos.length) ? pos[0] : ''};
+  rbQCache = {q, r}; return r;
+}
+function rbRango(a){ const s=String(a||''); const m=s.match(/(\d{2,4})\D+(\d{2,4})/); const fx=y=>{y=+y; return y<100 ? (y>50?1900+y:2000+y) : y;};
+  if (m) return [fx(m[1]), fx(m[2])]; const u=s.match(/\d{2,4}/); if (u){ const y=fx(u[0]); return [y,y]; } return null; }
+function rbCoincide(p, q){
+  q = String(q||'').trim(); if (!q) return true;
+  const r = rbParse(q);
+  if (r.cats.length && !r.cats.includes(p.categoria)) return false;
+  if (r.posSolo){ const del=/Delanter|Capó|Parrilla|Halóg|Cover|Marco/.test(p.categoria), tra=/Traser|Baúl/.test(p.categoria); if (r.posSolo==='del'?!del:!tra) return false; }
+  if (r.lado && p.lado !== r.lado) return false;
+  if (r.anio){ const g=rbRango(p.anio); if (g && (r.anio<g[0]-0 || r.anio>g[1])) return false; }
+  if (!r.toks.length) return !!(r.cats.length || r.lado || r.anio || r.posSolo);
+  const txt = RB_NORM(`${p.codigo} ${p.marca} ${p.modelo} ${p.categoria} ${p.alias||''} ${p.detalle||''}`).replace(/[^a-z0-9#\/ ]+/g,' ');
+  const compact = txt.replace(/\s+/g,'');
+  return r.toks.every(t => txt.includes(t) || compact.includes(t.replace(/-/g,'')));
+}
+/* ---------- selección ---------- */
+let rbSelMode = false; let rbSel = [];
+try { rbSel = JSON.parse(localStorage.getItem('rbEnvio')||'[]'); } catch(e){ rbSel = []; }
+function rbGuardar(){ try{ localStorage.setItem('rbEnvio', JSON.stringify(rbSel)); }catch(e){} }
+function rbP(id){ return productos.find(x=>x.id===id); }
+function rbPintar(){
+  rbSel = rbSel.filter(id=>rbP(id));
+  document.querySelectorAll('.card[data-id]').forEach(c=>c.classList.toggle('sel', rbSel.includes(+c.dataset.id)));
+  const n = rbSel.length, bar = document.getElementById('rbBar');
+  document.body.classList.toggle('rb-sel', rbSelMode);
+  bar.classList.toggle('show', rbSelMode || n>0);
+  document.getElementById('rbCuenta').textContent = n===1 ? '1 pieza para enviar' : `${n} piezas para enviar`;
+  document.getElementById('rbSub').textContent = rbSelMode ? 'Toca las piezas para agregarlas o quitarlas' : 'Toca “Seleccionar piezas” para agregar más';
+  const t = document.getElementById('rbToggle'); if (t){ t.classList.toggle('on', rbSelMode); t.textContent = rbSelMode ? '✓ Seleccionando piezas — toca para terminar' : '☐ Seleccionar varias piezas para enviar'; }
+  const mb = document.getElementById('modalSelBtn'); if (mb && fichaActual){ const on = rbSel.includes(fichaActual.id); mb.classList.toggle('on', on); mb.textContent = on ? '✓ Ya está en el envío (quitar)' : '＋ Agregar al envío'; }
+}
+function rbAlternar(id){ const i=rbSel.indexOf(id); if(i>=0) rbSel.splice(i,1); else rbSel.push(id); rbGuardar(); rbPintar(); }
+function rbTocar(id){ if (rbSelMode) rbAlternar(id); else abrirModal(id); }
+function rbModoSel(){ rbSelMode = !rbSelMode; rbPintar(); }
+function rbSalirSel(){ rbSelMode = false; if (rbSel.length && !confirm('¿Vaciar las piezas seleccionadas?')) { rbPintar(); return; } rbSel = []; rbGuardar(); rbPintar(); }
+function rbModalSel(){ if (fichaActual) rbAlternar(fichaActual.id); }
+/* ---------- sugerencias de piezas colindantes ---------- */
+const RB_ZONAS = {
+  frente: ['Lámpara Delantera','Defensa Delantera','Parrilla','Capó','Guardafango','Halógenas / Faros antiniebla','Cover de Alógena','Marco de Radiador','Soporte de Defensa','Ventilador','Cubrepolvo'],
+  atras:  ['Lámpara Trasera','Defensa Trasera','Tapa de Baúl','Moldura Trasera'],
+  lado:   ['Puerta','Retrovisor','Estribo','Flare','Guardafango','Cubrepolvo','Copa']
+};
+const RB_NOMZ = {frente:'Del frente', atras:'De atrás', lado:'Del costado'};
+function rbZonas(cat){ return Object.keys(RB_ZONAS).filter(z=>RB_ZONAS[z].includes(cat)); }
+function rbModeloKey(m){ return RB_NORM(m).replace(/[^a-z0-9]+/g,''); }
+function rbMismoModelo(a,b){
+  if (RB_NORM(a.marca).trim() !== RB_NORM(b.marca).trim()) return false;
+  const A = rbModeloKey(a.modelo), B = rbModeloKey(b.modelo); if (!A||!B) return false;
+  if (A===B || A.startsWith(B) || B.startsWith(A)) return true;
+  const fa = RB_NORM(a.modelo).split(/[^a-z0-9]+/).filter(Boolean)[0]||'', fb = RB_NORM(b.modelo).split(/[^a-z0-9]+/).filter(Boolean)[0]||'';
+  return fa.length>=3 && fa===fb;
+}
+function rbAniosCruzan(a,b){ const x=rbRango(a.anio), y=rbRango(b.anio); if(!x||!y) return true; return x[0]<=y[1] && y[0]<=x[1]; }
+function rbSugerencias(){
+  const sel = rbSel.map(rbP).filter(Boolean); const out = {frente:[],atras:[],lado:[]}; const vistos = new Set(rbSel);
+  for (const s of sel){
+    const zs = rbZonas(s.categoria).length ? rbZonas(s.categoria) : ['frente','atras','lado'];
+    for (const p of productos){
+      if (vistos.has(p.id) || p.vendido) continue;
+      if (!rbMismoModelo(s,p) || !rbAniosCruzan(s,p)) continue;
+      const pz = rbZonas(p.categoria); const z = zs.find(z=>pz.includes(z)); if (!z) continue;
+      if (s.lado && s.lado!=='N/A' && p.lado && p.lado!=='N/A' && p.lado!==s.lado && !['Lámpara Delantera','Lámpara Trasera','Retrovisor','Puerta','Guardafango','Halógenas / Faros antiniebla','Cover de Alógena','Flare','Estribo','Cubrepolvo'].includes(p.categoria)) continue;
+      vistos.add(p.id); out[z].push(p);
+    }
+  }
+  // también el par del otro lado de cada pieza seleccionada
+  return out;
+}
+function rbTxtPieza(p){ const c = condTxt(p.condicion); return `${p.categoria} ${p.marca} ${p.modelo}${p.anio?' '+p.anio:''}${p.lado&&p.lado!=='N/A'?' '+p.lado:''}${c?' · '+c:''}`; }
+function rbItem(p, modo, n){
+  const foto = p.foto ? `<img src="${p.foto}" alt="">` : `<img alt="">`;
+  const btn = modo==='add' ? `<button class="add" onclick="rbAlternar(${p.id});rbAbrirPanel(rbPanelModo)">＋ Agregar</button>` : `<button class="quitar" onclick="rbAlternar(${p.id});rbAbrirPanel(rbPanelModo)">Quitar</button>`;
+  return `<div class="rb-it">${foto}<div class="t"><b>#${p.codigo} · ${p.categoria}${n>1?` <span style="color:var(--rb-mute);font-weight:600">(hay ${n})</span>`:''}</b>${p.marca} ${p.modelo} ${p.anio||''} ${p.lado&&p.lado!=='N/A'?'· '+p.lado:''}</div>${btn}</div>`;
+}
+let rbPanelModo = 'env';
+function rbAbrirPanel(modo){
+  rbPanelModo = modo; const sh = document.getElementById('rbSheet'); const sel = rbSel.map(rbP).filter(Boolean);
+  let h = '';
+  if (modo==='sug'){
+    h += `<h3>Piezas del mismo carro</h3><p class="ayuda">Piezas disponibles que van junto a las que elegiste (mismo modelo y años). Agrégalas para mandarlas todas juntas.</p>`;
+    if (!sel.length) h += `<p class="rb-vacio">Primero elige una pieza.</p>`;
+    else { const S = rbSugerencias(); let total = 0;
+      for (const z of ['frente','lado','atras']){ if (!S[z].length) continue; total += S[z].length; const grp=[]; const idx={}; for (const p of S[z]){ const k=[p.categoria,p.marca,rbModeloKey(p.modelo),p.anio,p.lado,p.condicion].join('|'); if (k in idx) grp[idx[k]].n++; else { idx[k]=grp.length; grp.push({p,n:1}); } }
+        h += `<h4>${RB_NOMZ[z]} (${grp.length})</h4>` + grp.slice(0,25).map(g=>rbItem(g.p,'add',g.n)).join(''); }
+      if (!total) h += `<p class="rb-vacio">No hay más piezas disponibles de ese carro en el catálogo.</p>`;
+    }
+    h += `<div class="acciones"><button style="background:#e7e4df;color:#333" onclick="rbCerrarPanel()">Listo</button><button style="background:#25D366;color:#fff" onclick="rbAbrirPanel('env')">Ver envío (${sel.length})</button></div>`;
+  } else {
+    h += `<h3>Enviar ${sel.length} pieza${sel.length===1?'':'s'}</h3><p class="ayuda">Se mandan todas las fotos completas juntas, con la lista de piezas en el mensaje.</p>`;
+    h += sel.length ? sel.map(p=>rbItem(p,'quitar')).join('') : `<p class="rb-vacio">No hay piezas elegidas. Toca “Seleccionar varias piezas” y luego las piezas.</p>`;
+    h += `<label class="rb-opc"><input type="checkbox" id="rbConPrecio" ${SINPRECIOS?'':'checked'}> Poner precios en el mensaje</label>`;
+    h += `<div class="acciones"><button style="background:#e7e4df;color:#333" onclick="rbAbrirPanel('sug')">Sugerir más</button><button id="rbBtnEnviar" style="background:#25D366;color:#fff" onclick="rbEnviar()" ${sel.length?'':'disabled'}>Enviar por WhatsApp</button></div>`;
+  }
+  sh.innerHTML = h; document.getElementById('rbPanel').classList.add('show'); rbPintar();
+}
+function rbCerrarPanel(){ document.getElementById('rbPanel').classList.remove('show'); }
+/* ---------- imagen de envío: la pieza completa, sin recortes ---------- */
+async function rbFicha(p){
+  const F='"Segoe UI",Roboto,Arial,sans-serif', W=1080;
+  const im = new Image(); im.src = p.foto; await im.decode();
+  const fw = W, fh = Math.round(W * im.naturalHeight / im.naturalWidth);
+  const head = 120, info = 300, H = head + fh + info;
+  const c = document.createElement('canvas'); c.width=W; c.height=H; const x=c.getContext('2d');
+  x.fillStyle='#16161a'; x.fillRect(0,0,W,H);
+  const L = await fichaCargarLogo(); x.drawImage(L, 26, 10, 100, 100);
+  x.fillStyle='#fff'; x.font=`800 44px ${F}`; x.textAlign='left'; x.fillText('RASTRO BÚNKER', 146, 62);
+  x.fillStyle='#bdb6ad'; x.font=`500 28px ${F}`; x.fillText('Piezas de auto · Panamá', 148, 98);
+  x.fillStyle='#ffcc00'; x.font=`800 40px ${F}`; x.textAlign='right'; x.fillText('#'+p.codigo, W-30, 74);
+  x.fillStyle = p.bgc || '#e9eaec'; x.fillRect(0, head, fw, fh); x.drawImage(im, 0, head, fw, fh);
+  let y = head + fh + 70; x.textAlign='left'; x.fillStyle='#fff'; x.font=`800 50px ${F}`;
+  const t1 = `${p.categoria} ${p.marca} ${p.modelo}`.trim(); const lt = fichaLineas(x, t1, W-60).slice(0,2); lt.forEach((l,i)=>x.fillText(l, 30, y+i*58)); y += lt.length*58 + 6;
+  const cond = condTxt(p.condicion); const sub = [p.anio, (p.lado&&p.lado!=='N/A')?(p.lado==='LH'?'Izquierdo (LH)':p.lado==='RH'?'Derecho (RH)':p.lado):'', cond].filter(Boolean).join('   ·   ');
+  x.fillStyle='#d9d4cc'; x.font=`600 36px ${F}`; x.fillText(sub, 30, y);
+  x.fillStyle='#25D366'; x.fillRect(0, H-70, W, 70); x.fillStyle='#fff'; x.font=`800 38px ${F}`; x.textAlign='center'; x.fillText('WhatsApp 6160-1991', W/2, H-22);
+  return new Promise(r=>c.toBlob(r,'image/jpeg',0.9));
+}
+async function rbEnviar(){
+  const sel = rbSel.map(rbP).filter(Boolean); if (!sel.length) return;
+  const conPrecio = (document.getElementById('rbConPrecio')||{}).checked;
+  const b = document.getElementById('rbBtnEnviar'); if (b){ b.disabled = true; b.textContent = 'Preparando fotos…'; }
+  const lineas = sel.map((p,i)=>`${i+1}. #${p.codigo} — ${rbTxtPieza(p)}${conPrecio?' — $'+p.precio:''}`);
+  const total = sel.reduce((s,p)=>s+(+p.precio||0),0);
+  const texto = `*Rastro Búnker* — ${sel.length} pieza${sel.length===1?'':'s'}:\n` + lineas.join('\n') + (conPrecio && sel.length>1 ? `\n\nTotal: $${total}` : '') + `\n\n📍 Waze: Rastro Búnker · WhatsApp 6160-1991`;
+  try {
+    const files = [];
+    for (const p of sel){ if (!p.foto) continue; const bl = await rbFicha(p); files.push(new File([bl], `rastro-bunker-${p.codigo}.jpg`, {type:'image/jpeg'})); }
+    if (files.length && navigator.canShare && navigator.canShare({files})) {
+      try { await navigator.share({files, text: texto}); } catch(e) {}
+    } else {
+      for (const f of files){ const a=document.createElement('a'); a.href=URL.createObjectURL(f); a.download=f.name; a.click(); await new Promise(r=>setTimeout(r,250)); }
+      try { await navigator.clipboard.writeText(texto); alert('Se descargaron las fotos y el texto quedó copiado. Pégalo en el chat del cliente.'); } catch(e) { prompt('Copia este texto para el cliente:', texto); }
+    }
+  } catch(e){ alert('No se pudieron preparar las fotos: ' + e.message); }
+  if (b){ b.disabled = false; b.textContent = 'Enviar por WhatsApp'; }
+}
+window.addEventListener('load', function(){ let tm=null; const g=document.getElementById('productos'); if (g) new MutationObserver(()=>{ clearTimeout(tm); tm=setTimeout(rbPintar,60); }).observe(g,{childList:true}); const _ab = abrirModal; abrirModal = function(id){ _ab(id); rbPintar(); }; rbPintar(); });
+</script>
+
 <script>
   const ADMIN_CODE = "bunker2024";
   const WHATSAPP_NUM = "50761601991";
@@ -876,8 +1105,7 @@ const PRODUCTOS_INICIALES = [{"id":1,"codigo":"001","categoria":"Lámpara Delant
       return /^\d+$/.test(c) && /^\d+$/.test(busCod) && parseInt(c, 10) === parseInt(busCod, 10);
     };
     const resultado = productos.filter(p => {
-      const texto = `${p.codigo} ${p.marca} ${p.modelo} ${p.categoria} ${p.alias||""}`.toLowerCase();
-      return (texto.includes(busqueda) || esCodigoBuscado(p)) &&
+      return (rbCoincide(p, busqueda) || esCodigoBuscado(p)) &&
         (!categoria || (categoria === "__RH__" ? esImportada(p) : p.categoria === categoria)) &&
         (!lado || p.lado === lado) &&
         (!p.vendido || adminMode || esCodigoBuscado(p)) &&
@@ -949,12 +1177,13 @@ const PRODUCTOS_INICIALES = [{"id":1,"codigo":"001","categoria":"Lámpara Delant
         : (p.fx ? `<div class="no-photo"><div class="no-photo-icon">⏳</div>Cargando foto…</div>` : `<div class="no-photo"><div class="no-photo-icon">📷</div>Sin foto</div>`);
 
       return `
-        <div class="card ${p.vendido ? "vendido admin-mode-card" : ""} ${esImportada(p) ? "importada" : ""}">
+        <div class="card ${p.vendido ? "vendido admin-mode-card" : ""} ${esImportada(p) ? "importada" : ""} ${rbSel.includes(p.id) ? "sel" : ""}" data-id="${p.id}">
           <div class="delete-x" onclick="event.stopPropagation(); borrarProducto(${p.id})">✕</div>
           <div class="edit-btn" onclick="event.stopPropagation(); abrirEdicion(${p.id})">✎</div>
-          <div onclick="abrirModal(${p.id})">
+          <div onclick="rbTocar(${p.id})">
             <div class="card-img">
               ${fotoHtml}
+              <div class="sel-check">✓</div>
               <div class="card-category">${p.categoria}</div>
               <div class="brand-stamp">${p.marca}</div>
               <div class="sold-stamp">VENDIDA</div>
@@ -1538,5 +1767,15 @@ function abrirModal(id) {
     onAuthStateChanged(getAuth(app), u => { if (u && EQUIPO[u.uid] && window.mostrarPrecios) window.mostrarPrecios(EQUIPO[u.uid]); });
   } catch (e) {}
 </script>
+<div class="rb-bar" id="rbBar" role="region" aria-label="Piezas para enviar">
+  <div class="n"><span id="rbCuenta">0 piezas</span><small id="rbSub">Toca más piezas para agregarlas</small></div>
+  <button class="b-sug" onclick="rbAbrirPanel('sug')">Sugerir</button>
+  <button class="b-env" onclick="rbAbrirPanel('env')">Enviar</button>
+  <button class="b-x" onclick="rbSalirSel()" aria-label="Terminar selección">✕</button>
+</div>
+<div class="rb-panel" id="rbPanel" onclick="if(event.target===this)rbCerrarPanel()">
+  <div class="rb-sheet" id="rbSheet"></div>
+</div>
+
 </body>
 </html>
