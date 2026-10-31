@@ -14887,6 +14887,158 @@
 "fecha": "2026-10-29",
 "precio": 300
 }
+],
+"DDI001": [
+{
+"ref": "B1-129",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 70
+}
+],
+"DDI004": [
+{
+"ref": "B1-130",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 120
+}
+],
+"DDI008": [
+{
+"ref": "B1-131",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 150
+}
+],
+"DDI009": [
+{
+"ref": "B1-132",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 100
+}
+],
+"DDI010": [
+{
+"ref": "B1-133",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 60
+}
+],
+"DDI011": [
+{
+"ref": "B1-134",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 70
+}
+],
+"DDI012": [
+{
+"ref": "B1-135",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 80
+}
+],
+"DDI013": [
+{
+"ref": "B1-136",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 60
+}
+],
+"DDI014": [
+{
+"ref": "B1-137",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 120
+}
+],
+"DDI015": [
+{
+"ref": "B1-138",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 70
+}
+],
+"DD013": [
+{
+"ref": "B1-139",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 70
+}
+],
+"DDI017": [
+{
+"ref": "B1-140",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 60
+}
+],
+"DDI019": [
+{
+"ref": "B1-141",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 70
+}
+],
+"DDI020": [
+{
+"ref": "B1-142",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 100
+}
+],
+"DDI021": [
+{
+"ref": "B1-143",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 60
+}
+],
+"DDI022": [
+{
+"ref": "B1-144",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 70
+}
+],
+"DDI023": [
+{
+"ref": "B1-145",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 70
+}
+],
+"DDI025": [
+{
+"ref": "B1-146",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 150
+}
+],
+"DTI001": [
+{
+"ref": "B1-147",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-30",
+"precio": 80
+}
 ]
 },
 "nota_refs": "Ojo: B2-237 a B2-286 están repetidas: las usa un pack del 20-oct y también el kit 1 del 21-oct (Marketplace_Bunker2_kit1_21oct). Para saber cuál es, mirar el código de la pieza."
