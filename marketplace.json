@@ -4934,6 +4934,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-21",
 "precio": 20
+},
+{
+"ref": "B3-315",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
+"precio": 20
 }
 ],
 "GF078": [
@@ -8048,6 +8054,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
 "precio": 20
+},
+{
+"ref": "B3-329",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
+"precio": 20
 }
 ],
 "GF105": [
@@ -8150,6 +8162,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
 "precio": 20
+},
+{
+"ref": "B3-318",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
+"precio": 20
 }
 ],
 "CH005": [
@@ -8243,6 +8261,12 @@
 "ref": "B2-732",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
+"precio": 20
+},
+{
+"ref": "B3-321",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
 "precio": 20
 }
 ],
@@ -8436,6 +8460,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
 "precio": 20
+},
+{
+"ref": "B3-334",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
+"precio": 20
 }
 ],
 "008": [
@@ -8535,6 +8565,12 @@
 "ref": "B2-767",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
+"precio": 20
+},
+{
+"ref": "B3-330",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
 "precio": 20
 }
 ],
@@ -8743,6 +8779,12 @@
 "ref": "B2-790",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
+"precio": 20
+},
+{
+"ref": "B3-316",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
 "precio": 20
 }
 ],
@@ -9368,6 +9410,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
 "precio": 20
+},
+{
+"ref": "B3-326",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
+"precio": 20
 }
 ],
 "557": [
@@ -9486,6 +9534,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
 "precio": 20
+},
+{
+"ref": "B3-332",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
+"precio": 20
 }
 ],
 "589": [
@@ -9571,6 +9625,12 @@
 "ref": "B2-889",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
+"precio": 20
+},
+{
+"ref": "B3-319",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
 "precio": 20
 }
 ],
@@ -9720,6 +9780,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
 "precio": 20
+},
+{
+"ref": "B3-322",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
+"precio": 20
 }
 ],
 "DT138": [
@@ -9776,6 +9842,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
 "precio": 20
+},
+{
+"ref": "B3-325",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
+"precio": 20
 }
 ],
 "DT036": [
@@ -9821,6 +9893,12 @@
 "ref": "B2-918",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
+"precio": 20
+},
+{
+"ref": "B3-331",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
 "precio": 20
 }
 ],
@@ -10138,6 +10216,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
 "precio": 15
+},
+{
+"ref": "B3-320",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
+"precio": 15
 }
 ],
 "633": [
@@ -10434,6 +10518,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
 "precio": 20
+},
+{
+"ref": "B3-324",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
+"precio": 20
 }
 ],
 "DT183": [
@@ -10457,6 +10547,12 @@
 "ref": "B2-993",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
+"precio": 20
+},
+{
+"ref": "B3-328",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
 "precio": 20
 }
 ],
@@ -11037,6 +11133,12 @@
 "ref": "B2-1064",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
+"precio": 20
+},
+{
+"ref": "B3-333",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
 "precio": 20
 }
 ],
@@ -15037,7 +15139,55 @@
 "ref": "B1-147",
 "vendedor": "Búnker Nº1",
 "fecha": "2026-10-30",
-"precio": 80
+"precio": 125
+}
+],
+"DD014": [
+{
+"ref": "B1-148",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-31",
+"precio": 70
+}
+],
+"DD015": [
+{
+"ref": "B1-149",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-31",
+"precio": 150
+}
+],
+"DD016": [
+{
+"ref": "B1-150",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-10-31",
+"precio": 350
+}
+],
+"733": [
+{
+"ref": "B3-317",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
+"precio": 20
+}
+],
+"739": [
+{
+"ref": "B3-323",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
+"precio": 20
+}
+],
+"743": [
+{
+"ref": "B3-327",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-10-31",
+"precio": 20
 }
 ]
 },
