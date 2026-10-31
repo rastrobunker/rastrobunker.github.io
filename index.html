@@ -413,6 +413,8 @@ body.rb-sel .card .sel-check{display:flex}
 .rb-bar button{border:0;border-radius:10px;padding:11px 12px;font-weight:800;font-size:14px;cursor:pointer}
 .rb-bar .b-sug{background:#3a3a3d;color:#fff}
 .rb-bar .b-env{background:#25D366;color:#fff}
+.rb-bar .b-pr{display:flex;align-items:center;gap:5px;font-size:13px;color:#ddd;white-space:nowrap}
+.rb-bar .b-env:disabled{opacity:.5}
 .rb-bar .b-x{background:transparent;color:#bbb;padding:11px 6px}
 body.rb-sel .wa-fab{bottom:86px}
 .rb-panel{position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center}
@@ -466,7 +468,6 @@ body.rb-sel .wa-fab{bottom:86px}
       <div class="buscador-main">
         <input type="search" class="search-box" id="buscar" placeholder="Busca: faro Yaris 2016, bumper trasero RAV4, código…" autocomplete="off" enterkeyhint="search">
       </div>
-      <button class="sel-toggle" id="rbToggle" onclick="rbModoSel()">☐ Seleccionar varias piezas para enviar</button>
   </div>
   <div class="search-drawer" id="searchDrawer">
     <button class="drawer-close" onclick="toggleBuscador(false)" aria-label="Cerrar">✕</button>
@@ -578,7 +579,7 @@ body.rb-sel .wa-fab{bottom:86px}
         <div class="modal-price" id="modalPrice"></div>
         <div class="modal-btns">
           <a class="btn" id="modalWaBtn" href="" target="_blank" style="display:none">💬 Consultar por WhatsApp</a>
-          <button class="btn-sel" id="modalSelBtn" onclick="rbModalSel()">＋ Agregar al envío</button>
+          <button class="btn-sel" id="modalSelBtn" onclick="rbModalSel()">☐ Seleccionar para enviar</button>
         </div>
         <div class="rbj" id="modalJuego"></div>
         <div class="location-box">
@@ -820,8 +821,8 @@ function rbCoincide(p, q){
 }
 /* ---------- selección ---------- */
 let rbSelMode = false; let rbSel = [];
-try { rbSel = JSON.parse(localStorage.getItem('rbEnvio')||'[]'); } catch(e){ rbSel = []; }
-function rbGuardar(){ try{ localStorage.setItem('rbEnvio', JSON.stringify(rbSel)); }catch(e){} }
+rbSel = [];
+function rbGuardar(){}
 function rbP(id){ return productos.find(x=>x.id===id); }
 function rbPintar(){
   rbSel = rbSel.filter(id=>rbP(id));
@@ -829,15 +830,15 @@ function rbPintar(){
   const n = rbSel.length, bar = document.getElementById('rbBar');
   document.body.classList.toggle('rb-sel', rbSelMode);
   bar.classList.toggle('show', rbSelMode || n>0);
-  document.getElementById('rbCuenta').textContent = n===1 ? '1 pieza para enviar' : `${n} piezas para enviar`;
-  document.getElementById('rbSub').textContent = rbSelMode ? 'Toca las piezas para agregarlas o quitarlas' : 'Toca “Seleccionar piezas” para agregar más';
+  document.getElementById('rbCuenta').textContent = n===1 ? '1 pieza seleccionada' : `${n} piezas seleccionadas`; const be=document.getElementById('rbBtnEnviar'); if (be && !be.dataset.busy){ be.textContent = n ? `📤 Enviar ${n}` : '📤 Enviar'; be.disabled = !n; }
+  document.getElementById('rbSub').textContent = 'Toca las piezas para marcarlas o desmarcarlas';
   const t = document.getElementById('rbToggle'); if (t){ t.classList.toggle('on', rbSelMode); t.textContent = rbSelMode ? '✓ Seleccionando piezas — toca para terminar' : '☐ Seleccionar varias piezas para enviar'; }
-  const mb = document.getElementById('modalSelBtn'); if (mb && fichaActual){ const on = rbSel.includes(fichaActual.id); mb.classList.toggle('on', on); mb.textContent = on ? '✓ Ya está en el envío (quitar)' : '＋ Agregar al envío'; }
+  const mb = document.getElementById('modalSelBtn'); if (mb && fichaActual){ const on = rbSel.includes(fichaActual.id); mb.classList.toggle('on', on); mb.textContent = on ? '✓ Seleccionada (toca para quitar)' : '☐ Seleccionar para enviar'; }
 }
 function rbAlternar(id){ const i=rbSel.indexOf(id); if(i>=0) rbSel.splice(i,1); else rbSel.push(id); rbGuardar(); rbPintar(); }
 function rbTocar(id){ if (rbSelMode) rbAlternar(id); else abrirModal(id); }
 function rbModoSel(){ rbSelMode = !rbSelMode; rbPintar(); }
-function rbSalirSel(){ rbSelMode = false; if (rbSel.length && !confirm('¿Vaciar las piezas seleccionadas?')) { rbPintar(); return; } rbSel = []; rbGuardar(); rbPintar(); }
+function rbSalirSel(){ rbSelMode = false; rbSel = []; rbPintar(); if (typeof rbJuegoPintar==='function') rbJuegoPintar(); }
 function rbModalSel(){ if (fichaActual) rbAlternar(fichaActual.id); }
 /* ---------- sugerencias de piezas colindantes ---------- */
 const RB_ZONAS = {
@@ -892,7 +893,7 @@ function rbMiniCard(p,n){
   const precio = SINPRECIOS ? '' : `<span class="pr">$${p.precio}</span>`;
   return `<div class="rbj-card"><div class="ph" onclick="abrirModal(${p.id})">${p.foto?`<img src="${p.foto}" alt="" loading="lazy">`:'📷'}</div>
   <div class="tx" onclick="abrirModal(${p.id})"><b>${p.categoria}${n>1?` <small>(hay ${n})</small>`:''}</b><span>#${p.codigo}${p.lado&&p.lado!=='N/A'?' · '+p.lado:''}${p.anio?' · '+p.anio:''}</span>${precio}</div>
-  <button class="${enEnvio?'on':''}" onclick="rbAlternar(${p.id});rbJuegoPintar()" aria-label="Agregar al envío">${enEnvio?'✓':'＋'}</button></div>`;
+  <button class="${enEnvio?'on':''}" onclick="rbAlternar(${p.id});rbJuegoPintar()" aria-label="Seleccionar para enviar">${enEnvio?'✓':'＋'}</button></div>`;
 }
 function rbJuegoPintar(){
   const box = document.getElementById('modalJuego'); if (!box) return;
@@ -902,7 +903,7 @@ function rbJuegoPintar(){
   let h = '', total = 0;
   for (const [z,nom] of secc){ const g = rbAgrupar(S[z]); if (!g.length) continue; total += g.length;
     h += `<div class="rbj-z">${nom} <small>${g.length}</small></div><div class="rbj-row">${g.slice(0,20).map(x=>rbMiniCard(x.p,x.n)).join('')}</div>`; }
-  box.innerHTML = total ? `<div class="rbj-t">🔧 Piezas del mismo carro <small>${fichaActual.marca} ${fichaActual.modelo} ${fichaActual.anio||''}</small></div><div class="rbj-h">Toca una pieza para verla, o ＋ para mandarla junto con esta.</div>${h}` : '';
+  box.innerHTML = total ? `<div class="rbj-t">🔧 Piezas del mismo carro <small>${fichaActual.marca} ${fichaActual.modelo} ${fichaActual.anio||''}</small></div><div class="rbj-h">Toca una pieza para verla, o ＋ para seleccionarla y mandarla junto con esta.</div>${h}` : '';
 }
 function rbTxtPieza(p){ const c = condTxt(p.condicion); return `${p.categoria} ${p.marca} ${p.modelo}${p.anio?' '+p.anio:''}${p.lado&&p.lado!=='N/A'?' '+p.lado:''}${c?' · '+c:''}`; }
 function rbItem(p, modo, n){
@@ -955,7 +956,7 @@ async function rbFicha(p){
 async function rbEnviar(){
   const sel = rbSel.map(rbP).filter(Boolean); if (!sel.length) return;
   const conPrecio = (document.getElementById('rbConPrecio')||{}).checked;
-  const b = document.getElementById('rbBtnEnviar'); if (b){ b.disabled = true; b.textContent = 'Preparando fotos…'; }
+  const b = document.getElementById('rbBtnEnviar'); if (b){ b.dataset.busy='1'; b.disabled = true; b.textContent = 'Preparando…'; } let enviado=false;
   const lineas = sel.map((p,i)=>`${i+1}. #${p.codigo} — ${rbTxtPieza(p)}${conPrecio?' — $'+p.precio:''}`);
   const total = sel.reduce((s,p)=>s+(+p.precio||0),0);
   const texto = `*Rastro Búnker* — ${sel.length} pieza${sel.length===1?'':'s'}:\n` + lineas.join('\n') + (conPrecio && sel.length>1 ? `\n\nTotal: $${total}` : '') + `\n\n📍 Waze: Rastro Búnker · WhatsApp 6160-1991`;
@@ -963,13 +964,13 @@ async function rbEnviar(){
     const files = [];
     for (const p of sel){ if (!p.foto) continue; const bl = await rbFicha(p); files.push(new File([bl], `rastro-bunker-${p.codigo}.jpg`, {type:'image/jpeg'})); }
     if (files.length && navigator.canShare && navigator.canShare({files})) {
-      try { await navigator.share({files, text: texto}); } catch(e) {}
+      try { await navigator.share({files, text: texto}); enviado=true; } catch(e) {}
     } else {
       for (const f of files){ const a=document.createElement('a'); a.href=URL.createObjectURL(f); a.download=f.name; a.click(); await new Promise(r=>setTimeout(r,250)); }
-      try { await navigator.clipboard.writeText(texto); alert('Se descargaron las fotos y el texto quedó copiado. Pégalo en el chat del cliente.'); } catch(e) { prompt('Copia este texto para el cliente:', texto); }
+      enviado=true; try { await navigator.clipboard.writeText(texto); alert('Se descargaron las fotos y el texto quedó copiado. Pégalo en el chat del cliente.'); } catch(e) { prompt('Copia este texto para el cliente:', texto); }
     }
   } catch(e){ alert('No se pudieron preparar las fotos: ' + e.message); }
-  if (b){ b.disabled = false; b.textContent = 'Enviar por WhatsApp'; }
+  if (b){ delete b.dataset.busy; } if (enviado){ rbSel=[]; rbSelMode=false; if (typeof rbJuegoPintar==='function') rbJuegoPintar(); } rbPintar();
 }
 window.addEventListener('load', function(){ let tm=null; const g=document.getElementById('productos'); if (g) new MutationObserver(()=>{ clearTimeout(tm); tm=setTimeout(rbPintar,60); }).observe(g,{childList:true}); const _ab = abrirModal; abrirModal = function(id){ _ab(id); rbPintar(); rbJuegoPintar(); const mb=document.querySelector('#modalOverlay .modal-box'); if (mb) mb.scrollTop=0; }; rbPintar(); });
 </script>
@@ -1825,8 +1826,8 @@ function abrirModal(id) {
 </script>
 <div class="rb-bar" id="rbBar" role="region" aria-label="Piezas para enviar">
   <div class="n"><span id="rbCuenta">0 piezas</span><small id="rbSub">Toca más piezas para agregarlas</small></div>
-  <button class="b-sug" onclick="rbAbrirPanel('sug')">Sugerir</button>
-  <button class="b-env" onclick="rbAbrirPanel('env')">Enviar</button>
+  <label class="b-pr"><input type="checkbox" id="rbConPrecio"> Con precio</label>
+  <button class="b-env" id="rbBtnEnviar" onclick="rbEnviar()">📤 Enviar</button>
   <button class="b-x" onclick="rbSalirSel()" aria-label="Terminar selección">✕</button>
 </div>
 <div class="rb-panel" id="rbPanel" onclick="if(event.target===this)rbCerrarPanel()">
