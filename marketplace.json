@@ -16539,6 +16539,118 @@
 "fecha": "2026-11-02",
 "precio": 50
 }
+],
+"DDI005": [
+{
+"ref": "B1-182",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-11-02",
+"precio": 100
+},
+{
+"ref": "B2-1163",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-11-02",
+"precio": 100
+}
+],
+"DDI024": [
+{
+"ref": "B1-183",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-11-02",
+"precio": 90
+},
+{
+"ref": "B2-1164",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-11-02",
+"precio": 90
+}
+],
+"DDI018": [
+{
+"ref": "B1-184",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-11-02",
+"precio": 80
+},
+{
+"ref": "B2-1165",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-11-02",
+"precio": 80
+}
+],
+"DDI006": [
+{
+"ref": "B1-185",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-11-02",
+"precio": 80
+},
+{
+"ref": "B2-1166",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-11-02",
+"precio": 80
+}
+],
+"DDI003": [
+{
+"ref": "B1-186",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-11-02",
+"precio": 70
+},
+{
+"ref": "B2-1167",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-11-02",
+"precio": 70
+}
+],
+"DDI027": [
+{
+"ref": "B1-187",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-11-02",
+"precio": 70
+},
+{
+"ref": "B2-1168",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-11-02",
+"precio": 70
+}
+],
+"DDI007": [
+{
+"ref": "B1-188",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-11-02",
+"precio": 60
+},
+{
+"ref": "B2-1169",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-11-02",
+"precio": 60
+}
+],
+"DDI002": [
+{
+"ref": "B1-189",
+"vendedor": "Búnker Nº1",
+"fecha": "2026-11-02",
+"precio": 60
+},
+{
+"ref": "B2-1170",
+"vendedor": "Búnker Nº2",
+"fecha": "2026-11-02",
+"precio": 60
+}
 ]
 },
 "nota_refs": "Ojo: B2-237 a B2-286 están repetidas: las usa un pack del 20-oct y también el kit 1 del 21-oct (Marketplace_Bunker2_kit1_21oct). Para saber cuál es, mirar el código de la pieza."
