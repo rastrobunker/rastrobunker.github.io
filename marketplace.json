@@ -82,6 +82,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-19",
 "precio": 235
+},
+{
+"ref": "B3-455",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
+"precio": 235
 }
 ],
 "PT063": [
@@ -151,6 +157,12 @@
 "ref": "B2-16",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-19",
+"precio": 185
+},
+{
+"ref": "B3-459",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
 "precio": 185
 }
 ],
@@ -305,6 +317,12 @@
 "ref": "B2-33",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-19",
+"precio": 155
+},
+{
+"ref": "B3-472",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
 "precio": 155
 }
 ],
@@ -2088,6 +2106,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-11-05",
 "precio": 90
+},
+{
+"ref": "B3-477",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
+"precio": 90
 }
 ],
 "MR034": [
@@ -2249,6 +2273,12 @@
 "ref": "LE-28",
 "vendedor": "Leo",
 "fecha": "2026-10-19",
+"precio": 145
+},
+{
+"ref": "B3-453",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
 "precio": 145
 }
 ],
@@ -5048,6 +5078,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-21",
 "precio": 65
+},
+{
+"ref": "B3-463",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
+"precio": 70
 }
 ],
 "FL054": [
@@ -5452,6 +5488,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-22",
 "precio": 90
+},
+{
+"ref": "B3-458",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
+"precio": 90
 }
 ],
 "DT050": [
@@ -5583,6 +5625,12 @@
 "ref": "B2-430",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-22",
+"precio": 65
+},
+{
+"ref": "B3-473",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
 "precio": 65
 }
 ],
@@ -6236,6 +6284,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-22",
 "precio": 65
+},
+{
+"ref": "B3-456",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
+"precio": 65
 }
 ],
 "TM041": [
@@ -6251,6 +6305,12 @@
 "ref": "B2-506",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-22",
+"precio": 90
+},
+{
+"ref": "B3-469",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
 "precio": 90
 }
 ],
@@ -6850,6 +6910,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-22",
 "precio": 100
+},
+{
+"ref": "B3-465",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
+"precio": 100
 }
 ],
 "CP036": [
@@ -7018,6 +7084,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-22",
 "precio": 60
+},
+{
+"ref": "B3-468",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
+"precio": 60
 }
 ],
 "CP073": [
@@ -7178,6 +7250,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-22",
 "precio": 50
+},
+{
+"ref": "B3-479",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
+"precio": 50
 }
 ],
 "834": [
@@ -7251,6 +7329,12 @@
 "ref": "B2-622",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-22",
+"precio": 150
+},
+{
+"ref": "B3-457",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
 "precio": 150
 }
 ],
@@ -7520,6 +7604,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-22",
 "precio": 50
+},
+{
+"ref": "B3-464",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
+"precio": 50
 }
 ],
 "296": [
@@ -7527,6 +7617,12 @@
 "ref": "B2-655",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-22",
+"precio": 45
+},
+{
+"ref": "B3-476",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
 "precio": 45
 }
 ],
@@ -7602,6 +7698,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-22",
 "precio": 25
+},
+{
+"ref": "B3-461",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
+"precio": 25
 }
 ],
 "573": [
@@ -7671,6 +7773,12 @@
 "ref": "B2-670",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-22",
+"precio": 50
+},
+{
+"ref": "B3-466",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
 "precio": 50
 }
 ],
@@ -7958,6 +8066,12 @@
 "vendedor": "Maxuel",
 "fecha": "2026-10-22",
 "precio": 20
+},
+{
+"ref": "B3-471",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
+"precio": 20
 }
 ],
 "513": [
@@ -8155,6 +8269,12 @@
 "ref": "MX-161",
 "vendedor": "Maxuel",
 "fecha": "2026-10-22",
+"precio": 30
+},
+{
+"ref": "B3-478",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
 "precio": 30
 }
 ],
@@ -8749,6 +8869,12 @@
 "ref": "B2-736",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
+"precio": 90
+},
+{
+"ref": "B3-454",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
 "precio": 90
 }
 ],
@@ -9358,6 +9484,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
 "precio": 65
+},
+{
+"ref": "B3-467",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
+"precio": 65
 }
 ],
 "GF020": [
@@ -9491,6 +9623,12 @@
 "ref": "B2-819",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
+"precio": 150
+},
+{
+"ref": "B3-460",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
 "precio": 150
 }
 ],
@@ -10300,6 +10438,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
 "precio": 40
+},
+{
+"ref": "B3-451",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
+"precio": 40
 }
 ],
 "CP065": [
@@ -10567,6 +10711,12 @@
 "ref": "B2-937",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
+"precio": 50
+},
+{
+"ref": "B3-470",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
 "precio": 50
 }
 ],
@@ -10988,6 +11138,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
 "precio": 65
+},
+{
+"ref": "B3-474",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
+"precio": 65
 }
 ],
 "GF076": [
@@ -11179,6 +11335,12 @@
 "ref": "B2-1006",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
+"precio": 100
+},
+{
+"ref": "B3-452",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
 "precio": 100
 }
 ],
@@ -11600,6 +11762,12 @@
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
 "precio": 90
+},
+{
+"ref": "B3-462",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
+"precio": 90
 }
 ],
 "DT107": [
@@ -11785,6 +11953,12 @@
 "ref": "B2-1078",
 "vendedor": "Búnker Nº2",
 "fecha": "2026-10-23",
+"precio": 65
+},
+{
+"ref": "B3-475",
+"vendedor": "Búnker Nº3",
+"fecha": "2026-11-06",
 "precio": 65
 }
 ],
