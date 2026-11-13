@@ -1818,9 +1818,12 @@ function abrirModal(id) {
       mostrar();
     } catch (e) { /* sin conexión: se queda como está */ }
   }
-  sincronizarVentas();
-  setInterval(sincronizarVentas, 30000);
-  document.addEventListener("visibilitychange", () => { if (!document.hidden) sincronizarVentas(); });
+  const SINC_CADA = 30 * 60 * 1000; // 30 min: cada consulta gasta cuota de lecturas de Firebase
+  let ultimaSinc = 0;
+  const sincSiToca = () => { if (!document.hidden && Date.now() - ultimaSinc >= SINC_CADA) { ultimaSinc = Date.now(); sincronizarVentas(); } };
+  sincSiToca();
+  setInterval(sincSiToca, 60000);
+  document.addEventListener("visibilitychange", sincSiToca);
 
 
   function copiarSinPrecios() {
