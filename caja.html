@@ -401,8 +401,17 @@ async function cambiar(r, patch, accion){
 
 const enCatalogo = r => r && r.codigo && !r.sinInventario && CAT[r.codigo];
 async function marcarVendido(codigo, n){
-  try { await setDoc(doc(fs, 'vendidos', codigo), {codigo, unidades: increment(n)}, {merge: true}); }
-  catch(e) { console.warn('No se pudo actualizar el catálogo', e); }
+  try { await setDoc(doc(fs, 'vendidos', codigo), {codigo, unidades: increment(n)}, {merge: true}); return true; }
+  catch(e) { console.warn('No se pudo actualizar el catálogo', e); avisarFalloCatalogo(codigo, n); return false; }
+}
+/* si el catálogo no se actualiza, que se note: aviso en pantalla y al celular del dueño */
+function avisarFalloCatalogo(codigo, n){
+  const b = document.createElement('div');
+  b.style.cssText = 'position:fixed;left:8px;right:8px;top:8px;z-index:9999;background:#b00020;color:#fff;padding:12px 14px;border-radius:10px;font:600 15px system-ui,sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.4);cursor:pointer';
+  b.textContent = '⚠ La venta SÍ se guardó, pero el catálogo NO se actualizó (código ' + codigo + ', ' + n + ' ud.). Avísale al dueño antes de vender esa pieza. Toca para cerrar.';
+  b.onclick = () => b.remove(); document.body.appendChild(b);
+  const q = new URLSearchParams({title: '⚠ Catálogo sin actualizar', tags: 'warning', priority: 'high'});
+  fetch(`https://ntfy.sh/${AVISOS}?${q}`, {method: 'POST', body: 'Código ' + codigo + ' (' + n + ' ud.) no se marcó como vendido en el catálogo. Revisar reglas de vendidos o la cuenta que registró la venta.'}).catch(() => {});
 }
 
 /* ---------- solo dueño: carga inicial y respaldo diario ---------- */
