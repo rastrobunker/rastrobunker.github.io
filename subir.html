@@ -51,6 +51,17 @@ input:focus{outline:2px solid var(--cobre);outline-offset:1px}
 .cen{text-align:center}
 h2{margin:6px 0 4px;font-size:30px;text-transform:uppercase;letter-spacing:.5px}
 ol{margin:8px 0 0;padding-left:22px;color:var(--mute);font-size:18px}
+
+.lote{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:10px}
+.lote h3{margin:0;font-size:24px;text-transform:uppercase;letter-spacing:.4px}
+.lote .msg{margin-top:2px}
+.chip{display:inline-block;border-radius:6px;padding:1px 8px;font-size:15px;text-transform:uppercase;letter-spacing:.6px;background:var(--chip);color:var(--warn);margin-left:6px;vertical-align:middle}
+.chip.ok{color:var(--ok)}
+.fila{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}
+.fila .btn{margin:0;font-size:18px;padding:12px 4px}
+.mini{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:10px}
+.mini img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;display:block}
+h2.sec{margin:26px 2px 0;font-size:22px;color:var(--mute)}
 </style>
 </head>
 <body>
@@ -60,19 +71,19 @@ ol{margin:8px 0 0;padding-left:22px;color:var(--mute);font-size:18px}
   <button id="salir" class="hide">Salir</button>
 </header>
 
-<!-- ENTRAR -->
+<section id="vCarga" class="card"><div class="msg">Cargando…</div></section>
+
 <section id="vLogin" class="card hide">
   <h2>Entrar</h2>
-  <div class="msg">Solo la primera vez. Queda guardado en este teléfono.</div>
-  <label for="usr">Usuario</label>
-  <input id="usr" type="text" autocomplete="username" autocapitalize="none" placeholder="ej. salobunker">
-  <label for="key">Clave de acceso</label>
-  <input id="key" type="password" autocomplete="current-password" placeholder="pegar la clave">
+  <div class="msg">Con el mismo correo y contraseña de la caja.</div>
+  <label for="lMail">Correo</label>
+  <input id="lMail" type="text" inputmode="email" autocomplete="username" autocapitalize="none">
+  <label for="lPass">Contraseña</label>
+  <input id="lPass" type="password" autocomplete="current-password">
   <button class="btn" id="entrar">Entrar</button>
   <div class="err hide" id="eLogin"></div>
 </section>
 
-<!-- ELEGIR FOTOS -->
 <section id="vFotos" class="hide">
   <div class="card">
     <div class="dos">
@@ -88,12 +99,15 @@ ol{margin:8px 0 0;padding-left:22px;color:var(--mute);font-size:18px}
   </div>
   <div class="cuenta"><div><b id="n">0</b> <small>fotos en el lote</small></div><button id="vaciar" class="hide">Quitar todas</button></div>
   <div id="grid"></div>
+  <div id="zDueno" class="hide">
+    <h2 class="sec">Lotes recibidos</h2>
+    <div id="lotes"><div class="msg" style="margin:8px 2px">No hay lotes pendientes.</div></div>
+  </div>
   <input id="fCam" class="hide" type="file" accept="image/*" capture="environment">
   <input id="fGal" class="hide" type="file" accept="image/*" multiple>
   <div id="barra"><button class="btn" id="subir" disabled>Subir lote</button></div>
 </section>
 
-<!-- SUBIENDO -->
 <section id="vSube" class="card hide">
   <h2>Subiendo…</h2>
   <div class="prog"><div id="pb"></div></div>
@@ -103,7 +117,6 @@ ol{margin:8px 0 0;padding-left:22px;color:var(--mute);font-size:18px}
   <button class="btn hide" id="reint">Reintentar</button>
 </section>
 
-<!-- LISTO -->
 <section id="vListo" class="card cen hide">
   <div class="gran">✓</div>
   <h2 id="lt">Lote subido</h2>
@@ -112,138 +125,164 @@ ol{margin:8px 0 0;padding-left:22px;color:var(--mute);font-size:18px}
   <button class="btn sec" id="otro">Subir otro lote</button>
 </section>
 
-<script>
-(function(){
-'use strict';
-var REPO='rastrobunker/rastrobunker.github.io', RAMA='entrada', API='https://api.github.com/repos/'+REPO;
-var MAXLADO=2000, CAL=0.85;
-var $=function(id){return document.getElementById(id)};
-var fotos=[], seq=0, subidas=[], ocupado=false, ultimo=null;
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, doc, setDoc, updateDoc, deleteDoc, getDocs, onSnapshot, writeBatch } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
-function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
-function lsDel(k){try{localStorage.removeItem(k)}catch(e){}}
-var usuario=lsGet('rb_sub_usr')||'', clave=lsGet('rb_sub_key')||'';
+const app = initializeApp({
+  apiKey: "AIzaSyDmVL8mLvzjWr69Ab-s8Lf0A-H_JtWaTXk",
+  authDomain: "rastrobunker-caja.firebaseapp.com",
+  projectId: "rastrobunker-caja",
+  storageBucket: "rastrobunker-caja.firebasestorage.app",
+  messagingSenderId: "415388883458",
+  appId: "1:415388883458:web:4b2a9afbc8ecf031f5251b"
+});
+const auth = getAuth(app), fs = getFirestore(app);
+const DUENO = 'lS0APooZXTRLyHh46jsRi6jE6oR2';
+const NOMBRES = { 'lS0APooZXTRLyHh46jsRi6jE6oR2': 'dueno', 'KI4dcACG6aM4l7kNr419cCIeR753': 'caja', 'nlXlyeniX3Z87ajgXVs4sSLlI1q2': 'vendedor', 'svF01GJDXVfWyppXY14VZ4xqH1B2': 'salomon' };
+const COL = 'lotes_fotos', MAXKB = 680;
+const $ = id => document.getElementById(id);
+let fotos = [], seq = 0, ocupado = false, ultimo = null, loteId = null, yo = null, usuario = '', soyDueno = false, sub = null;
 
-function ver(id){['vLogin','vFotos','vSube','vListo'].forEach(function(v){$(v).classList.toggle('hide',v!==id)});
-  $('salir').classList.toggle('hide',id==='vLogin'||id==='vSube');window.scrollTo(0,0)}
+function ver(id){ ['vCarga','vLogin','vFotos','vSube','vListo'].forEach(v => $(v).classList.toggle('hide', v !== id));
+  $('salir').classList.toggle('hide', id === 'vLogin' || id === 'vSube' || id === 'vCarga'); window.scrollTo(0,0); }
 
-function gh(ruta,metodo,cuerpo){
-  return fetch(API+ruta,{method:metodo||'GET',headers:{'Authorization':'Bearer '+clave,'Accept':'application/vnd.github+json','Content-Type':'application/json'},
-    body:cuerpo?JSON.stringify(cuerpo):undefined,cache:'no-store'}).then(function(r){
-      return r.json().catch(function(){return {}}).then(function(j){
-        if(!r.ok){var e=new Error(j.message||('Error '+r.status));e.status=r.status;throw e}
-        return j})})}
-function reintenta(fn,veces){return fn().catch(function(e){
-  if(veces<=1||e.status===401||e.status===403||e.status===404)throw e;
-  return new Promise(function(ok){setTimeout(ok,1500)}).then(function(){return reintenta(fn,veces-1)})})}
-
-/* ---------- entrar ---------- */
-$('entrar').onclick=function(){
-  var u=$('usr').value.trim().toLowerCase().replace(/[^a-z0-9_-]/g,''), k=$('key').value.trim();
-  var e=$('eLogin');e.classList.add('hide');
-  if(!u||!k){e.textContent='Escribe el usuario y la clave.';e.classList.remove('hide');return}
-  clave=k;$('entrar').disabled=true;$('entrar').textContent='Revisando…';
-  gh('').then(function(j){
-    if(!(j.permissions&&j.permissions.push))throw new Error('Esa clave no tiene permiso para subir.');
-    usuario=u;lsSet('rb_sub_usr',u);lsSet('rb_sub_key',k);$('key').value='';ver('vFotos');
-  }).catch(function(x){clave='';
-    e.textContent=(x.status===401||x.status===404)?'Clave incorrecta o vencida. Pide una nueva.':('No se pudo entrar: '+x.message);
-    e.classList.remove('hide');
-  }).then(function(){$('entrar').disabled=false;$('entrar').textContent='Entrar'});
+/* ---------- sesión (la misma de la caja) ---------- */
+onAuthStateChanged(auth, u => {
+  yo = u; if (sub) { sub(); sub = null; }
+  if (!u) { ver('vLogin'); return; }
+  usuario = NOMBRES[u.uid] || (u.email || 'equipo').split('@')[0].toLowerCase().replace(/[^a-z0-9_-]/g, '');
+  soyDueno = u.uid === DUENO;
+  $('zDueno').classList.toggle('hide', !soyDueno);
+  if (soyDueno) sub = onSnapshot(collection(fs, COL), s => pintaLotes(s.docs.map(d => ({ ...d.data(), _id: d.id }))), () => {});
+  ver('vFotos');
+});
+$('entrar').onclick = async () => {
+  const e = $('eLogin'); e.classList.add('hide'); $('entrar').disabled = true; $('entrar').textContent = 'Entrando…';
+  try { await signInWithEmailAndPassword(auth, $('lMail').value.trim(), $('lPass').value); $('lPass').value = ''; }
+  catch (x) { e.textContent = 'Correo o contraseña incorrectos.'; e.classList.remove('hide'); }
+  $('entrar').disabled = false; $('entrar').textContent = 'Entrar';
 };
-$('salir').onclick=function(){if(!confirm('¿Salir? Tendrás que volver a poner la clave.'))return;
-  lsDel('rb_sub_key');clave='';ver('vLogin');$('usr').value=usuario};
+$('salir').onclick = () => { if (confirm('¿Cerrar sesión? También se cierra la de la caja en este teléfono.')) signOut(auth); };
 
 /* ---------- elegir fotos ---------- */
-$('bCam').onclick=function(){$('fCam').click()};
-$('bGal').onclick=function(){$('fGal').click()};
-$('fCam').onchange=$('fGal').onchange=function(ev){
-  var fs=ev.target.files;for(var i=0;i<fs.length;i++){if(/^image\//.test(fs[i].type)||/\.(jpe?g|png|heic|webp)$/i.test(fs[i].name))
-    fotos.push({id:++seq,file:fs[i],url:URL.createObjectURL(fs[i])})}
-  ev.target.value='';pinta();
+$('bCam').onclick = () => $('fCam').click();
+$('bGal').onclick = () => $('fGal').click();
+$('fCam').onchange = $('fGal').onchange = ev => {
+  for (const f of ev.target.files) if (/^image\//.test(f.type) || /\.(jpe?g|png|heic|webp)$/i.test(f.name))
+    fotos.push({ id: ++seq, file: f, url: URL.createObjectURL(f) });
+  ev.target.value = ''; pinta();
 };
-$('vaciar').onclick=function(){if(confirm('¿Quitar las '+fotos.length+' fotos?')){fotos.forEach(function(f){URL.revokeObjectURL(f.url)});fotos=[];pinta()}};
+$('vaciar').onclick = () => { if (confirm('¿Quitar las ' + fotos.length + ' fotos?')) { fotos.forEach(f => URL.revokeObjectURL(f.url)); fotos = []; pinta(); } };
 function pinta(){
-  var g=$('grid');g.innerHTML='';
-  fotos.forEach(function(f,i){
-    var d=document.createElement('div');d.className='th';d.id='th'+f.id;
-    var im=document.createElement('img');im.loading='lazy';im.src=f.url;im.alt='';
-    var n=document.createElement('i');n.textContent=i+1;
-    var b=document.createElement('button');b.textContent='×';b.setAttribute('aria-label','Quitar');
-    b.onclick=function(){URL.revokeObjectURL(f.url);fotos=fotos.filter(function(x){return x!==f});pinta()};
-    d.appendChild(im);d.appendChild(n);d.appendChild(b);g.appendChild(d)});
-  $('n').textContent=fotos.length;$('vaciar').classList.toggle('hide',!fotos.length);
-  $('subir').disabled=!fotos.length;$('subir').textContent=fotos.length?('Subir lote · '+fotos.length+' fotos'):'Subir lote';
+  const g = $('grid'); g.innerHTML = '';
+  fotos.forEach((f, i) => {
+    const d = document.createElement('div'); d.className = 'th';
+    const im = document.createElement('img'); im.loading = 'lazy'; im.src = f.url; im.alt = '';
+    const n = document.createElement('i'); n.textContent = i + 1;
+    const b = document.createElement('button'); b.textContent = '×'; b.setAttribute('aria-label', 'Quitar');
+    b.onclick = () => { URL.revokeObjectURL(f.url); fotos = fotos.filter(x => x !== f); pinta(); };
+    d.append(im, n, b); g.appendChild(d); });
+  $('n').textContent = fotos.length; $('vaciar').classList.toggle('hide', !fotos.length);
+  $('subir').disabled = !fotos.length; $('subir').textContent = fotos.length ? ('Subir lote · ' + fotos.length + ' fotos') : 'Subir lote';
 }
 
-/* ---------- comprimir ---------- */
-function aLienzo(file){
-  var p=window.createImageBitmap?createImageBitmap(file,{imageOrientation:'from-image'}).catch(function(){return null}):Promise.resolve(null);
-  return p.then(function(bm){
-    if(bm)return bm;
-    return new Promise(function(ok,no){var im=new Image();im.onload=function(){ok(im)};im.onerror=function(){no(new Error('No se pudo leer una foto'))};im.src=URL.createObjectURL(file)})
-  }).then(function(src){
-    var w=src.width,h=src.height,k=Math.min(1,MAXLADO/Math.max(w,h));
-    var c=document.createElement('canvas');c.width=Math.round(w*k);c.height=Math.round(h*k);
-    c.getContext('2d').drawImage(src,0,0,c.width,c.height);if(src.close)src.close();return c})}
-function aBase64(file){
-  return aLienzo(file).then(function(c){return new Promise(function(ok,no){
-    c.toBlob(function(b){if(!b){no(new Error('No se pudo comprimir'));return}
-      var r=new FileReader();r.onload=function(){ok({b64:String(r.result).split(',')[1],kb:Math.round(b.size/1024)})};r.onerror=function(){no(new Error('No se pudo leer'))};r.readAsDataURL(b)},'image/jpeg',CAL)})})}
+/* ---------- comprimir (cada foto debe caber en un documento) ---------- */
+async function aLienzo(file, lado){
+  let src = null;
+  if (window.createImageBitmap) src = await createImageBitmap(file, { imageOrientation: 'from-image' }).catch(() => null);
+  if (!src) src = await new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(im); im.onerror = () => no(new Error('No se pudo leer una foto')); im.src = URL.createObjectURL(file); });
+  const k = Math.min(1, lado / Math.max(src.width, src.height)), c = document.createElement('canvas');
+  c.width = Math.round(src.width * k); c.height = Math.round(src.height * k);
+  c.getContext('2d').drawImage(src, 0, 0, c.width, c.height); if (src.close) src.close(); return c;
+}
+const aBlob = (c, q) => new Promise((ok, no) => c.toBlob(b => b ? ok(b) : no(new Error('No se pudo comprimir')), 'image/jpeg', q));
+async function aBase64(file){
+  let b = null;
+  for (const [lado, q] of [[1800, .82], [1800, .7], [1600, .68], [1400, .62], [1200, .55]]) {
+    b = await aBlob(await aLienzo(file, lado), q); if (b.size <= MAXKB * 1024) break; }
+  if (b.size > MAXKB * 1024) throw new Error('Una foto pesa demasiado');
+  return new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok({ b64: String(r.result).split(',')[1], kb: Math.round(b.size / 1024) }); r.onerror = () => no(new Error('No se pudo leer')); r.readAsDataURL(b); });
+}
 
 /* ---------- subir ---------- */
-function dos(n){return (n<10?'0':'')+n}
-function tres(n){return ('00'+n).slice(-3)}
-function avance(h,t,txt){$('pb').style.width=Math.round(100*h/t)+'%';$('pt').textContent=txt}
+const dos = n => (n < 10 ? '0' : '') + n, tres = n => ('00' + n).slice(-3);
+const espera = ms => new Promise(ok => setTimeout(ok, ms));
+async function reintenta(fn, veces){ for (let i = 1; ; i++) { try { return await fn(); } catch (e) { if (i >= veces || e.code === 'permission-denied') throw e; await espera(1500 * i); } } }
+function avance(h, t, txt){ $('pb').style.width = Math.round(100 * h / t) + '%'; $('pt').textContent = txt; }
 
-function subirLote(){
-  if(ocupado)return;ocupado=true;ver('vSube');$('eSube').classList.add('hide');$('reint').classList.add('hide');
-  var total=fotos.length,hechas=subidas.length,cola=fotos.filter(function(f){return !f.sha});
-  var bloqueo=null;if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){bloqueo=l}).catch(function(){});
-  avance(hechas,total+1,'Foto '+hechas+' de '+total);
-  function una(){
-    var f=cola.shift();if(!f)return Promise.resolve();
-    return aBase64(f.file).then(function(d){f.kb=d.kb;
-      return reintenta(function(){return gh('/git/blobs','POST',{content:d.b64,encoding:'base64'})},4)
-    }).then(function(j){f.sha=j.sha;hechas++;avance(hechas,total+1,'Foto '+hechas+' de '+total);return una()})}
-  Promise.all([una(),una()]).then(function(){
-    avance(total,total+1,'Guardando el lote…');
-    var a=new Date(),carpeta='lotes/'+a.getFullYear()+'-'+dos(a.getMonth()+1)+'-'+dos(a.getDate())+'_'+dos(a.getHours())+dos(a.getMinutes())+'_'+usuario;
-    var nota=$('nota').value.trim();
-    var arbol=fotos.map(function(f,i){return {path:carpeta+'/'+tres(i+1)+'.jpg',mode:'100644',type:'blob',sha:f.sha}});
-    arbol.push({path:carpeta+'/lote.json',mode:'100644',type:'blob',content:JSON.stringify({usuario:usuario,fecha:a.toISOString(),fotos:total,nota:nota,
-      originales:fotos.map(function(f){return f.file.name})},null,1)});
-    return reintenta(function(){
-      return gh('/git/ref/heads/'+RAMA).then(function(ref){var padre=ref.object.sha;
-        return gh('/git/commits/'+padre).then(function(c){return gh('/git/trees','POST',{base_tree:c.tree.sha,tree:arbol})})
-        .then(function(t){return gh('/git/commits','POST',{message:'Lote '+usuario+': '+total+' fotos'+(nota?' ('+nota+')':''),tree:t.sha,parents:[padre]})})
-        .then(function(c){return gh('/git/refs/heads/'+RAMA,'PATCH',{sha:c.sha})})})},4)
-    .then(function(){ultimo={n:total,nota:nota,carpeta:carpeta}})
-  }).then(function(){
-    fotos.forEach(function(f){URL.revokeObjectURL(f.url)});fotos=[];subidas=[];$('nota').value='';pinta();
-    $('lt').textContent='Lote subido · '+ultimo.n+' fotos';
-    $('ld').textContent='Ya están guardadas. Avisa para que se procesen.';ver('vListo');
-  }).catch(function(x){
-    subidas=fotos.filter(function(f){return f.sha});
-    var m=(x.status===401)?'La clave venció o ya no sirve. Sal, entra con una clave nueva y vuelve a subir.':
-      ('Se cortó la subida ('+x.message+'). Revisa el internet y toca Reintentar: no se pierde lo ya subido.');
-    $('eSube').textContent=m;$('eSube').classList.remove('hide');$('reint').classList.remove('hide');
-  }).then(function(){ocupado=false;if(bloqueo)bloqueo.release().catch(function(){})});
+async function subirLote(){
+  if (ocupado || !fotos.length) return; ocupado = true; ver('vSube'); $('eSube').classList.add('hide'); $('reint').classList.add('hide');
+  let bloqueo = null; if (navigator.wakeLock) navigator.wakeLock.request('screen').then(l => bloqueo = l).catch(() => {});
+  const total = fotos.length, a = new Date();
+  if (!loteId) loteId = a.getFullYear() + '-' + dos(a.getMonth() + 1) + '-' + dos(a.getDate()) + '_' + dos(a.getHours()) + dos(a.getMinutes()) + '_' + usuario;
+  fotos.forEach((f, i) => f.n = i + 1);
+  let hechas = fotos.filter(f => f.ok).length; const cola = fotos.filter(f => !f.ok);
+  avance(hechas, total + 1, 'Foto ' + hechas + ' de ' + total);
+  const una = async () => { for (let f; (f = cola.shift()); ) {
+    const d = await aBase64(f.file);
+    await reintenta(() => setDoc(doc(fs, COL, loteId, 'fotos', tres(f.n)), { i: f.n, b64: d.b64, kb: d.kb, nombre: f.file.name || '' }), 4);
+    f.ok = true; hechas++; avance(hechas, total + 1, 'Foto ' + hechas + ' de ' + total); } };
+  try {
+    await Promise.all([una(), una()]);
+    avance(total, total + 1, 'Guardando el lote…');
+    const nota = $('nota').value.trim();
+    await reintenta(() => setDoc(doc(fs, COL, loteId), { uid: yo.uid, usuario, fecha: a.toISOString(), fotos: total, nota, estado: soyDueno ? 'aprobado' : 'pendiente' }), 4);
+    ultimo = { n: total, nota }; loteId = null;
+    fotos.forEach(f => URL.revokeObjectURL(f.url)); fotos = []; $('nota').value = ''; pinta();
+    $('lt').textContent = 'Lote subido · ' + ultimo.n + ' fotos';
+    $('ld').textContent = soyDueno ? 'Ya quedó aprobado. Escríbele a Claude: «lote listo».' : 'Ya están guardadas. Avisa para que las aprueben.';
+    $('avisar').classList.toggle('hide', soyDueno); ver('vListo');
+  } catch (x) {
+    $('eSube').textContent = x.code === 'permission-denied' ? 'Esta cuenta todavía no tiene permiso para subir fotos. Avísale al dueño.'
+      : 'Se cortó la subida. Revisa el internet y toca Reintentar: no se pierde lo ya subido.';
+    $('eSube').classList.remove('hide'); $('reint').classList.remove('hide');
+  }
+  ocupado = false; if (bloqueo) bloqueo.release().catch(() => {});
 }
-$('subir').onclick=function(){if(fotos.length)subirLote()};
-$('reint').onclick=subirLote;
-window.addEventListener('beforeunload',function(e){if(ocupado||fotos.length){e.preventDefault();e.returnValue=''}});
+$('subir').onclick = subirLote; $('reint').onclick = subirLote;
+window.addEventListener('beforeunload', e => { if (ocupado || fotos.length) { e.preventDefault(); e.returnValue = ''; } });
+$('avisar').onclick = () => { if (!ultimo) return;
+  const t = 'Lote de fotos subido ✅ ' + ultimo.n + ' fotos (' + usuario + ')' + (ultimo.nota ? ' · ' + ultimo.nota : '') + '. Falta aprobarlo: https://rastrobunker.github.io/subir.html';
+  window.open('https://wa.me/?text=' + encodeURIComponent(t), '_blank'); };
+$('otro').onclick = () => ver('vFotos');
 
-/* ---------- listo ---------- */
-$('avisar').onclick=function(){if(!ultimo)return;
-  var t='Lote listo ✅ '+ultimo.n+' fotos subidas por '+usuario+(ultimo.nota?' ('+ultimo.nota+')':'')+'.';
-  window.open('https://wa.me/?text='+encodeURIComponent(t),'_blank')};
-$('otro').onclick=function(){ver('vFotos')};
-
-if(clave&&usuario){ver('vFotos')}else{$('usr').value=usuario;ver('vLogin')}
+/* ---------- dueño: aprobar lotes ---------- */
+async function borrarLote(id){
+  const s = await getDocs(collection(fs, COL, id, 'fotos'));
+  for (let i = 0; i < s.docs.length; i += 200) { const b = writeBatch(fs); s.docs.slice(i, i + 200).forEach(d => b.delete(d.ref)); await b.commit(); }
+  await deleteDoc(doc(fs, COL, id));
+}
+const abiertos = {};
+function pintaLotes(L){
+  // los que Claude ya procesó se borran solos
+  L.filter(l => l.estado === 'procesado').forEach(l => borrarLote(l._id).catch(() => {}));
+  L = L.filter(l => l.estado !== 'procesado').sort((a, b) => (a.fecha < b.fecha ? 1 : -1));
+  const z = $('lotes'); z.innerHTML = '';
+  if (!L.length) { z.innerHTML = '<div class="msg" style="margin:8px 2px">No hay lotes pendientes.</div>'; return; }
+  L.forEach(l => {
+    const ok = l.estado === 'aprobado', d = document.createElement('div'); d.className = 'lote';
+    const f = new Date(l.fecha), h = document.createElement('h3');
+    h.textContent = l.fotos + ' fotos · ' + l.usuario;
+    const c = document.createElement('span'); c.className = 'chip' + (ok ? ' ok' : ''); c.textContent = ok ? 'Aprobado' : 'Por aprobar'; h.appendChild(c);
+    const m = document.createElement('div'); m.className = 'msg';
+    m.textContent = f.toLocaleDateString('es-PA', { day: 'numeric', month: 'short' }) + ', ' + f.toLocaleTimeString('es-PA', { hour: 'numeric', minute: '2-digit' }) + (l.nota ? ' · ' + l.nota : '');
+    const fila = document.createElement('div'); fila.className = 'fila';
+    const mk = (t, cls, fn) => { const b = document.createElement('button'); b.className = 'btn ' + cls; b.textContent = t; b.onclick = fn; fila.appendChild(b); return b; };
+    const mini = document.createElement('div'); mini.className = 'mini';
+    const cargar = async () => { mini.textContent = 'Cargando fotos…';
+      const s = await getDocs(collection(fs, COL, l._id, 'fotos')); mini.textContent = '';
+      s.docs.forEach(x => { const im = document.createElement('img'); im.src = 'data:image/jpeg;base64,' + x.data().b64; im.alt = ''; mini.appendChild(im); }); };
+    mk('Ver fotos', 'sec', () => { abiertos[l._id] = true; cargar().catch(() => mini.textContent = 'No se pudieron cargar.'); });
+    if (!ok) mk('Aprobar', '', async e => { e.target.disabled = true; await updateDoc(doc(fs, COL, l._id), { estado: 'aprobado' }).catch(() => alert('No se pudo aprobar.')); });
+    else { const s = document.createElement('div'); s.className = 'msg'; s.style.alignSelf = 'center'; s.textContent = 'Dile a Claude: «lote listo»'; fila.appendChild(s); }
+    mk('Borrar', 'sec', async e => { if (!confirm('¿Borrar este lote de ' + l.fotos + ' fotos?')) return; e.target.disabled = true; await borrarLote(l._id).catch(() => alert('No se pudo borrar.')); });
+    d.append(h, m, fila, mini); z.appendChild(d);
+    if (abiertos[l._id]) cargar().catch(() => {});
+  });
+}
 pinta();
-})();
 </script>
 </body>
 </html>
