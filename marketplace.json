@@ -31669,6 +31669,158 @@
     "fecha": "2026-11-10",
     "precio": 35
    }
+  ],
+  "TA006": [
+   {
+    "ref": "B1-518",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 40
+   }
+  ],
+  "TA007": [
+   {
+    "ref": "B1-519",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 35
+   }
+  ],
+  "TA008": [
+   {
+    "ref": "B1-520",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 40
+   }
+  ],
+  "TA009": [
+   {
+    "ref": "B1-521",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 35
+   }
+  ],
+  "TA010": [
+   {
+    "ref": "B1-522",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 35
+   }
+  ],
+  "TA011": [
+   {
+    "ref": "B1-523",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 40
+   }
+  ],
+  "TA012": [
+   {
+    "ref": "B1-524",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 40
+   }
+  ],
+  "TA013": [
+   {
+    "ref": "B1-525",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 45
+   }
+  ],
+  "TA014": [
+   {
+    "ref": "B1-526",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 35
+   }
+  ],
+  "TA015": [
+   {
+    "ref": "B1-527",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 35
+   }
+  ],
+  "TA016": [
+   {
+    "ref": "B1-528",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 50
+   }
+  ],
+  "TA017": [
+   {
+    "ref": "B1-529",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 35
+   }
+  ],
+  "TA018": [
+   {
+    "ref": "B1-530",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 35
+   }
+  ],
+  "TA019": [
+   {
+    "ref": "B1-531",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 35
+   }
+  ],
+  "TA020": [
+   {
+    "ref": "B1-532",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 40
+   }
+  ],
+  "TA021": [
+   {
+    "ref": "B1-533",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 35
+   }
+  ],
+  "TA022": [
+   {
+    "ref": "B1-534",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 40
+   }
+  ],
+  "TA048": [
+   {
+    "ref": "B1-535",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 35
+   }
+  ],
+  "MLT018": [
+   {
+    "ref": "B1-536",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-12",
+    "precio": 80
+   }
   ]
  },
  "nota_refs": "Ojo: B2-237 a B2-286 están repetidas: las usa un pack del 20-oct y también el kit 1 del 21-oct (Marketplace_Bunker2_kit1_21oct). Para saber cuál es, mirar el código de la pieza."
