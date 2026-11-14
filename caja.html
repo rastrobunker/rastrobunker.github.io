@@ -237,7 +237,7 @@ main,nav{display:none}body.dentro main{display:block}body.dentro nav{display:fle
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, getDoc, setDoc, getDocs, writeBatch, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, getDoc, setDoc, getDocs, writeBatch, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const app = initializeApp({
   apiKey: "AIzaSyDmVL8mLvzjWr69Ab-s8Lf0A-H_JtWaTXk",
@@ -247,7 +247,10 @@ const app = initializeApp({
   messagingSenderId: "415388883458",
   appId: "1:415388883458:web:4b2a9afbc8ecf031f5251b"
 });
-const auth = getAuth(app), fs = getFirestore(app);
+let fs;
+try { fs = initializeFirestore(app, {localCache: persistentLocalCache({tabManager: persistentMultipleTabManager()})}); }
+catch (e) { console.warn('caché local no disponible', e); fs = getFirestore(app); }
+const auth = getAuth(app);
 const DUENO = 'lS0APooZXTRLyHh46jsRi6jE6oR2';
 const CAJA = 'KI4dcACG6aM4l7kNr419cCIeR753', VENDEDOR = 'nlXlyeniX3Z87ajgXVs4sSLlI1q2', VENDEDOR2 = 'svF01GJDXVfWyppXY14VZ4xqH1B2';
 const NOMBRES = { [DUENO]: 'dueño', [CAJA]: 'caja (brsale26)', [VENDEDOR]: 'vendedor', [VENDEDOR2]: 'vendedor (Salomón)' };
