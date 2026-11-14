@@ -237,7 +237,7 @@ main,nav{display:none}body.dentro main{display:block}body.dentro nav{display:fle
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, getDoc, setDoc, getDocs, writeBatch, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, getDoc, setDoc, getDocs, writeBatch, increment, query, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const app = initializeApp({
   apiKey: "AIzaSyDmVL8mLvzjWr69Ab-s8Lf0A-H_JtWaTXk",
@@ -380,7 +380,7 @@ onAuthStateChanged(auth, u => {
   subs.push(onSnapshot(collection(fs, 'precios'), s => { PREC = {}; s.docs.forEach(d => { const f = d.data(); if (f.codigo && +f.precio > 0) PREC[f.codigo] = +f.precio; }); aplicarPrecios(); }, () => {}));
   if (dueno) subs.push(onSnapshot(collection(fs, 'propuestas'), s => { PROP = s.docs.map(d => ({...d.data(), _id: d.id})); pintarProp(); }, () => {}));
   if (dueno) subs.push(onSnapshot(collection(fs, 'vendidos'), s => { VEND = {}; s.docs.forEach(d => { const f = d.data(), n = parseInt(f.unidades || 0, 10); if (f.codigo && n > 0) VEND[f.codigo] = n; }); pintarCatStats(); }, () => {}));
-  for (const t of (rol === 'vendedor' ? ['ventas'] : ['ventas','gastos'])) subs.push(onSnapshot(collection(fs, t),
+  for (const t of (rol === 'vendedor' ? ['ventas'] : ['ventas','gastos'])) subs.push(onSnapshot(rol === 'vendedor' ? query(collection(fs, t), where('por', '==', yo)) : collection(fs, t),
     s => { datos[t] = s.docs.map(d => ({...d.data(), _id: d.id, _t: t})); setSync('En vivo','on'); pintar(); if (dueno) arranqueDueno(); if (t === 'gastos') sembrarDeudas(); },
     e => setSync(e.code === 'permission-denied' ? 'Sin permiso' : 'Sin conexión', 'off')));
 });
