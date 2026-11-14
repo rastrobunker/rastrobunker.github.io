@@ -1778,9 +1778,10 @@ function abrirModal(id) {
   const CACHE_VENTAS = "rb_ventas_cache_v1";
   const leerCacheVentas = () => { try { return JSON.parse(localStorage.getItem(CACHE_VENTAS) || "null"); } catch (e) { return null; } };
   const guardarCacheVentas = (v, p) => { try { localStorage.setItem(CACHE_VENTAS, JSON.stringify({ vend: v, prec: p, t: Date.now() })); } catch (e) {} };
-  async function sincronizarVentas() {
+  async function sincronizarVentas(usarCache) {
     let vend, prec;
     try {
+      if (usarCache) throw new Error('cache');
       const v = {};
       let token = "";
       do {
@@ -1835,6 +1836,7 @@ function abrirModal(id) {
   }
   const SINC_CADA = 30 * 60 * 1000; // 30 min: cada consulta gasta cuota de lecturas de Firebase
   let ultimaSinc = 0;
+  { const c0 = leerCacheVentas(); if (c0 && c0.t && Date.now() - c0.t < SINC_CADA) { ultimaSinc = c0.t; sincronizarVentas(true); } }
   const sincSiToca = () => { if (!document.hidden && Date.now() - ultimaSinc >= SINC_CADA) { ultimaSinc = Date.now(); sincronizarVentas(); } };
   sincSiToca();
   setInterval(sincSiToca, 60000);
