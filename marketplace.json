@@ -7431,7 +7431,7 @@
     "ref": "B3-994",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-13",
-    "precio": 200
+    "precio": 250
    }
   ],
   "FL038": [
@@ -20801,7 +20801,7 @@
     "ref": "B3-988",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-13",
-    "precio": 250
+    "precio": 400
    }
   ],
   "923": [
@@ -20871,7 +20871,7 @@
     "ref": "B3-1007",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-13",
-    "precio": 290
+    "precio": 400
    }
   ],
   "941": [
@@ -26315,7 +26315,7 @@
     "ref": "B3-1016",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-13",
-    "precio": 55
+    "precio": 180
    }
   ],
   "949": [
