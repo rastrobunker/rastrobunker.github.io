@@ -266,6 +266,12 @@
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
     "precio": 330
+   },
+   {
+    "ref": "NO-43",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 330
    }
   ],
   "TM051": [
@@ -321,6 +327,12 @@
     "ref": "B3-36",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
+    "precio": 330
+   },
+   {
+    "ref": "NO-44",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 330
    }
   ],
@@ -995,6 +1007,12 @@
     "ref": "B3-37",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
+    "precio": 240
+   },
+   {
+    "ref": "NO-45",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 240
    }
   ],
@@ -2468,6 +2486,12 @@
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
     "precio": 205
+   },
+   {
+    "ref": "NO-20",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 205
    }
   ],
   "GF081": [
@@ -3030,6 +3054,12 @@
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
     "precio": 120
+   },
+   {
+    "ref": "NO-12",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 120
    }
   ],
   "691": [
@@ -3057,6 +3087,12 @@
     "ref": "B3-21",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
+    "precio": 155
+   },
+   {
+    "ref": "NO-30",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 155
    }
   ],
@@ -3392,6 +3428,12 @@
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
     "precio": 140
+   },
+   {
+    "ref": "NO-37",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 140
    }
   ],
   "009": [
@@ -3405,6 +3447,12 @@
     "ref": "B3-07",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
+    "precio": 140
+   },
+   {
+    "ref": "NO-18",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 140
    }
   ],
@@ -3439,6 +3487,12 @@
     "ref": "B3-08",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
+    "precio": 100
+   },
+   {
+    "ref": "NO-19",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 100
    }
   ],
@@ -3487,6 +3541,12 @@
     "ref": "B3-30",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
+    "precio": 75
+   },
+   {
+    "ref": "NO-38",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 75
    }
   ],
@@ -3545,6 +3605,12 @@
     "ref": "B3-05",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
+    "precio": 80
+   },
+   {
+    "ref": "NO-16",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 80
    }
   ],
@@ -5422,6 +5488,12 @@
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
     "precio": 230
+   },
+   {
+    "ref": "NO-40",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 230
    }
   ],
   "MR033": [
@@ -6278,6 +6350,12 @@
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
     "precio": 50
+   },
+   {
+    "ref": "NO-21",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 50
    }
   ],
   "MR003": [
@@ -6940,6 +7018,12 @@
     "vendedor": "Irving",
     "fecha": "2026-11-08",
     "precio": 300
+   },
+   {
+    "ref": "NO-33",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 300
    }
   ],
   "GF021": [
@@ -7297,6 +7381,12 @@
     "ref": "B3-16",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
+    "precio": 180
+   },
+   {
+    "ref": "NO-25",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 180
    }
   ],
@@ -8259,6 +8349,12 @@
     "ref": "B3-25",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
+    "precio": 40
+   },
+   {
+    "ref": "NO-34",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 40
    }
   ],
@@ -9272,6 +9368,12 @@
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
     "precio": 95
+   },
+   {
+    "ref": "NO-15",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 95
    }
   ],
   "PT022": [
@@ -9884,6 +9986,12 @@
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
     "precio": 40
+   },
+   {
+    "ref": "NO-17",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 40
    }
   ],
   "GF035": [
@@ -9913,6 +10021,12 @@
     "ref": "B3-40",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
+    "precio": 150
+   },
+   {
+    "ref": "NO-48",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 150
    }
   ],
@@ -10486,6 +10600,12 @@
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
     "precio": 200
+   },
+   {
+    "ref": "NO-13",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 200
    }
   ],
   "515": [
@@ -10721,6 +10841,12 @@
     "ref": "B3-33",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
+    "precio": 300
+   },
+   {
+    "ref": "NO-41",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 300
    }
   ],
@@ -11630,6 +11756,12 @@
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
     "precio": 220
+   },
+   {
+    "ref": "NO-46",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 220
    }
   ],
   "DT118": [
@@ -12073,6 +12205,12 @@
     "ref": "B3-03",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-26",
+    "precio": 60
+   },
+   {
+    "ref": "NO-14",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 60
    }
   ],
@@ -13780,6 +13918,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-05",
     "precio": 40
+   },
+   {
+    "ref": "NO-22",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 40
    }
   ],
   "017": [
@@ -13793,6 +13937,12 @@
     "ref": "B2-1643",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-05",
+    "precio": 25
+   },
+   {
+    "ref": "NO-23",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 25
    }
   ],
@@ -13808,6 +13958,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-05",
     "precio": 180
+   },
+   {
+    "ref": "NO-24",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 180
    }
   ],
   "020": [
@@ -13821,6 +13977,12 @@
     "ref": "B2-1645",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-05",
+    "precio": 125
+   },
+   {
+    "ref": "NO-26",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 125
    }
   ],
@@ -13836,6 +13998,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-05",
     "precio": 80
+   },
+   {
+    "ref": "NO-27",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 80
    }
   ],
   "022": [
@@ -13849,6 +14017,12 @@
     "ref": "B2-2013",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-12",
+    "precio": 150
+   },
+   {
+    "ref": "NO-28",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 150
    }
   ],
@@ -13864,6 +14038,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-12",
     "precio": 80
+   },
+   {
+    "ref": "NO-29",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 80
    }
   ],
   "025": [
@@ -13877,6 +14057,12 @@
     "ref": "B2-2015",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-12",
+    "precio": 35
+   },
+   {
+    "ref": "NO-31",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 35
    }
   ],
@@ -13892,6 +14078,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-05",
     "precio": 85
+   },
+   {
+    "ref": "NO-32",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 85
    }
   ],
   "029": [
@@ -13906,6 +14098,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-12",
     "precio": 30
+   },
+   {
+    "ref": "NO-35",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 40
    }
   ],
   "030": [
@@ -13920,6 +14118,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-12",
     "precio": 55
+   },
+   {
+    "ref": "NO-36",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 60
    }
   ],
   "032": [
@@ -13942,6 +14146,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-05",
     "precio": 80
+   },
+   {
+    "ref": "NO-39",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 80
    }
   ],
   "038": [
@@ -13955,6 +14165,12 @@
     "ref": "B2-2018",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-12",
+    "precio": 300
+   },
+   {
+    "ref": "NO-42",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 300
    }
   ],
@@ -13970,6 +14186,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-12",
     "precio": 220
+   },
+   {
+    "ref": "NO-47",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 220
    }
   ],
   "045": [
@@ -13983,6 +14205,12 @@
     "ref": "B2-1649",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-05",
+    "precio": 220
+   },
+   {
+    "ref": "NO-49",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 220
    }
   ],
@@ -14025,6 +14253,12 @@
     "ref": "B2-2021",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-12",
+    "precio": 220
+   },
+   {
+    "ref": "NO-50",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
     "precio": 220
    }
   ],
@@ -32192,6 +32426,94 @@
     "vendedor": "Maxuel",
     "fecha": "2026-11-12",
     "precio": 40
+   }
+  ],
+  "TA037": [
+   {
+    "ref": "NO-01",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 35
+   }
+  ],
+  "TA038": [
+   {
+    "ref": "NO-02",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 35
+   }
+  ],
+  "TA039": [
+   {
+    "ref": "NO-03",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 40
+   }
+  ],
+  "TA040": [
+   {
+    "ref": "NO-04",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 50
+   }
+  ],
+  "TA041": [
+   {
+    "ref": "NO-05",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 45
+   }
+  ],
+  "TA042": [
+   {
+    "ref": "NO-06",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 60
+   }
+  ],
+  "TA043": [
+   {
+    "ref": "NO-07",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 25
+   }
+  ],
+  "TA044": [
+   {
+    "ref": "NO-08",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 35
+   }
+  ],
+  "TA045": [
+   {
+    "ref": "NO-09",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 35
+   }
+  ],
+  "TA046": [
+   {
+    "ref": "NO-10",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 35
+   }
+  ],
+  "TA047": [
+   {
+    "ref": "NO-11",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-14",
+    "precio": 45
    }
   ]
  },
