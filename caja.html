@@ -331,12 +331,14 @@ const GASTOS_INI = [ // gastos que se cargan solos una vez (id fijo, no se dupli
 ];
 const EN_MANO_INI = 70; // efectivo que había en mano el lunes 12-oct-2026
 const rentaFuera = k => PAGOS_HECHOS['renta|' + k] ? 1284 : 0; // renta pagada fuera de la caja: se resta del saldo de ese mes // pagados fuera de la caja (renta oct con préstamos)
-const DEUDAS_OCULTAS = r => r._id === 'deuda-astrid' || r._id === 'deuda-maxuel' || /^maxuel/.test(String(r.concepto||'').trim().toLowerCase()) || /^(deuda )?astrid/.test(String(r.concepto||'').trim().toLowerCase()); // deuda de Astrid ya no va (12-oct)
+const DEUDAS_OCULTAS = r => r._id === 'deuda-astrid' || r._id === 'deuda-maxuel' || r._id === 'deuda-leonardo' || /^leo(nardo)?\b/.test(String(r.concepto||'').trim().toLowerCase()) || /^maxuel/.test(String(r.concepto||'').trim().toLowerCase()) || /^(deuda )?astrid/.test(String(r.concepto||'').trim().toLowerCase()); // deuda de Astrid ya no va (12-oct)
 const enSaldo = v => String(v.fecha) >= SALDO_DESDE || (String(v.fecha) >= '2026-10-11T05:00:00Z' && JSON.stringify(v).toLowerCase().includes('apv')); // defensa APV vendida el 12-oct sí cuenta
 const AVISOS = 'rb-ventas-ccfb6a27'; // tema de la app ntfy para las notificaciones de venta
 const DEUDAS_INI = [['deuda-vieja','Deuda vieja',1119.29,'2026-09-01T12:00:00Z'],['deuda-nueva','Deuda nueva',370.40,'2026-09-02T12:00:00Z'],['deuda-maxuel','Maxuel (préstamo renta)',400,'2026-10-11T12:00:00Z'],['deuda-leonardo','Leonardo (renta $103 + abono Astrid $125)',228,'2026-10-11T12:01:00Z']];
 const NOMBRE_DEUDA = {'deuda-vieja':'Engel · deuda vieja','deuda-nueva':'Engel · deuda nueva'};
 const esGasto = r => !r.tipo || r.tipo === 'gasto';
+// 14-nov: lo abonado a Leo cuenta como gasto y su deuda pendiente ya no va (se paga de otra manera)
+const ABONO_A_GASTO = r => (r.tipo === 'abono' && (r.deudaId === 'deuda-leonardo' || /leo(nardo)?\b/i.test(String(r.concepto||'')))) ? (({deudaId, ...x}) => ({...x, tipo: 'gasto', cat: r.cat || 'otros', concepto: 'Pago a Leo (era abono a su deuda)'}))(r) : r;
 const datos = { ventas: [], gastos: [] };
 const quien = id => !id ? 'carga inicial' : id === yo ? 'tú' : (NOMBRES[id] || 'otra persona');
 const puedoTocar = r => dueno || (!r.borrado && (rol === 'caja' || r.por === yo));
@@ -381,7 +383,7 @@ onAuthStateChanged(auth, u => {
   if (dueno) subs.push(onSnapshot(collection(fs, 'propuestas'), s => { PROP = s.docs.map(d => ({...d.data(), _id: d.id})); pintarProp(); }, () => {}));
   if (dueno) subs.push(onSnapshot(collection(fs, 'vendidos'), s => { VEND = {}; s.docs.forEach(d => { const f = d.data(), n = parseInt(f.unidades || 0, 10); if (f.codigo && n > 0) VEND[f.codigo] = n; }); pintarCatStats(); }, () => {}));
   for (const t of (rol === 'vendedor' ? ['ventas'] : ['ventas','gastos'])) subs.push(onSnapshot(rol === 'vendedor' ? query(collection(fs, t), where('por', '==', yo)) : collection(fs, t),
-    s => { datos[t] = s.docs.map(d => ({...d.data(), _id: d.id, _t: t})); setSync('En vivo','on'); pintar(); if (dueno) arranqueDueno(); if (t === 'gastos') sembrarDeudas(); },
+    s => { datos[t] = s.docs.map(d => ({...d.data(), _id: d.id, _t: t})); if (t === 'gastos') datos[t] = datos[t].map(ABONO_A_GASTO); setSync('En vivo','on'); pintar(); if (dueno) arranqueDueno(); if (t === 'gastos') sembrarDeudas(); },
     e => setSync(e.code === 'permission-denied' ? 'Sin permiso' : 'Sin conexión', 'off')));
 });
 
