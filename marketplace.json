@@ -32258,6 +32258,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-10",
     "precio": 35
+   },
+   {
+    "ref": "B3-1042",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
+    "precio": 35
    }
   ],
   "TA003": [
@@ -32634,6 +32640,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
     "precio": 40
+   },
+   {
+    "ref": "B3-1027",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
+    "precio": 40
    }
   ],
   "TA007": [
@@ -32641,6 +32653,12 @@
     "ref": "B1-519",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
+    "precio": 35
+   },
+   {
+    "ref": "B3-1025",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
     "precio": 35
    }
   ],
@@ -32650,6 +32668,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
     "precio": 40
+   },
+   {
+    "ref": "B3-1026",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
+    "precio": 40
    }
   ],
   "TA009": [
@@ -32657,6 +32681,12 @@
     "ref": "B1-521",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
+    "precio": 35
+   },
+   {
+    "ref": "B3-1034",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
     "precio": 35
    }
   ],
@@ -32666,6 +32696,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
     "precio": 35
+   },
+   {
+    "ref": "B3-1030",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
+    "precio": 35
    }
   ],
   "TA011": [
@@ -32673,6 +32709,12 @@
     "ref": "B1-523",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
+    "precio": 40
+   },
+   {
+    "ref": "B3-1029",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
     "precio": 40
    }
   ],
@@ -32682,6 +32724,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
     "precio": 40
+   },
+   {
+    "ref": "B3-1028",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
+    "precio": 40
    }
   ],
   "TA013": [
@@ -32689,6 +32737,12 @@
     "ref": "B1-525",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
+    "precio": 45
+   },
+   {
+    "ref": "B3-1031",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
     "precio": 45
    }
   ],
@@ -32698,6 +32752,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
     "precio": 35
+   },
+   {
+    "ref": "B3-1035",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
+    "precio": 35
    }
   ],
   "TA015": [
@@ -32705,6 +32765,12 @@
     "ref": "B1-527",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
+    "precio": 40
+   },
+   {
+    "ref": "B3-1040",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
     "precio": 40
    }
   ],
@@ -32714,6 +32780,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
     "precio": 50
+   },
+   {
+    "ref": "B3-1032",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
+    "precio": 50
    }
   ],
   "TA017": [
@@ -32721,6 +32793,12 @@
     "ref": "B1-529",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
+    "precio": 35
+   },
+   {
+    "ref": "B3-1033",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
     "precio": 35
    }
   ],
@@ -32730,6 +32808,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
     "precio": 35
+   },
+   {
+    "ref": "B3-1036",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
+    "precio": 35
    }
   ],
   "TA019": [
@@ -32737,6 +32821,12 @@
     "ref": "B1-531",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
+    "precio": 35
+   },
+   {
+    "ref": "B3-1037",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
     "precio": 35
    }
   ],
@@ -32746,6 +32836,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
     "precio": 40
+   },
+   {
+    "ref": "B3-1038",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
+    "precio": 40
    }
   ],
   "TA021": [
@@ -32754,6 +32850,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
     "precio": 35
+   },
+   {
+    "ref": "B3-1041",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
+    "precio": 40
    }
   ],
   "TA022": [
@@ -32761,6 +32863,12 @@
     "ref": "B1-534",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
+    "precio": 40
+   },
+   {
+    "ref": "B3-1039",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
     "precio": 40
    }
   ],
@@ -32770,6 +32878,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
     "precio": 60
+   },
+   {
+    "ref": "B3-1043",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-15",
+    "precio": 50
    }
   ],
   "PCh014": [
