@@ -1009,24 +1009,55 @@ const RB_LOGO_TURBO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANAAAADcCAY
 let rbLogoImg = null;
 async function rbLogo(){ if (rbLogoImg) return rbLogoImg; const im=new Image(); im.src=RB_LOGO_TURBO; await im.decode(); rbLogoImg=im; return im; }
 async function rbFicha(p, conPrecio){
-  const F='"Segoe UI",Roboto,Arial,sans-serif', W=1080;
+  /* Imagen que se envía por WhatsApp: barra con logo y código, foto limpia (sin nada encima), datos, garantía y contacto. */
+  const F='"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif', W=1080, M=44;
+  const CARBON='#17171A', PAPEL='#F6F5F2', TINTA='#1C1C1E', GRIS='#6B665E', LINEA='#DAD7D0', ROJO='#D7192D', CINTA='#F2D43D';
   const im = new Image(); im.src = p.foto; await im.decode();
-  const fw = W, fh = Math.round(W * im.naturalHeight / im.naturalWidth);
-  const info = 210, foot = 90, H = fh + info + foot;
-  const c = document.createElement('canvas'); c.width=W; c.height=H; const x=c.getContext('2d');
-  x.fillStyle = p.bgc || '#e9eaec'; x.fillRect(0,0,fw,fh); x.drawImage(im, 0, 0, fw, fh);
-  const L = await rbLogo(); const lh = 190, lw = lh*L.naturalWidth/L.naturalHeight; x.drawImage(L, 18, fh - lh - 14, lw, lh);
-  x.fillStyle='rgba(0,0,0,.72)'; x.font=`800 38px ${F}`; const code='#'+p.codigo; const cw=x.measureText(code).width+40;
-  x.beginPath(); x.roundRect ? x.roundRect(W-cw-24, 22, cw, 60, 30) : x.rect(W-cw-24,22,cw,60); x.fill();
-  x.fillStyle='#ffcc00'; x.textAlign='right'; x.fillText(code, W-44, 66);
-  x.fillStyle='#16161a'; x.fillRect(0, fh, W, info + foot);
-  let y = fh + 64; x.textAlign='left'; x.fillStyle='#fff'; x.font=`800 48px ${F}`;
-  const t1 = `${p.categoria} ${p.marca} ${p.modelo}`.trim(); const lt = fichaLineas(x, t1, W-60).slice(0,2); lt.forEach((l,i)=>x.fillText(l, 30, y+i*56)); y += lt.length*56 + 4;
-  const cond = condTxt(p.condicion); const sub = [p.anio, (p.lado&&p.lado!=='N/A')?(p.lado==='LH'?'Izquierdo (LH)':p.lado==='RH'?'Derecho (RH)':p.lado):'', cond].filter(Boolean).join('   ·   ');
-  x.fillStyle='#d9d4cc'; x.font=`600 34px ${F}`; x.fillText(sub, 30, y);
-  if (conPrecio && p.precio){ x.fillStyle='#ffcc00'; x.font=`900 64px ${F}`; x.textAlign='right'; x.fillText('$'+p.precio, W-30, fh+80); }
-  x.fillStyle='#ffcc00'; x.fillRect(0, H-foot, W, foot); x.fillStyle='#16161a'; x.font=`800 40px ${F}`; x.textAlign='center'; x.fillText('Búscanos en Waze: Rastro Búnker', W/2, H-30);
-  return new Promise(r=>c.toBlob(r,'image/jpeg',0.9));
+  const L = await rbLogo();
+  const fh = Math.round(W * im.naturalHeight / im.naturalWidth), cab = 136;
+  const m = document.createElement('canvas').getContext('2d');
+  const precio = (conPrecio && p.precio) ? '$' + p.precio : '';
+  m.font = `900 84px ${F}`; const pw = precio ? m.measureText(precio).width + 36 : 0;
+  m.font = `800 52px ${F}`; const lt = fichaLineas(m, `${p.categoria} ${p.marca} ${p.modelo}`.trim(), W - 2*M - pw).slice(0, 3);
+  const lado = (p.lado && p.lado !== 'N/A') ? (p.lado === 'LH' ? 'Izquierdo (LH)' : p.lado === 'RH' ? 'Derecho (RH)' : p.lado) : '';
+  const chips = [p.anio ? String(p.anio) : '', lado, condTxt(p.condicion)].filter(Boolean);
+  m.font = `500 32px ${F}`; const det = (p.detalle && !/precio/i.test(p.detalle)) ? fichaLineas(m, p.detalle, W - 2*M).slice(0, 2) : [];
+  const hInfo = 40 + lt.length*60 + (chips.length ? 82 : 14) + (det.length ? det.length*42 + 14 : 0) + 18;
+  const hConf = 84, hPie = 150, H = cab + fh + hInfo + hConf + hPie;
+  const c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d');
+  const rr = (a,b,w,h,r) => { x.beginPath(); x.roundRect ? x.roundRect(a,b,w,h,r) : x.rect(a,b,w,h); };
+  /* barra */
+  x.fillStyle = CARBON; x.fillRect(0, 0, W, cab);
+  const lh = 112, lw = lh * L.naturalWidth / L.naturalHeight; x.drawImage(L, M - 10, (cab - lh)/2, lw, lh);
+  const tx = M + lw + 8; x.textAlign = 'left'; x.textBaseline = 'alphabetic';
+  x.font = `900 46px ${F}`; x.fillStyle = '#fff'; x.fillText('RASTRO', tx, 66); const rw = x.measureText('RASTRO ').width; x.fillStyle = ROJO; x.fillText('BÚNKER', tx + rw, 66);
+  x.font = `600 26px ${F}`; x.fillStyle = '#B9B5AD'; x.fillText('Piezas de carrocería · Panamá', tx, 104);
+  /* cinta amarilla con el código, como la que lleva la pieza en el local */
+  x.font = `800 44px ${F}`; const cod = String(p.codigo), cw = x.measureText(cod).width + 56;
+  x.save(); x.translate(W - M - cw/2, cab/2); x.rotate(-0.035); x.shadowColor = 'rgba(0,0,0,.45)'; x.shadowBlur = 8; x.shadowOffsetY = 3;
+  x.fillStyle = CINTA; x.fillRect(-cw/2, -36, cw, 72); x.shadowColor = 'transparent'; x.fillStyle = '#151515'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(cod, 0, 3); x.restore();
+  x.textBaseline = 'alphabetic';
+  /* foto */
+  x.fillStyle = p.bgc || '#e9eaec'; x.fillRect(0, cab, W, fh); x.imageSmoothingQuality = 'high'; x.drawImage(im, 0, cab, W, fh);
+  /* datos */
+  let y = cab + fh; x.fillStyle = PAPEL; x.fillRect(0, y, W, hInfo + hConf);
+  x.fillStyle = ROJO; x.fillRect(0, y, W, 8);
+  y += 40 + 46; x.textAlign = 'left'; x.fillStyle = TINTA; x.font = `800 52px ${F}`; lt.forEach((l, i) => x.fillText(l, M, y + i*60));
+  if (precio){ x.textAlign = 'right'; x.fillStyle = ROJO; x.font = `900 84px ${F}`; x.fillText(precio, W - M, y + 22); x.textAlign = 'left'; }
+  y += (lt.length - 1)*60 + 30;
+  if (chips.length){ let cx = M; x.font = `700 32px ${F}`; for (const t of chips){ const w = x.measureText(t).width + 40; x.fillStyle = '#fff'; rr(cx, y, w, 54, 27); x.fill(); x.strokeStyle = LINEA; x.lineWidth = 2; x.stroke(); x.fillStyle = TINTA; x.fillText(t, cx + 20, y + 38); cx += w + 12; } y += 54 + 28; } else y += 14;
+  if (det.length){ x.fillStyle = GRIS; x.font = `500 32px ${F}`; det.forEach((l, i) => x.fillText(l, M, y + 26 + i*42)); }
+  /* garantía y pago */
+  y = cab + fh + hInfo; x.strokeStyle = LINEA; x.lineWidth = 2; x.beginPath(); x.moveTo(M, y); x.lineTo(W - M, y); x.stroke();
+  x.font = `700 30px ${F}`; x.fillStyle = TINTA; x.textAlign = 'left'; x.fillText('✔ Garantía de 3 días', M, y + 52);
+  x.textAlign = 'right'; x.fillStyle = GRIS; x.font = `600 30px ${F}`; x.fillText('Efectivo · Yappy · ACH', W - M, y + 52);
+  /* contacto */
+  y += hConf; x.fillStyle = CARBON; x.fillRect(0, y, W, hPie);
+  x.textAlign = 'left'; x.fillStyle = '#fff'; x.font = `800 40px ${F}`; x.fillText('WhatsApp 6160-1991', M, y + 62);
+  x.textAlign = 'right'; x.fillStyle = CINTA; x.fillText('Waze: Rastro Búnker', W - M, y + 62);
+  x.textAlign = 'left'; x.fillStyle = '#B9B5AD'; x.font = `500 27px ${F}`; x.fillText('Calidonia, ciudad de Panamá', M, y + 112);
+  x.textAlign = 'right'; x.fillText('Lunes a sábado · 8:00 a. m. a 5:00 p. m.', W - M, y + 112);
+  return new Promise(r => c.toBlob(r, 'image/jpeg', 0.92));
 }
 async function rbEnviar(){
   const sel = rbSel.map(rbP).filter(Boolean); if (!sel.length) return;
