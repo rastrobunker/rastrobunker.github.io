@@ -460,6 +460,9 @@ body.rb-sel .wa-fab{bottom:86px}
 .rb-vacio{color:var(--rb-mute);font-size:14px;padding:6px 0}
 .modal-btns .btn-sel{background:#1C1C1E;color:#fff;border:0;border-radius:10px;padding:12px 14px;font-weight:800;font-size:15px;cursor:pointer;width:100%;margin-top:8px}
 .modal-btns .btn-sel.on{background:#e7e4df;color:#333}
+.modal-btns .btn-sel.btn-wa{background:#1A9A46}
+.rb-link-mini{position:absolute;top:12px;left:10px;z-index:6;width:34px;height:34px;border-radius:50%;border:0;background:rgba(0,0,0,.38);color:#fff;font-size:15px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:.75;padding:0}
+.rb-link-mini:active{transform:scale(.92);opacity:1}
 @media (prefers-reduced-motion:reduce){.rb-sheet{transition:none}}
 .rb-chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
 .rb-chips:empty{display:none}
@@ -626,6 +629,7 @@ body.rb-sel .wa-fab{bottom:86px}
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal-box">
       <button class="share-ficha" id="shareFicha" onclick="compartirFicha()" title="Enviar información de la pieza" aria-label="Enviar información de la pieza"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4l7 7-7 7"/><path d="M21 11H10a7 7 0 0 0-7 7v2"/></svg></button>
+      <button class="rb-link-mini" id="modalLinkBtn" onclick="rbCopiarLink(this)" title="Copiar enlace de esta pieza" aria-label="Copiar enlace de esta pieza">🔗</button>
       <img class="modal-photo" id="modalPhoto" src="" style="display:none;">
       <div class="no-photo modal-photo modal-nophoto" id="modalNoPhoto" style="display:none;">
         <div class="no-photo-icon">📷</div><span id="noPhotoTxt">Sin foto disponible</span>
@@ -644,8 +648,8 @@ body.rb-sel .wa-fab{bottom:86px}
         </div>
         <div class="modal-btns">
           <a class="btn" id="modalWaBtn" href="" target="_blank" style="display:none">💬 Consultar por WhatsApp</a>
+          <button class="btn-sel btn-wa" id="modalEnviarBtn" onclick="compartirFicha()">Enviar por WhatsApp</button>
           <button class="btn-sel" id="modalSelBtn" onclick="rbModalSel()">☐ Seleccionar para enviar</button>
-          <button class="btn-sel" id="modalLinkBtn" onclick="rbCopiarLink(this)">🔗 Copiar enlace de esta pieza</button>
         </div>
         <div class="rbj" id="modalJuego"></div>
         <div class="location-box">
@@ -1673,7 +1677,7 @@ function abrirModal(id) {
   }
   function rbCopiarLink(b) {
     if (!fichaActual) return;
-    const url = rbLinkPieza(fichaActual), ok = () => { const t = b.textContent; b.textContent = "✅ Enlace copiado"; setTimeout(() => { b.textContent = t; }, 1600); };
+    const url = rbLinkPieza(fichaActual), ok = () => { const t = b.textContent; b.textContent = b.classList.contains("rb-link-mini") ? "✅" : "✅ Enlace copiado"; setTimeout(() => { b.textContent = t; }, 1600); };
     const fb = () => { const a = document.createElement("textarea"); a.value = url; a.style.cssText = "position:fixed;top:0;left:0;opacity:0;font-size:16px"; document.body.appendChild(a); a.focus(); a.select(); let r = false; try { r = document.execCommand("copy"); } catch (e) {} a.remove(); if (r) ok(); else window.prompt("Copia el enlace:", url); };
     if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(url).then(ok, fb); else fb();
   }
