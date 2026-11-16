@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /caja.html
+Disallow: /subir.html
+Sitemap: https://rastrobunker.github.io/sitemap.xml

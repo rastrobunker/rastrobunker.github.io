@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rastro Búnker - Catálogo de Piezas</title>
+<title>Rastro Búnker · Autopartes de carrocería en Panamá · Catálogo con fotos</title>
+<meta name="description" content="Rastro Búnker: más de 2,700 piezas de carrocería usadas y nuevas en Panamá (faros, defensas, capós, puertas, guardafangos, parrillas) para Toyota, Kia, Hyundai, Nissan y más. Catálogo con fotos de cada pieza. WhatsApp 6160-1991.">
+<link rel="canonical" href="https://rastrobunker.github.io/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Rastro Búnker">
+<meta property="og:title" content="Rastro Búnker · Autopartes de carrocería en Panamá">
+<meta property="og:description" content="Más de 2,700 piezas con foto: faros, defensas, capós, puertas, guardafangos y parrillas. WhatsApp 6160-1991.">
+<meta property="og:url" content="https://rastrobunker.github.io/"><meta property="og:image" content="https://rastrobunker.github.io/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0E0E0F">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -587,6 +594,7 @@ body.rb-sel .wa-fab{bottom:86px}
         <div class="modal-btns">
           <a class="btn" id="modalWaBtn" href="" target="_blank" style="display:none">💬 Consultar por WhatsApp</a>
           <button class="btn-sel" id="modalSelBtn" onclick="rbModalSel()">☐ Seleccionar para enviar</button>
+          <button class="btn-sel" id="modalLinkBtn" onclick="rbCopiarLink(this)">🔗 Copiar enlace de esta pieza</button>
         </div>
         <div class="rbj" id="modalJuego"></div>
         <div class="location-box">
@@ -738,23 +746,13 @@ body.rb-sel .wa-fab{bottom:86px}
 
 <!-- FOTOS: un archivo por categoría (fotos-*.js) -->
 <script>
-window.__RBF={};window.__rbFotosCb=null;window.__rbPend=12;
+window.__RBF={};window.__rbFotosCb=null;window.__rbPend=2;
 function rbFin(){window.__rbPend--;if(window.__rbPend<=0){var t=document.getElementById('noPhotoTxt');if(t)t.textContent='Sin foto disponible';}}
 function RB_FOTOS(m){for(var k in m)window.__RBF[k]=m[k];rbFin();if(window.__rbFotosCb)window.__rbFotosCb();}
 function rbReintentar(el){if(el.dataset.r){rbFin();return;}var s=document.createElement('script');s.async=true;s.dataset.r='1';s.src=el.src+'&r='+Date.now();s.onerror=function(){rbReintentar(s)};document.body.appendChild(s);}
 </script>
-<script async src="fotos-parrilla.js?v=2ca5bf9c" onerror="rbReintentar(this)"></script>
-<script async src="fotos-lampara-delantera.js?v=5404198b" onerror="rbReintentar(this)"></script>
-<script async src="fotos-defensa-delantera.js?v=6281e539" onerror="rbReintentar(this)"></script>
-<script async src="fotos-defensa-trasera.js?v=bafd1b3e" onerror="rbReintentar(this)"></script>
-<script async src="fotos-lampara-trasera.js?v=a6dc767a" onerror="rbReintentar(this)"></script>
-<script async src="fotos-varios.js?v=ee096ced" onerror="rbReintentar(this)"></script>
-<script async src="fotos-extra.js?v=c88c67b7" onerror="rbReintentar(this)"></script>
-<script async src="fotos-guardafango.js?v=c38cf04b" onerror="rbReintentar(this)"></script>
-<script async src="fotos-flare.js?v=cace99aa" onerror="rbReintentar(this)"></script>
-<script async src="fotos-puerta.js?v=513ebf2a" onerror="rbReintentar(this)"></script>
-<script async src="fotos-cubrepolvo.js?v=63c1d8f9" onerror="rbReintentar(this)"></script>
-<script async src="fotos-marco-de-radiador.js?v=5fe43e17" onerror="rbReintentar(this)"></script>
+<script async src="fotos-idx.js?v=314e3aa2" onerror="rbReintentar(this)"></script>
+<script async src="fotos-extra.js?v=d3ce10c2" onerror="rbReintentar(this)"></script>
 <script id="rb-envio-js">
 /* ===== Buscador por nombre de pieza + envío de varias piezas + sugerencias (2026-10-30) ===== */
 const RB_NORM = s => String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
@@ -1572,11 +1570,37 @@ function abrirModal(id) {
       detalleEl.textContent = "";
       detalleEl.style.display = "none";
     }
-    const msg = encodeURIComponent(`Hola, me interesa la pieza: ${p.marca} ${p.modelo} ${p.anio || ""} (${p.lado}) - Código #${p.codigo}${SINPRECIOS ? "" : " - $" + p.precio}`);
+    const msg = encodeURIComponent(`Hola, me interesa la pieza: ${p.marca} ${p.modelo} ${p.anio || ""} (${p.lado}) - Código #${p.codigo}${SINPRECIOS ? "" : " - $" + p.precio} ${rbLinkPieza(p)}`);
     document.getElementById("modalWaBtn").href = `https://wa.me/${WHATSAPP_NUM}?text=${msg}`;
     document.getElementById("modalOverlay").classList.add("show");
+    rbUrlPieza(p.codigo);
   }
-  function closeModal() { document.getElementById("modalOverlay").classList.remove("show"); }
+  function closeModal() { document.getElementById("modalOverlay").classList.remove("show"); rbUrlPieza(null); }
+  /* ---------- Enlace por pieza (2026-11-15): ?p=CODIGO abre la ficha ---------- */
+  function rbLinkPieza(p) { return "https://rastrobunker.github.io/p/" + encodeURIComponent(p.codigo) + ".html"; }
+  function rbUrlPieza(cod) {
+    try {
+      const u = new URL(location.href);
+      if (cod) u.searchParams.set("p", cod); else u.searchParams.delete("p");
+      history.replaceState(null, "", u.pathname + u.search + u.hash);
+    } catch (e) {}
+  }
+  function rbCopiarLink(b) {
+    if (!fichaActual) return;
+    const url = rbLinkPieza(fichaActual), ok = () => { const t = b.textContent; b.textContent = "✅ Enlace copiado"; setTimeout(() => { b.textContent = t; }, 1600); };
+    const fb = () => { const a = document.createElement("textarea"); a.value = url; a.style.cssText = "position:fixed;top:0;left:0;opacity:0;font-size:16px"; document.body.appendChild(a); a.focus(); a.select(); let r = false; try { r = document.execCommand("copy"); } catch (e) {} a.remove(); if (r) ok(); else window.prompt("Copia el enlace:", url); };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(url).then(ok, fb); else fb();
+  }
+  (function () {
+    let cod = null; try { cod = new URLSearchParams(location.search).get("p"); } catch (e) {}
+    if (!cod) return;
+    let n = 0;
+    (function ir() {
+      const p = (typeof productos !== "undefined") && productos.find(x => String(x.codigo).toUpperCase() === cod.toUpperCase());
+      if (p) { try { abrirModal(p.id); } catch (e) {} return; }
+      if (++n < 40) setTimeout(ir, 250);
+    })();
+  })();
 
   /* ---------- Administrador ---------- */
   function openAdminPanel() {
