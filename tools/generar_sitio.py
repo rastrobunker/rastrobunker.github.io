@@ -56,6 +56,10 @@ UP = {'BMW', 'GAC', 'MG', 'JAC', 'GMC', 'BYD', 'DFSK', 'RAM', 'JMC', 'KIA'}
 def marca(m):
     m = (m or '').strip(); return m if m.upper() in UP else m.title()
 e = html.escape
+import unicodedata
+def slug(m):
+    t = unicodedata.normalize('NFD', (m or 'otras').strip().lower()); t = ''.join(c for c in t if unicodedata.category(c) != 'Mn')
+    return re.sub(r'[^a-z0-9]+', '-', t).strip('-') or 'otras'
 vivas = set(); urls = []
 for p in prod:
     cod = str(p['codigo']); vivas.add(cod + '.html')
@@ -79,18 +83,62 @@ for p in prod:
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../icon-192.png">
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
-<script>location.replace('../?p={cod}');</script>
-<style>body{{margin:0;background:#0e0e0f;color:#f2f2f2;font:16px/1.45 system-ui,sans-serif}}main{{max-width:560px;margin:0 auto;padding:16px}}img{{width:100%;border-radius:12px;background:#e9eaec}}h1{{font-size:22px;margin:14px 0 6px}}p{{color:#bbb;margin:6px 0}}a.b{{display:block;text-align:center;padding:14px;border-radius:10px;font-weight:800;text-decoration:none;margin-top:12px}}.w{{background:#1fa34a;color:#fff}}.c{{background:#e21c26;color:#fff}}</style></head>
-<body><main>{f'<img src="../f/{p["id"]}.webp" alt="{e(nombre)}" width="760" height="570">' if tiene else ''}
-<h1>{e(nombre)}</h1><p>{e(det)}{' · ' if det else ''}Código #{e(cod)}{' · VENDIDA' if vend else ''}</p>
-<p>Rastro Búnker · autopartes de carrocería en Panamá · Lunes a sábado, 8:00 a. m. a 5:00 p. m.</p>
-<a class="b c" href="../?p={cod}">Ver esta pieza en el catálogo</a>
-<a class="b w" href="{e(wa)}">Consultar por WhatsApp</a></main></body></html>
+<style>body{{margin:0;background:#0e0e0f;color:#f2f2f2;font:16px/1.45 system-ui,sans-serif}}main{{max-width:560px;margin:0 auto;padding:16px}}img{{width:100%;height:auto;border-radius:12px;background:#e9eaec}}h1{{font-size:22px;margin:14px 0 6px}}p{{color:#bbb;margin:6px 0}}a.b{{display:block;text-align:center;padding:14px;border-radius:10px;font-weight:800;text-decoration:none;margin-top:12px}}.w{{background:#1fa34a;color:#fff}}.c{{background:#e21c26;color:#fff}}.g{{background:#2a2a2d;color:#fff}}.v{{background:#fdecec;color:#b00020;font-weight:800;border-radius:10px;padding:10px}}.top{{display:block;font-weight:900;letter-spacing:1px;color:#fff;text-decoration:none;margin-bottom:12px}}.top b{{color:#e21c26}}p a{{color:#9cd}}</style></head>
+<body><main><a class="top" href="../">RASTRO <b>BÚNKER</b></a>
+{f'<img src="../f/{p["id"]}.webp" alt="{e(nombre)}" width="760" height="570">' if tiene else ''}
+<h1>{e(nombre)}</h1><p>{e(det)}{' · ' if det else ''}Código #{e(cod)}</p>
+<p id="vend" class="v"{'' if vend else ' hidden'}>Esta pieza ya se vendió. Escríbenos y te avisamos cuando llegue otra igual.</p>
+<a class="b w" href="{e(wa)}">💬 Consultar por WhatsApp</a>
+<a class="b c" href="../?p={cod}">Ver en el catálogo y piezas del mismo carro</a>
+<a class="b g" href="../m/{slug(p['marca'])}.html">Más piezas para {e(marca(p['marca']))}</a>
+<p>✔ Garantía de 3 días después de la entrega · Efectivo, Yappy o ACH</p>
+<p>📍 Rastro Búnker · autopartes de carrocería en Panamá · Lunes a sábado, 8:00 a. m. a 5:00 p. m. · <a href="https://waze.com/ul?ll=8.9644588,-79.5401215&navigate=yes">Waze</a></p>
+<script>fetch('https://firestore.googleapis.com/v1/projects/rastrobunker-caja/databases/(default)/documents/vendidos/{cod}?key=AIzaSyDmVL8mLvzjWr69Ab-s8Lf0A-H_JtWaTXk').then(r=>r.ok?r.json():null).then(j=>{{if(!j||!j.fields)return;var u=j.fields.unidades||{{}};if(+(u.integerValue||u.doubleValue||0)>={p.get('cantidad') or 1})document.getElementById('vend').hidden=false}}).catch(function(){{}});</script>
+</main></body></html>
 """
     open(f'p/{cod}.html', 'w', encoding='utf-8').write(page)
     if not vend: urls.append(url)
 for f in os.listdir('p'):
     if f not in vivas: os.remove('p/' + f)
+
+# 3b) páginas por marca (m/<marca>.html) para Google y enlaces en el pie del catálogo
+os.makedirs('m', exist_ok=True)
+import collections
+pm = collections.defaultdict(list)
+for p in prod:
+    if not p.get('vendido') and (p.get('marca') or '').strip(): pm[p['marca'].strip().upper()].append(p)
+murls = []; mvivas = set()
+CSSM = "body{margin:0;background:#0e0e0f;color:#f2f2f2;font:15px/1.4 system-ui,sans-serif}main{max-width:980px;margin:0 auto;padding:16px}a{color:inherit;text-decoration:none}h1{font-size:22px}h2{font-size:17px;margin:22px 0 8px;color:#ff5a5f}.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}.g a{background:#1c1c1e;border-radius:10px;overflow:hidden;display:block}.g img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#e9eaec}.g span{display:block;padding:8px;font-size:13px}.top{font-weight:900;letter-spacing:1px}.top b{color:#e21c26}.w{display:inline-block;background:#1fa34a;color:#fff;font-weight:800;border-radius:10px;padding:12px 16px;margin:8px 0}.mm a{display:inline-block;margin:0 10px 8px 0;color:#9cd}"
+for mk_, L in sorted(pm.items()):
+    sl = slug(mk_); mvivas.add(sl + '.html'); nm = marca(mk_)
+    cats = collections.defaultdict(list)
+    for p in L: cats[p['categoria']].append(p)
+    desc = f"{len(L)} piezas de carrocería para {nm} en Panamá: " + ', '.join(f"{c.lower()} ({len(v)})" for c, v in sorted(cats.items(), key=lambda x: -len(x[1]))[:6]) + ". Rastro Búnker · WhatsApp 6160-1991."
+    body = ''
+    for c, v in sorted(cats.items(), key=lambda x: -len(x[1])):
+        body += f'<h2>{e(c)} para {e(nm)} ({len(v)})</h2><div class="g">' + ''.join(
+            f'<a href="../p/{p["codigo"]}.html">' + (f'<img loading="lazy" src="../o/{p["id"]}.jpg" alt="{e(c)} {e(nm)} {e(str(p.get("modelo") or ""))} {e(str(p.get("anio") or ""))}">' if os.path.exists(f'o/{p["id"]}.jpg') else '') +
+            f'<span>{e(str(p.get("modelo") or ""))} {e(str(p.get("anio") or ""))}<br><small>#{e(str(p["codigo"]))}</small></span></a>' for p in v) + '</div>'
+    url = SITE + f'm/{sl}.html'; murls.append(url)
+    open(f'm/{sl}.html', 'w', encoding='utf-8').write(f"""<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Piezas de carrocería para {e(nm)} en Panamá · Rastro Búnker</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}">
+<meta property="og:title" content="Piezas para {e(nm)} en Panamá · Rastro Búnker"><meta property="og:description" content="{e(desc)}"><meta property="og:image" content="{SITE}og.jpg"><link rel="icon" href="../icon-192.png">
+<style>{CSSM}</style></head><body><main><a class="top" href="../">RASTRO <b>BÚNKER</b></a>
+<h1>Piezas de carrocería para {e(nm)} en Panamá</h1><p>{len(L)} piezas disponibles con foto real: faros, defensas, parrillas, capós, guardafangos y más. Garantía de 3 días · Efectivo, Yappy o ACH · Lunes a sábado, 8:00 a. m. a 5:00 p. m.</p>
+<a class="w" href="https://wa.me/{WA}?text={__import__('urllib.parse').parse.quote('Hola, busco una pieza para ' + nm)}">💬 Pregunta por tu pieza para {e(nm)}</a>
+{body}
+<h2>Otras marcas</h2><p class="mm">{''.join(f'<a href="{slug(k)}.html">{e(marca(k))}</a>' for k in sorted(pm) if k != mk_)}</p></main></body></html>
+""")
+for f in os.listdir('m'):
+    if f not in mvivas: os.remove('m/' + f)
+urls = murls + urls
+pie = '<!--RB-MARCAS--><nav class="rb-pie-marcas" aria-label="Piezas por marca"><b>Piezas por marca:</b> ' + ' · '.join(f'<a href="m/{slug(k)}.html">{e(marca(k))}</a>' for k in sorted(pm, key=lambda k: -len(pm[k]))) + '</nav><!--/RB-MARCAS-->'
+if '<!--RB-MARCAS-->' in h: h = re.sub(r'<!--RB-MARCAS-->.*?<!--/RB-MARCAS-->', lambda m_: pie, h, flags=re.S)
+else:
+    ancla = '<div class="footer-note">'; assert h.count(ancla) == 1
+    h = h.replace(ancla, pie + '\n  ' + ancla)
+    h = h.replace('<style id="rb-mejoras-css">', '<style id="rb-mejoras-css">\n.rb-pie-marcas{max-width:900px;margin:18px auto 0;padding:0 14px;font-size:12.5px;line-height:1.9;text-align:center;opacity:.8}.rb-pie-marcas a{color:inherit}', 1)
+open('index.html', 'w', encoding='utf-8').write(h)
 
 # 4) sitemap, robots, versiones
 open('sitemap.xml', 'w', encoding='utf-8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
