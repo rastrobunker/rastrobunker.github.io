@@ -28,6 +28,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 50
+   },
+   {
+    "ref": "MX-214",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 50
    }
   ],
   "197": [
@@ -56,6 +62,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 190
+   },
+   {
+    "ref": "MX-201",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 190
    }
   ],
   "CH033": [
@@ -63,6 +75,12 @@
     "ref": "B2-05",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
+    "precio": 50
+   },
+   {
+    "ref": "MX-243",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 50
    }
   ],
@@ -114,6 +132,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 250
+   },
+   {
+    "ref": "NO-52",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 250
    }
   ],
   "621": [
@@ -150,6 +174,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 200
+   },
+   {
+    "ref": "MX-228",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 200
    }
   ],
   "DT165": [
@@ -157,6 +187,12 @@
     "ref": "B2-13",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
+    "precio": 180
+   },
+   {
+    "ref": "MX-224",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 180
    }
   ],
@@ -180,6 +216,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 135
+   },
+   {
+    "ref": "MX-207",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 135
    }
   ],
   "241": [
@@ -201,6 +243,12 @@
     "ref": "B2-17",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
+    "precio": 50
+   },
+   {
+    "ref": "MX-225",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 50
    }
   ],
@@ -251,6 +299,12 @@
     "ref": "B2-21",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
+    "precio": 120
+   },
+   {
+    "ref": "MX-283",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 120
    }
   ],
@@ -342,6 +396,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 150
+   },
+   {
+    "ref": "MX-233",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 150
    }
   ],
   "658": [
@@ -378,6 +438,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 220
+   },
+   {
+    "ref": "MX-227",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 220
    }
   ],
   "368": [
@@ -399,6 +465,12 @@
     "ref": "B2-32",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
+    "precio": 50
+   },
+   {
+    "ref": "NO-51",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 50
    }
   ],
@@ -442,6 +514,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 50
+   },
+   {
+    "ref": "NO-67",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 50
    }
   ],
   "154": [
@@ -484,6 +562,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 150
+   },
+   {
+    "ref": "MX-252",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 150
    }
   ],
   "GF143": [
@@ -491,6 +575,12 @@
     "ref": "B2-39",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
+    "precio": 150
+   },
+   {
+    "ref": "NO-58",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 150
    }
   ],
@@ -514,6 +604,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 25
+   },
+   {
+    "ref": "MX-204",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 25
    }
   ],
   "CP087": [
@@ -521,6 +617,12 @@
     "ref": "B2-44",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
+    "precio": 15
+   },
+   {
+    "ref": "NO-63",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 15
    }
   ],
@@ -530,6 +632,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
     "precio": 25
+   },
+   {
+    "ref": "MX-231",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 25
    }
   ],
   "DT195": [
@@ -538,6 +646,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
     "precio": 55
+   },
+   {
+    "ref": "MX-278",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 65
    }
   ],
   "GF053": [
@@ -545,6 +659,12 @@
     "ref": "B2-105",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
+    "precio": 45
+   },
+   {
+    "ref": "NO-73",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 45
    }
   ],
@@ -596,6 +716,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
     "precio": 35
+   },
+   {
+    "ref": "MX-262",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 35
    }
   ],
   "FL126": [
@@ -603,6 +729,12 @@
     "ref": "B2-110",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
+    "precio": 35
+   },
+   {
+    "ref": "MX-253",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 35
    }
   ],
@@ -626,6 +758,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
     "precio": 20
+   },
+   {
+    "ref": "MX-220",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 20
    }
   ],
   "CP041": [
@@ -634,6 +772,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
     "precio": 15
+   },
+   {
+    "ref": "MX-263",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 15
    }
   ],
   "TM059": [
@@ -641,6 +785,12 @@
     "ref": "B2-114",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
+    "precio": 100
+   },
+   {
+    "ref": "MX-238",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 100
    }
   ],
@@ -926,6 +1076,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
     "precio": 75
+   },
+   {
+    "ref": "MX-230",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 75
    }
   ],
   "FL101": [
@@ -962,6 +1118,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
     "precio": 150
+   },
+   {
+    "ref": "NO-86",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 350
    }
   ],
   "793": [
@@ -984,6 +1146,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
     "precio": 60
+   },
+   {
+    "ref": "MX-239",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 75
    }
   ],
   "PD002": [
@@ -991,6 +1159,12 @@
     "ref": "B2-142",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
+    "precio": 100
+   },
+   {
+    "ref": "NO-68",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 100
    }
   ],
@@ -1000,6 +1174,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
     "precio": 45
+   },
+   {
+    "ref": "MX-269",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 75
    }
   ],
   "041": [
@@ -1050,6 +1230,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
     "precio": 15
+   },
+   {
+    "ref": "MX-245",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 15
    }
   ],
   "PT024": [
@@ -1057,6 +1243,12 @@
     "ref": "B2-148",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
+    "precio": 150
+   },
+   {
+    "ref": "MX-255",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 150
    }
   ],
@@ -1088,6 +1280,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
     "precio": 15
+   },
+   {
+    "ref": "MX-236",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 15
    }
   ],
   "RB007": [
@@ -1110,6 +1308,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 170
+   },
+   {
+    "ref": "MX-217",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 170
    }
   ],
   "TM030": [
@@ -1117,6 +1321,12 @@
     "ref": "B2-154",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
+    "precio": 180
+   },
+   {
+    "ref": "MX-206",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 180
    }
   ],
@@ -1238,6 +1448,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 90
+   },
+   {
+    "ref": "NO-56",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 90
    }
   ],
   "DT223": [
@@ -1322,6 +1538,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 25
+   },
+   {
+    "ref": "MX-215",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 25
    }
   ],
   "MR037": [
@@ -1372,6 +1594,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 50
+   },
+   {
+    "ref": "MX-292",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 50
    }
   ],
   "MR041": [
@@ -1408,6 +1636,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 175
+   },
+   {
+    "ref": "MX-218",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 175
    }
   ],
   "MR045": [
@@ -1416,6 +1650,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 90
+   },
+   {
+    "ref": "MX-248",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 90
    }
   ],
   "MR046": [
@@ -1423,6 +1663,12 @@
     "ref": "B2-184",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
+    "precio": 60
+   },
+   {
+    "ref": "NO-87",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 60
    }
   ],
@@ -1474,6 +1720,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 20
+   },
+   {
+    "ref": "NO-62",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 20
    }
   ],
   "CH056": [
@@ -1481,6 +1733,12 @@
     "ref": "B2-190",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
+    "precio": 25
+   },
+   {
+    "ref": "MX-213",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 25
    }
   ],
@@ -1504,6 +1762,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 20
+   },
+   {
+    "ref": "MX-234",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 20
    }
   ],
   "CH060": [
@@ -1511,6 +1775,12 @@
     "ref": "B2-194",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
+    "precio": 40
+   },
+   {
+    "ref": "MX-202",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 40
    }
   ],
@@ -1520,6 +1790,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
     "precio": 60
+   },
+   {
+    "ref": "MX-266",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 60
    }
   ],
   "MR051": [
@@ -1527,6 +1803,12 @@
     "ref": "B2-196",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
+    "precio": 60
+   },
+   {
+    "ref": "MX-229",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 60
    }
   ],
@@ -1549,6 +1831,12 @@
     "ref": "B2-199",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
+    "precio": 45
+   },
+   {
+    "ref": "MX-257",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 45
    }
   ],
@@ -1589,6 +1877,12 @@
     "ref": "B2-204",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-19",
+    "precio": 45
+   },
+   {
+    "ref": "NO-69",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 45
    }
   ],
@@ -1998,6 +2292,12 @@
     "vendedor": "Hilario",
     "fecha": "2026-10-20",
     "precio": 15
+   },
+   {
+    "ref": "NO-77",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 15
    }
   ],
   "CP052": [
@@ -2042,6 +2342,12 @@
     "vendedor": "Hilario",
     "fecha": "2026-10-20",
     "precio": 25
+   },
+   {
+    "ref": "NO-54",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 25
    }
   ],
   "463": [
@@ -2070,6 +2376,12 @@
     "vendedor": "Hilario",
     "fecha": "2026-10-20",
     "precio": 60
+   },
+   {
+    "ref": "NO-59",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 60
    }
   ],
   "RV032": [
@@ -2091,6 +2403,12 @@
     "ref": "HI-23",
     "vendedor": "Hilario",
     "fecha": "2026-10-20",
+    "precio": 35
+   },
+   {
+    "ref": "MX-244",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 35
    }
   ],
@@ -2161,6 +2479,12 @@
     "ref": "HI-29",
     "vendedor": "Hilario",
     "fecha": "2026-10-20",
+    "precio": 300
+   },
+   {
+    "ref": "MX-246",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 300
    }
   ],
@@ -2234,6 +2558,12 @@
     "vendedor": "Hilario",
     "fecha": "2026-10-20",
     "precio": 150
+   },
+   {
+    "ref": "MX-264",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 150
    }
   ],
   "RB025": [
@@ -2255,6 +2585,12 @@
     "ref": "HI-46",
     "vendedor": "Hilario",
     "fecha": "2026-10-20",
+    "precio": 30
+   },
+   {
+    "ref": "NO-70",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 30
    }
   ],
@@ -2392,6 +2728,12 @@
     "vendedor": "Leo",
     "fecha": "2026-10-19",
     "precio": 250
+   },
+   {
+    "ref": "MX-216",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 250
    }
   ],
   "TM046": [
@@ -2503,6 +2845,12 @@
     "ref": "LE-14",
     "vendedor": "Leo",
     "fecha": "2026-10-19",
+    "precio": 90
+   },
+   {
+    "ref": "NO-53",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 90
    }
   ],
@@ -2640,6 +2988,12 @@
     "vendedor": "Leo",
     "fecha": "2026-10-19",
     "precio": 280
+   },
+   {
+    "ref": "MX-205",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 280
    }
   ],
   "196": [
@@ -2719,6 +3073,12 @@
     "ref": "LE-26",
     "vendedor": "Leo",
     "fecha": "2026-10-19",
+    "precio": 180
+   },
+   {
+    "ref": "NO-64",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 180
    }
   ],
@@ -2863,6 +3223,12 @@
     "ref": "LE-35",
     "vendedor": "Leo",
     "fecha": "2026-10-19",
+    "precio": 100
+   },
+   {
+    "ref": "NO-71",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 100
    }
   ],
@@ -3458,6 +3824,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
     "precio": 75
+   },
+   {
+    "ref": "NO-80",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 75
    }
   ],
   "759": [
@@ -3942,6 +4314,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
     "precio": 90
+   },
+   {
+    "ref": "MX-237",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 90
    }
   ],
   "727": [
@@ -4063,6 +4441,12 @@
     "ref": "B2-297",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
+    "precio": 25
+   },
+   {
+    "ref": "MX-287",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 25
    }
   ],
@@ -4231,6 +4615,12 @@
     "ref": "B2-318",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
+    "precio": 25
+   },
+   {
+    "ref": "MX-296",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 25
    }
   ],
@@ -4408,6 +4798,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
     "precio": 20
+   },
+   {
+    "ref": "NO-89",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 20
    }
   ],
   "CH116": [
@@ -4463,6 +4859,12 @@
     "ref": "B2-347",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
+    "precio": 20
+   },
+   {
+    "ref": "MX-270",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 20
    }
   ],
@@ -4550,6 +4952,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
     "precio": 30
+   },
+   {
+    "ref": "MX-261",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 30
    }
   ],
   "CH133": [
@@ -4629,6 +5037,12 @@
     "ref": "B2-367",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
+    "precio": 30
+   },
+   {
+    "ref": "NO-76",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 30
    }
   ],
@@ -4716,6 +5130,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
     "precio": 25
+   },
+   {
+    "ref": "MX-254",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 20
    }
   ],
   "HA031": [
@@ -4764,6 +5184,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
     "precio": 25
+   },
+   {
+    "ref": "NO-72",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 20
    }
   ],
   "HA029": [
@@ -4828,6 +5254,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
     "precio": 20
+   },
+   {
+    "ref": "MX-280",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 20
    }
   ],
   "HA035": [
@@ -4835,6 +5267,12 @@
     "ref": "B2-377",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
+    "precio": 20
+   },
+   {
+    "ref": "NO-94",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 20
    }
   ],
@@ -4860,6 +5298,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
     "precio": 45
+   },
+   {
+    "ref": "MX-235",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 40
    }
   ],
   "HA011": [
@@ -4867,6 +5311,12 @@
     "ref": "B2-379",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
+    "precio": 40
+   },
+   {
+    "ref": "MX-271",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 40
    }
   ],
@@ -4908,6 +5358,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
     "precio": 35
+   },
+   {
+    "ref": "NO-81",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 35
    }
   ],
   "HA007": [
@@ -4931,6 +5387,12 @@
     "ref": "B2-383",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
+    "precio": 40
+   },
+   {
+    "ref": "MX-297",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 40
    }
   ],
@@ -4987,6 +5449,12 @@
     "ref": "B2-386",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
+    "precio": 20
+   },
+   {
+    "ref": "MX-226",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 20
    }
   ],
@@ -5656,6 +6124,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
     "precio": 100
+   },
+   {
+    "ref": "NO-93",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 100
    }
   ],
   "RV034": [
@@ -5663,6 +6137,12 @@
     "ref": "B2-243",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
+    "precio": 35
+   },
+   {
+    "ref": "MX-250",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 35
    }
   ],
@@ -5685,6 +6165,12 @@
     "ref": "B2-245",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
+    "precio": 35
+   },
+   {
+    "ref": "MX-279",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 35
    }
   ],
@@ -5716,6 +6202,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
     "precio": 30
+   },
+   {
+    "ref": "NO-90",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 30
    }
   ],
   "DT023": [
@@ -5723,6 +6215,12 @@
     "ref": "B2-249",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
+    "precio": 85
+   },
+   {
+    "ref": "MX-295",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 85
    }
   ],
@@ -5760,6 +6258,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
     "precio": 60
+   },
+   {
+    "ref": "MX-211",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 60
    }
   ],
   "FL148": [
@@ -5767,6 +6271,12 @@
     "ref": "B2-253",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
+    "precio": 40
+   },
+   {
+    "ref": "NO-85",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 40
    }
   ],
@@ -5795,6 +6305,12 @@
     "ref": "B2-255",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
+    "precio": 70
+   },
+   {
+    "ref": "NO-100",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 70
    }
   ],
@@ -5854,6 +6370,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
     "precio": 170
+   },
+   {
+    "ref": "MX-281",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 170
    }
   ],
   "PT033": [
@@ -5890,6 +6412,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
     "precio": 40
+   },
+   {
+    "ref": "MX-203",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 40
    }
   ],
   "FL060": [
@@ -5897,6 +6425,12 @@
     "ref": "B2-264",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
+    "precio": 50
+   },
+   {
+    "ref": "MX-288",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 50
    }
   ],
@@ -5920,6 +6454,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
     "precio": 65
+   },
+   {
+    "ref": "MX-256",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 65
    }
   ],
   "CP079": [
@@ -5927,6 +6467,12 @@
     "ref": "B2-267",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
+    "precio": 15
+   },
+   {
+    "ref": "MX-289",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 15
    }
   ],
@@ -5950,6 +6496,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
     "precio": 30
+   },
+   {
+    "ref": "NO-57",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 30
    }
   ],
   "TM038": [
@@ -5957,6 +6509,12 @@
     "ref": "B2-270",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
+    "precio": 200
+   },
+   {
+    "ref": "MX-247",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 200
    }
   ],
@@ -5966,6 +6524,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
     "precio": 90
+   },
+   {
+    "ref": "NO-74",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 90
    }
   ],
   "RV021": [
@@ -5973,6 +6537,12 @@
     "ref": "B2-272",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
+    "precio": 45
+   },
+   {
+    "ref": "MX-259",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 45
    }
   ],
@@ -5995,6 +6565,12 @@
     "ref": "B2-274",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
+    "precio": 90
+   },
+   {
+    "ref": "MX-258",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 90
    }
   ],
@@ -6032,6 +6608,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
     "precio": 90
+   },
+   {
+    "ref": "NO-83",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 90
    }
   ],
   "037": [
@@ -6047,6 +6629,12 @@
     "ref": "B2-281",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-21",
+    "precio": 15
+   },
+   {
+    "ref": "MX-272",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 15
    }
   ],
@@ -6173,6 +6761,12 @@
     "ref": "B2-413",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
+    "precio": 220
+   },
+   {
+    "ref": "MX-290",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 220
    }
   ],
@@ -6570,6 +7164,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
     "precio": 130
+   },
+   {
+    "ref": "NO-78",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 130
    }
   ],
   "308": [
@@ -6702,6 +7302,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
     "precio": 80
+   },
+   {
+    "ref": "MX-299",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 80
    }
   ],
   "402": [
@@ -6745,6 +7351,12 @@
     "ref": "B2-465",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
+    "precio": 50
+   },
+   {
+    "ref": "MX-282",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 50
    }
   ],
@@ -6806,6 +7418,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
     "precio": 30
+   },
+   {
+    "ref": "MX-298",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 30
    }
   ],
   "PD001": [
@@ -6857,6 +7475,12 @@
     "ref": "B2-476",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
+    "precio": 90
+   },
+   {
+    "ref": "MX-275",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 90
    }
   ],
@@ -7066,6 +7690,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
     "precio": 35
+   },
+   {
+    "ref": "MX-294",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 35
    }
   ],
   "RV025": [
@@ -7179,6 +7809,12 @@
     "ref": "B2-505",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
+    "precio": 150
+   },
+   {
+    "ref": "NO-91",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 150
    }
   ],
@@ -7353,6 +7989,12 @@
     "ref": "B2-520",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
+    "precio": 480
+   },
+   {
+    "ref": "MX-300",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 480
    }
   ],
@@ -7545,6 +8187,12 @@
     "ref": "B2-538",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
+    "precio": 45
+   },
+   {
+    "ref": "MX-285",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 45
    }
   ],
@@ -7790,6 +8438,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
     "precio": 180
+   },
+   {
+    "ref": "MX-291",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 180
    }
   ],
   "DT098": [
@@ -7872,6 +8526,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
     "precio": 120
+   },
+   {
+    "ref": "MX-273",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 120
    }
   ],
   "162": [
@@ -7921,6 +8581,12 @@
     "ref": "B2-573",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
+    "precio": 150
+   },
+   {
+    "ref": "MX-268",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 150
    }
   ],
@@ -8034,6 +8700,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
     "precio": 180
+   },
+   {
+    "ref": "NO-99",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 180
    }
   ],
   "TM028": [
@@ -8041,6 +8713,12 @@
     "ref": "B2-585",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
+    "precio": 140
+   },
+   {
+    "ref": "MX-265",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 140
    }
   ],
@@ -8063,6 +8741,12 @@
     "ref": "B2-587",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
+    "precio": 90
+   },
+   {
+    "ref": "MX-284",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 90
    }
   ],
@@ -8161,6 +8845,12 @@
     "ref": "B2-597",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
+    "precio": 60
+   },
+   {
+    "ref": "NO-95",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 60
    }
   ],
@@ -8736,6 +9426,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
     "precio": 60
+   },
+   {
+    "ref": "NO-88",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 60
    }
   ],
   "TM031": [
@@ -9000,6 +9696,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
     "precio": 90
+   },
+   {
+    "ref": "NO-96",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 90
    }
   ],
   "110": [
@@ -9073,6 +9775,12 @@
     "ref": "B2-678",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
+    "precio": 220
+   },
+   {
+    "ref": "NO-82",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 220
    }
   ],
@@ -9568,6 +10276,12 @@
     "vendedor": "Salomón",
     "fecha": "2026-10-22",
     "precio": 40
+   },
+   {
+    "ref": "NO-98",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 40
    }
   ],
   "564": [
@@ -9617,6 +10331,12 @@
     "ref": "SA-50",
     "vendedor": "Salomón",
     "fecha": "2026-10-22",
+    "precio": 90
+   },
+   {
+    "ref": "MX-274",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 90
    }
   ],
@@ -9829,6 +10549,12 @@
     "ref": "B2-706",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-23",
+    "precio": 6
+   },
+   {
+    "ref": "MX-222",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 6
    }
   ],
@@ -11230,6 +11956,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-23",
     "precio": 6
+   },
+   {
+    "ref": "NO-55",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 6
    }
   ],
   "036": [
@@ -11433,6 +12165,12 @@
     "ref": "B2-857",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-23",
+    "precio": 40
+   },
+   {
+    "ref": "NO-61",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 40
    }
   ],
@@ -18468,6 +19206,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-10-29",
     "precio": 150
+   },
+   {
+    "ref": "MX-267",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 150
    }
   ],
   "TB025": [
@@ -18514,6 +19258,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-10-29",
     "precio": 250
+   },
+   {
+    "ref": "MX-208",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 250
    }
   ],
   "TB030": [
@@ -18543,6 +19293,12 @@
     "ref": "B1-102",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-10-29",
+    "precio": 120
+   },
+   {
+    "ref": "MX-276",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 120
    }
   ],
@@ -18614,6 +19370,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-10-29",
     "precio": 150
+   },
+   {
+    "ref": "MX-293",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 150
    }
   ],
   "TB041": [
@@ -18650,6 +19412,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-10-29",
     "precio": 200
+   },
+   {
+    "ref": "NO-65",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 200
    }
   ],
   "TB044": [
@@ -18657,6 +19425,12 @@
     "ref": "B1-114",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-10-29",
+    "precio": 300
+   },
+   {
+    "ref": "NO-92",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 300
    }
   ],
@@ -18752,6 +19526,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-10-29",
     "precio": 250
+   },
+   {
+    "ref": "MX-249",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 250
    }
   ],
   "TB053": [
@@ -18829,6 +19609,12 @@
     "ref": "B1-128",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-10-29",
+    "precio": 300
+   },
+   {
+    "ref": "NO-79",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 300
    }
   ],
@@ -18976,6 +19762,12 @@
     "vendedor": "Engel",
     "fecha": "2026-10-29",
     "precio": 120
+   },
+   {
+    "ref": "MX-219",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 120
    }
   ],
   "LD001": [
@@ -19105,6 +19897,12 @@
     "ref": "EG-89",
     "vendedor": "Engel",
     "fecha": "2026-10-29",
+    "precio": 120
+   },
+   {
+    "ref": "MX-240",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 120
    }
   ],
@@ -19422,6 +20220,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-10-30",
     "precio": 70
+   },
+   {
+    "ref": "NO-60",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 70
    }
   ],
   "DDI004": [
@@ -19452,6 +20256,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-10-30",
     "precio": 100
+   },
+   {
+    "ref": "MX-286",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 100
    }
   ],
   "DDI010": [
@@ -19459,6 +20269,12 @@
     "ref": "B1-133",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-10-30",
+    "precio": 60
+   },
+   {
+    "ref": "MX-260",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 60
    }
   ],
@@ -19524,6 +20340,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-10-30",
     "precio": 70
+   },
+   {
+    "ref": "NO-75",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 70
    }
   ],
   "DD013": [
@@ -19546,6 +20368,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-10-30",
     "precio": 60
+   },
+   {
+    "ref": "MX-241",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 60
    }
   ],
   "DDI019": [
@@ -19553,6 +20381,12 @@
     "ref": "B1-141",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-10-30",
+    "precio": 70
+   },
+   {
+    "ref": "MX-209",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 70
    }
   ],
@@ -19562,6 +20396,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-10-30",
     "precio": 100
+   },
+   {
+    "ref": "MX-277",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 100
    }
   ],
   "DDI021": [
@@ -19569,6 +20409,12 @@
     "ref": "B1-143",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-10-30",
+    "precio": 60
+   },
+   {
+    "ref": "MX-232",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 60
    }
   ],
@@ -19592,6 +20438,12 @@
     "vendedor": "Búnker Nº1",
     "fecha": "2026-10-30",
     "precio": 70
+   },
+   {
+    "ref": "NO-84",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 70
    }
   ],
   "DDI025": [
@@ -19599,6 +20451,12 @@
     "ref": "B1-146",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-10-30",
+    "precio": 150
+   },
+   {
+    "ref": "NO-97",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
     "precio": 150
    }
   ],
@@ -25222,6 +26080,12 @@
     "vendedor": "Salomón",
     "fecha": "2026-11-05",
     "precio": 18
+   },
+   {
+    "ref": "MX-210",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 18
    }
   ],
   "765": [
@@ -26424,6 +27288,12 @@
     "vendedor": "Salomón",
     "fecha": "2026-11-05",
     "precio": 18
+   },
+   {
+    "ref": "NO-66",
+    "vendedor": "Noemi",
+    "fecha": "2026-11-15",
+    "precio": 18
    }
   ],
   "FL032": [
@@ -26818,6 +27688,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-05",
     "precio": 18
+   },
+   {
+    "ref": "MX-242",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 18
    }
   ],
   "EN004": [
@@ -26826,6 +27702,12 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-05",
     "precio": 18
+   },
+   {
+    "ref": "MX-251",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 18
    }
   ],
   "EN005": [
@@ -26833,6 +27715,12 @@
     "ref": "B2-1362",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-05",
+    "precio": 18
+   },
+   {
+    "ref": "MX-221",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 18
    }
   ],
@@ -32632,6 +33520,12 @@
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-10",
     "precio": 35
+   },
+   {
+    "ref": "MX-212",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
+    "precio": 35
    }
   ],
   "TA006": [
@@ -32891,6 +33785,12 @@
     "ref": "B1-535",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-12",
+    "precio": 35
+   },
+   {
+    "ref": "MX-223",
+    "vendedor": "Maxuel",
+    "fecha": "2026-11-15",
     "precio": 35
    }
   ],
