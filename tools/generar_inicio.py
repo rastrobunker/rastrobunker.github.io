@@ -55,7 +55,8 @@ ncat = len({p['categoria'] for p in disp})
 
 # --- marcas ---
 cm = {}
-for p in disp: cm[p['marca'].strip().upper()] = cm.get(p['marca'].strip().upper(), 0) + 1
+for p in disp:
+    k_ = p['marca'].strip().upper().replace('-', ' '); cm[k_] = cm.get(k_, 0) + 1
 top = sorted(cm.items(), key=lambda x: -x[1])
 marcas = ''.join(f'<a href="{SITE}m/{slug(m)}.html">{e(marca(m))} <small>{n}</small></a>' for m, n in top[:14] if os.path.exists(f'm/{slug(m)}.html'))
 chips = ''.join(f'<a href="{SITE}m/{slug(m)}.html">{e(marca(m))}</a>' for m, n in top[:5])
@@ -66,11 +67,17 @@ RUTA = [('ruta1.jpg', 'Pasa frente a El Costo.'), ('ruta2.jpg', 'Sigue derecho p
         ('ruta5.jpg', 'La entrada del local es la puerta roja.')]
 ruta = ''.join(f'<li><img src="{archivo("tools/inicio/" + f, 300, 66)}" alt="" width="300" height="375"><span><b>{k}</b>{e(t)}</span></li>' for k, (f, t) in enumerate(RUTA, 1))
 
+# --- listas completas para Google y para quien busca por modelo (las arma generar_sitio.py) ---
+try: LST = json.load(open('tools/_listas.json', encoding='utf-8'))
+except Exception: LST = {'tipos': [], 'modelos': []}
+tipos = ''.join(f'<a href="{SITE}{u}">{e(n)} <small>{c}</small></a>' for n, u, c in LST['tipos'])
+modelos = ''.join(f'<a href="{SITE}{u}">{e(n)} <small>{c}</small></a>' for n, u, c in LST['modelos'][:36])
+
 org = sum(1 for p in disp if str(p.get('condicion') or '').upper().startswith(('ORG', 'FULL ORG')))
 datos = {
     'N_PIEZAS': f'{(len(disp) // 100) * 100:,}', 'N_EXACTO': f'{len(disp):,}', 'N_MARCAS': str(len(cm)), 'N_CATS': str(ncat),
     'PCT_ORG': str(round(100 * org / max(len(disp), 1))),
-    'PORTADA': ''.join(portada), 'CATS': ''.join(cats), 'MARCAS': marcas, 'CHIPS': chips, 'RUTA': ruta,
+    'PORTADA': ''.join(portada), 'CATS': ''.join(cats), 'MARCAS': marcas, 'TIPOS': tipos, 'MODELOS': modelos, 'CHIPS': chips, 'RUTA': ruta,
     'LOGO': archivo('icon-512.png', 96, fmt='PNG'), 'POSTER': archivo('tools/inicio/ruta1.jpg', 300, 60),
 }
 t = open('tools/inicio_plantilla.html', encoding='utf-8').read()
