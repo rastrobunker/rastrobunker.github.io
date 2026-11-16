@@ -483,6 +483,32 @@ body.rb-sel .wa-fab{bottom:86px}
 .rbj-card .tx .pr{color:var(--rb-red);font-weight:800}
 .rbj-card button{position:absolute;top:6px;right:6px;width:32px;height:32px;border-radius:50%;border:0;background:var(--rb-red);color:#fff;font-weight:900;font-size:18px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.25)}
 .rbj-card button.on{background:#25D366}
+
+/* INICIO COMPACTO (2026-11-16): ubicación, datos y nota en un solo bloque; filtros en una fila */
+.header{margin-bottom:12px}
+.header .logo{width:112px;margin-bottom:6px}
+.rb-ini{max-width:980px;margin:0 auto 16px;background:var(--rb-card,#fff);border:1px solid var(--rb-line,#E2E0DB);border-radius:14px;overflow:hidden}
+.rb-ini-loc{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:12px 12px 10px}
+.rb-ini .loc-btn{padding:8px 14px;font-size:13px}
+.rb-ini .loc-como{background:var(--rb-red,#D7192D);color:#fff;border-color:var(--rb-red,#D7192D)}
+.rb-ini-datos{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rb-line,#E2E0DB)}
+.rb-ini-datos li{padding:10px 8px;text-align:center;border-left:1px solid var(--rb-line,#E2E0DB)}
+.rb-ini-datos li:first-child{border-left:0}
+.rb-ini-datos b{display:block;font-size:14px;line-height:1.2;color:var(--rb-cream,#1C1C1E)}
+.rb-ini-datos li:first-child b{color:var(--rb-red,#D7192D);font-size:16px}
+.rb-ini-datos span{display:block;font-size:12px;color:var(--rb-mute,#6B665E);margin-top:2px;line-height:1.25}
+.rb-ini-nota{margin:0;padding:8px 12px;text-align:center;font-size:13px;color:var(--rb-mute,#6B665E);border-top:1px solid var(--rb-line,#E2E0DB);background:var(--rb-bg,#F6F5F2)}
+.filters{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+@media(min-width:900px){.rb-marcas{flex-wrap:wrap;overflow:visible}}
+@media(max-width:640px){
+  .header .logo{width:84px}
+  .top-bar .top-name{font-size:10.5px;letter-spacing:0}
+  .rb-ini-datos{grid-template-columns:1fr 1fr}
+  .rb-ini-datos li:nth-child(odd){border-left:0}
+  .rb-ini-datos li:nth-child(n+3){border-top:1px solid var(--rb-line,#E2E0DB)}
+  .filters{grid-template-columns:1fr 1fr}
+  .filters #ordenar{grid-column:1/-1}
+}
 </style>
 <body>
 
@@ -512,9 +538,8 @@ body.rb-sel .wa-fab{bottom:86px}
       <p id="subtitle">PIEZAS DE AUTO NUEVAS Y USADAS · PANAMÁ</p>
     </div>
 
-    <div class="info-bar">
-      <span class="info-label">📍 Ubicación:</span>
-      <div class="loc-links">
+    <div class="rb-ini">
+      <div class="rb-ini-loc">
         <a class="loc-btn loc-waze" href="https://waze.com/ul?ll=8.9644588,-79.5401215&navigate=yes" target="_blank">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="#33ccff"/><circle cx="9" cy="10.5" r="1.4" fill="#000000"/><circle cx="15" cy="10.5" r="1.4" fill="#000000"/><path d="M8 15c1 1 2.5 1.5 4 1.5s3-.5 4-1.5" stroke="#000000" stroke-width="1.3" stroke-linecap="round"/></svg>
           Waze
@@ -523,19 +548,16 @@ body.rb-sel .wa-fab{bottom:86px}
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C7.6 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.6-8-8-8z" fill="#4285F4"/><circle cx="12" cy="10" r="3.2" fill="#fff"/></svg>
           Google Maps
         </a>
+        <a class="loc-btn loc-como" href="inicio.html#llegar">Cómo llegar</a>
       </div>
-      <span class="horario-tag">🕒 Horario: 8:00 AM – 5:00 PM</span>
+      <ul class="rb-ini-datos" id="rbConfianza">
+        <li><b id="rbConfN">+2,600</b><span>piezas con foto real</span></li>
+        <li><b>Garantía de 3 días</b><span>cambio o devolución</span></li>
+        <li><b>Efectivo · Yappy · ACH</b><span>formas de pago</span></li>
+        <li><b>Lunes a sábado</b><span>8:00 a. m. – 5:00 p. m.</span></li>
+      </ul>
+      <p class="rb-ini-nota">Precio y más fotos de cualquier pieza por WhatsApp.</p>
     </div>
-
-    <div class="rb-confianza" id="rbConfianza">
-      <div><b id="rbConfN">+2,600</b><span>piezas disponibles</span></div>
-      <div><b>Con foto real</b><span>de cada pieza</span></div>
-      <div><b>Lunes a sábado</b><span>8:00 a. m. – 5:00 p. m.</span></div>
-      <div><b>Más fotos</b><span>te las mandamos por WhatsApp</span></div>
-      <div><b>Garantía de 3 días</b><span>cambio o devolución hasta 3 días después de la entrega</span></div>
-      <div><b>Formas de pago</b><span>Efectivo · Yappy · ACH</span></div>
-    </div>
-    <div class="aviso-consulta">💬 Precios bajo consulta por WhatsApp</div>
     <div class="search-section">
       <div class="filters">
         <select class="filter-select" id="categoria">
@@ -1651,6 +1673,14 @@ function abrirModal(id) {
     })();
   })();
 
+  (function () {
+    let q = null; try { q = new URLSearchParams(location.search).get("q"); } catch (e) {}
+    if (!q) return;
+    const i = document.getElementById("buscar"); if (!i) return;
+    i.value = q.slice(0, 80);
+    try { mostrar(); } catch (e) {}
+  })();
+
   /* ---------- Administrador ---------- */
   function openAdminPanel() {
     if (adminMode) return;
@@ -1851,24 +1881,84 @@ function abrirModal(id) {
   const CACHE_VENTAS = "rb_ventas_cache_v1";
   const leerCacheVentas = () => { try { return JSON.parse(localStorage.getItem(CACHE_VENTAS) || "null"); } catch (e) { return null; } };
   const guardarCacheVentas = (v, p) => { try { localStorage.setItem(CACHE_VENTAS, JSON.stringify({ vend: v, prec: p, t: Date.now() })); } catch (e) {} };
+  /* Vendidos sin gastar la cuota de Firebase (2026-11-16):
+     1) vendidos.json = copia publicada con el sitio (no gasta lecturas);
+     2) UNA lectura para saber si algo cambió desde esa copia (conteo + suma);
+     3) si cambió, se lee solo el tramo de códigos que cambió, no toda la lista.
+     Si Firebase no responde (cuota agotada), vale la copia publicada. */
+  const FS_DOCS = "https://firestore.googleapis.com/v1/projects/rastrobunker-caja/databases/(default)/documents";
+  const FS_KEY = "AIzaSyDmVL8mLvzjWr69Ab-s8Lf0A-H_JtWaTXk";
+  async function fsPost(metodo, cuerpo) {
+    const r = await fetch(FS_DOCS + ":" + metodo + "?key=" + FS_KEY, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cuerpo), cache: "no-store" });
+    if (!r.ok) throw new Error(metodo + " " + r.status);
+    return r.json();
+  }
+  function fsTramo(a, b) {
+    const f = [], campo = { fieldPath: "codigo" };
+    if (a != null) f.push({ fieldFilter: { field: campo, op: "GREATER_THAN_OR_EQUAL", value: { stringValue: a } } });
+    if (b != null) f.push({ fieldFilter: { field: campo, op: "LESS_THAN", value: { stringValue: b } } });
+    const q = { from: [{ collectionId: "vendidos" }] };
+    if (f.length) q.where = f.length > 1 ? { compositeFilter: { op: "AND", filters: f } } : f[0];
+    return q;
+  }
+  async function fsCuenta(a, b, conSuma) {
+    const ag = [{ alias: "n", count: {} }];
+    if (conSuma) ag.push({ alias: "s", sum: { field: { fieldPath: "unidades" } } });
+    const j = await fsPost("runAggregationQuery", { structuredAggregationQuery: { structuredQuery: fsTramo(a, b), aggregations: ag } });
+    const f = j[0].result.aggregateFields, num = x => x ? +(x.integerValue ?? x.doubleValue ?? 0) : 0;
+    return { n: num(f.n), s: num(f.s) };
+  }
+  const soloVendidos = d => { const v = {}; Object.keys(d).forEach(c => { if (d[c] > 0) v[c] = d[c]; }); return v; };
+  async function leerVendidosTodo() {
+    const v = {};
+    let token = "";
+    do {
+      const r = await fetch(VENTAS_URL + (token ? "&pageToken=" + encodeURIComponent(token) : ""), { cache: "no-store" });
+      if (!r.ok) throw new Error("vendidos " + r.status);
+      const j = await r.json();
+      (j.documents || []).forEach(d => {
+        const f = d.fields || {};
+        const cod = f.codigo && f.codigo.stringValue;
+        const n = parseInt((f.unidades && (f.unidades.integerValue || f.unidades.doubleValue)) || 0, 10);
+        if (cod && n > 0) v[cod] = n;
+      });
+      token = j.nextPageToken || "";
+    } while (token);
+    return v;
+  }
+  async function leerVendidos() {
+    let copia = null;
+    try { const r = await fetch("vendidos.json", { cache: "no-cache" }); if (r.ok) copia = await r.json(); } catch (e) {}
+    if (!copia || !copia.d) return leerVendidosTodo();
+    const d = Object.assign({}, copia.d);
+    try {
+      const g = await fsCuenta(null, null, true);
+      if (g.n !== copia.n || g.s !== copia.s) {
+        const cortes = copia.c || [], tramos = [];
+        for (let i = 0; i <= cortes.length; i++) tramos.push([i ? cortes[i - 1] : null, i < cortes.length ? cortes[i] : null]);
+        const dentro = (c, t) => (t[0] == null || c >= t[0]) && (t[1] == null || c < t[1]);
+        const cuentas = await Promise.all(tramos.map(t => fsCuenta(t[0], t[1], false)));
+        for (let i = 0; i < tramos.length; i++) {
+          const mios = Object.keys(d).filter(c => dentro(c, tramos[i]));
+          if (cuentas[i].n === mios.length) continue;
+          const j = await fsPost("runQuery", { structuredQuery: fsTramo(tramos[i][0], tramos[i][1]) });
+          mios.forEach(c => delete d[c]);
+          j.forEach(x => { const f = x.document && x.document.fields; if (f && f.codigo && f.codigo.stringValue) d[f.codigo.stringValue] = parseInt((f.unidades && (f.unidades.integerValue || f.unidades.doubleValue)) || 0, 10) || 0; });
+        }
+        const suma = Object.values(d).reduce((x, y) => x + y, 0);
+        if (suma !== g.s || Object.keys(d).length !== g.n) return leerVendidosTodo();
+      }
+    } catch (e) {
+      const c = leerCacheVentas();
+      if (c && c.vend && c.t > (copia.t || 0)) return c.vend;
+    }
+    return soloVendidos(d);
+  }
   async function sincronizarVentas(usarCache) {
     let vend, prec;
     try {
       if (usarCache) throw new Error('cache');
-      const v = {};
-      let token = "";
-      do {
-        const r = await fetch(VENTAS_URL + (token ? "&pageToken=" + encodeURIComponent(token) : ""), { cache: "no-store" });
-        if (!r.ok) throw new Error("vendidos " + r.status);
-        const j = await r.json();
-        (j.documents || []).forEach(d => {
-          const f = d.fields || {};
-          const cod = f.codigo && f.codigo.stringValue;
-          const n = parseInt((f.unidades && (f.unidades.integerValue || f.unidades.doubleValue)) || 0, 10);
-          if (cod && n > 0) v[cod] = n;
-        });
-        token = j.nextPageToken || "";
-      } while (token);
+      const v = await leerVendidos();
       const p = {};
       let precOk = true;
       try {

@@ -23,6 +23,29 @@ i = h.find('const PRODUCTOS_INICIALES'); a = h.find('[', i); b = h.find('];', i)
 prod = json.loads(h[a:b+1])
 os.makedirs('f', exist_ok=True); os.makedirs('o', exist_ok=True); os.makedirs('p', exist_ok=True)
 
+# 0) copia de piezas vendidas (vendidos.json): el catálogo la usa para no gastar lecturas de Firebase
+def copia_vendidos():
+    import urllib.request, urllib.parse, time
+    base = 'https://firestore.googleapis.com/v1/projects/rastrobunker-caja/databases/(default)/documents/vendidos?pageSize=300&key=AIzaSyDmVL8mLvzjWr69Ab-s8Lf0A-H_JtWaTXk'
+    d, tok = {}, ''
+    while True:
+        j = json.load(urllib.request.urlopen(base + ('&pageToken=' + urllib.parse.quote(tok) if tok else ''), timeout=30))
+        for doc in j.get('documents', []):
+            f = doc.get('fields', {}); c = f.get('codigo', {}).get('stringValue')
+            u = f.get('unidades', {}); n = int(float(u.get('integerValue', u.get('doubleValue', 0)) or 0))
+            if c: d[c] = n
+        tok = j.get('nextPageToken', '')
+        if not tok: break
+    cods = sorted(d); paso = max(1, -(-len(cods) // 8))
+    cortes = [cods[i] for i in range(paso, len(cods), paso)]
+    json.dump({'t': int(time.time() * 1000), 'n': len(d), 's': sum(d.values()), 'c': cortes, 'd': {c: d[c] for c in cods}},
+              open('vendidos.json', 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+    return len(d), sum(d.values())
+try:
+    print('vendidos.json: %d códigos, %d unidades' % copia_vendidos())
+except Exception as e:
+    print('AVISO: no se pudo actualizar vendidos.json (%s); se deja la copia anterior' % e)
+
 # 1) fotos base64 -> archivos
 nuevas = 0
 for fn in sorted(glob.glob('fotos-*.js')):
@@ -142,7 +165,7 @@ open('index.html', 'w', encoding='utf-8').write(h)
 
 # 4) sitemap, robots, versiones
 open('sitemap.xml', 'w', encoding='utf-8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    + f'<url><loc>{SITE}</loc></url>\n' + ''.join(f'<url><loc>{u}</loc></url>\n' for u in urls) + '</urlset>\n')
+    + f'<url><loc>{SITE}</loc></url>\n<url><loc>{SITE}inicio.html</loc></url>\n' + ''.join(f'<url><loc>{u}</loc></url>\n' for u in urls) + '</urlset>\n')
 open('robots.txt', 'w').write(f'User-agent: *\nAllow: /\nDisallow: /caja.html\nDisallow: /subir.html\nSitemap: {SITE}sitemap.xml\n')
 v = lambda fn: hashlib.md5(open(fn, 'rb').read()).hexdigest()[:8]
 tags = (f'<script async src="fotos-idx.js?v={v("fotos-idx.js")}" onerror="rbReintentar(this)"></script>\n'
@@ -154,3 +177,8 @@ if h2 != h: open('index.html', 'w', encoding='utf-8').write(h2)
 sin = [p['codigo'] for p in prod if str(p['id']) not in idx]
 print(f'piezas {len(prod)} · fotos nuevas pasadas a archivo {nuevas} · fotos en total {len(idx)} · páginas {len(vivas)} · en sitemap {len(urls)}')
 if sin: print('SIN FOTO:', sin[:30])
+
+# 5) página de inicio (inicio.html) con las cantidades y fotos de hoy
+import subprocess
+subprocess.run([sys.executable, os.path.join('tools', 'generar_inicio.py')], check=False)
+

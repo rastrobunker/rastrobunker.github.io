@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rastro Búnker · Piezas de carrocería en Panamá</title>
+<meta name="description" content="Más de @@N_PIEZAS@@ piezas de carrocería con foto real y código: faros, defensas, parrillas, puertas y capós de @@N_MARCAS@@ marcas. Calidonia, ciudad de Panamá. Garantía de 3 días.">
+<link rel="canonical" href="https://rastrobunker.github.io/inicio.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rastro Búnker · Piezas de carrocería en Panamá">
+<meta property="og:description" content="Más de @@N_PIEZAS@@ piezas con foto real y código. Calidonia, ciudad de Panamá.">
+<meta property="og:image" content="https://rastrobunker.github.io/og.jpg">
+<meta property="og:url" content="https://rastrobunker.github.io/inicio.html">
+<meta name="theme-color" content="#17171A">
+<link rel="icon" href="https://rastrobunker.github.io/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+/* Plan: portada carbón con buscador, y debajo secciones claras en una columna ancha.
+   El detalle propio es la cinta amarilla con el código escrito a marcador, como en el local. */
+:root{
+  --carbon:#17171A; --papel:#F6F5F2; --tarjeta:#FFFFFF; --tinta:#1C1C1E; --gris:#6B665E; --linea:#E2E0DB;
+  --rojo:#D7192D; --cinta:#F2D43D; --wa:#1A9A46;
+  --titulo:"Anton","Arial Narrow",Impact,sans-serif; --texto:"Barlow","Segoe UI",Tahoma,sans-serif; --marcador:"Permanent Marker","Comic Sans MS",cursive;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--papel);color:var(--tinta);font:400 17px/1.5 var(--texto);-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--cinta);outline-offset:2px}
+.w{max-width:1080px;margin:0 auto;padding:0 18px}
+h1,h2{font-family:var(--titulo);font-weight:400;text-transform:uppercase;letter-spacing:.01em;line-height:1.02;margin:0;text-wrap:balance}
+h2{font-size:clamp(30px,6vw,44px)}
+h3{font:700 18px/1.25 var(--texto);margin:0}
+p{margin:0}
+.sub{color:var(--gris);max-width:62ch;margin-top:10px}
+section{padding:54px 0}
+.blanco{background:var(--tarjeta);border-block:1px solid var(--linea)}
+.btn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:10px;font:700 16px var(--texto);text-decoration:none;border:2px solid transparent;cursor:pointer}
+.btn.rojo{background:var(--rojo);color:#fff}
+.btn.wa{background:var(--wa);color:#fff}
+.btn.linea{border-color:var(--tinta);color:var(--tinta);background:transparent}
+.btn.clara{border-color:rgba(255,255,255,.5);color:#fff}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.cinta{font:400 14px/1.15 var(--marcador);background:var(--cinta);color:#151515;padding:5px 9px 4px;display:inline-block;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+
+/* barra */
+.barra{background:var(--carbon);color:#fff;position:sticky;top:0;z-index:20;border-bottom:1px solid #2B2B30}
+.barra .w{display:flex;align-items:center;gap:14px;min-height:58px}
+.marca{white-space:nowrap;display:flex;align-items:center;gap:9px;text-decoration:none;font:400 21px var(--titulo);letter-spacing:.03em;margin-right:auto}
+.marca img{width:36px;height:36px}
+.marca b{color:var(--rojo);font-weight:400}
+.barra nav{display:flex;gap:18px}
+.barra nav a{font:600 15px var(--texto);text-decoration:none;opacity:.85}
+.barra .btn{min-height:40px;padding:0 14px;font-size:15px}
+@media(max-width:720px){.barra nav{display:none}}
+
+/* portada */
+.portada{background:var(--carbon);color:#fff;padding:38px 0 46px}
+.portada .w{display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:center}
+.portada .w>*,.llegar>*{min-width:0}
+h1{font-size:clamp(40px,9.6vw,78px)}
+h1 em{font-style:normal;color:var(--rojo)}
+.portada .sub{color:#C9C6BF;font-size:18px}
+.busca{display:flex;gap:8px;margin-top:22px;max-width:560px}
+.busca input{flex:1;min-width:0;height:54px;border-radius:10px;border:2px solid #fff;background:#fff;color:var(--tinta);padding:0 14px;font:500 17px var(--texto)}
+.busca .btn{min-height:54px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center;font-size:14px;color:#A9A59D}
+.chips a{color:#fff;text-decoration:none;border:1px solid #45454B;border-radius:999px;padding:5px 12px;font-weight:600}
+.pzs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pz{position:relative;display:block;background:#fff;border-radius:8px;overflow:hidden;text-decoration:none}
+.pz img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.pz .cinta{position:absolute;left:6px;bottom:8px;max-width:calc(100% - 12px);transform:rotate(-2deg);font-size:12px}
+.pz:nth-child(2) .cinta{transform:rotate(1.5deg)}
+@media(min-width:861px){.pzs{grid-template-columns:1fr 1fr}.pz:first-child{grid-column:1/3}.pz .cinta{font-size:14px}}
+@media(max-width:860px){.portada .w{grid-template-columns:1fr;gap:26px}}
+
+/* confianza */
+.conf{background:var(--tarjeta);border-bottom:1px solid var(--linea)}
+.conf ul{list-style:none;margin:0;padding:16px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.conf li{font-size:14.5px;color:var(--gris);line-height:1.3}
+.conf b{display:block;color:var(--tinta);font-size:16px}
+@media(max-width:720px){.conf ul{grid-template-columns:1fr 1fr}}
+
+/* categorías y marcas */
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}
+.cat{background:var(--tarjeta);border:1px solid var(--linea);border-radius:10px;overflow:hidden;text-decoration:none;display:grid}
+.cat img{width:100%;aspect-ratio:4/3;object-fit:cover;background:#ddd}
+.cat b{padding:10px 12px 0;font-size:16px;line-height:1.2}
+.cat span{padding:2px 12px 12px;font-size:14px;color:var(--gris);font-variant-numeric:tabular-nums}
+@media(max-width:860px){.cats{grid-template-columns:1fr 1fr}}
+.marcas{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.marcas a{background:var(--papel);border:1px solid var(--linea);border-radius:999px;padding:8px 14px;text-decoration:none;font-weight:700;font-size:15px}
+.marcas small{font-weight:600;color:var(--gris);margin-left:3px;font-variant-numeric:tabular-nums}
+
+/* pasos */
+.pasos{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;counter-reset:p}
+.pasos li{background:var(--tarjeta);border:1px solid var(--linea);border-radius:10px;padding:18px;counter-increment:p}
+.pasos li::before{content:counter(p);font:400 22px/1 var(--marcador);background:var(--cinta);display:inline-block;padding:6px 12px 4px;margin-bottom:12px;transform:rotate(-2deg)}
+.pasos p{color:var(--gris);font-size:16px;margin-top:6px}
+@media(max-width:720px){.pasos{grid-template-columns:1fr}}
+
+/* cómo llegar */
+.llegar{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:24px;align-items:start}
+.radar{background:var(--tarjeta);border:1px solid var(--linea);border-radius:12px;padding:10px}
+.radar svg{width:100%;height:auto;display:block}
+.radar figcaption{font-size:13px;color:var(--gris);padding:6px 6px 2px}
+.vivo{margin-bottom:12px;border-radius:12px;overflow:hidden;border:1px solid var(--linea)}
+.vivo iframe{display:block;width:100%;height:300px;border:0}
+.refs{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:10px}
+.refs li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:baseline;border-bottom:1px solid var(--linea);padding-bottom:10px}
+.refs b{font:400 20px var(--titulo);color:var(--rojo);min-width:74px;font-variant-numeric:tabular-nums}
+.horario{margin-top:16px;font-weight:600}
+.ruta{list-style:none;margin:14px 0 0;padding:0 0 6px;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(150px,1fr);gap:10px;overflow-x:auto}
+.ruta li{background:var(--tarjeta);border:1px solid var(--linea);border-radius:10px;overflow:hidden}
+.ruta img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.ruta span{display:block;padding:9px 10px 11px;font-size:14.5px;line-height:1.3}
+.ruta b{font:400 15px var(--marcador);background:var(--cinta);padding:2px 7px 1px;margin-right:6px}
+.video{margin-top:14px;max-width:320px;border-radius:12px;overflow:hidden;border:1px solid var(--linea)}
+.video video{display:block;width:100%}
+@media(max-width:860px){.llegar{grid-template-columns:1fr}}
+
+/* talleres */
+.taller{background:var(--carbon);color:#fff}
+.taller .sub{color:#C9C6BF}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+.dos div{border:1px solid #3A3A40;border-radius:10px;padding:18px}
+.dos p{color:#C9C6BF;margin-top:6px;font-size:16px}
+@media(max-width:720px){.dos{grid-template-columns:1fr}}
+
+/* preguntas */
+.faq{margin-top:20px;max-width:760px}
+.faq details{border-bottom:1px solid var(--linea)}
+.faq summary{cursor:pointer;font-weight:700;padding:15px 28px 15px 0;list-style:none;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:4px;top:11px;font:400 24px var(--titulo);color:var(--rojo)}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--gris);padding:0 0 16px;max-width:65ch}
+
+footer{background:var(--carbon);color:#C9C6BF;padding:34px 0 96px;font-size:15px}
+footer .w{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+footer b{color:#fff;display:block;margin-bottom:6px}
+footer a{display:block;text-decoration:none;padding:3px 0}
+@media(max-width:720px){footer .w{grid-template-columns:1fr}}
+.fab{position:fixed;right:14px;bottom:14px;z-index:30;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="barra"><div class="w">
+  <a class="marca" href="#inicio"><img src="@@LOGO@@" alt="" width="36" height="36"><span>RASTRO <b>BÚNKER</b></span></a>
+  <nav aria-label="Secciones"><a href="#piezas">Piezas</a><a href="#llegar">Cómo llegar</a><a href="#talleres">Talleres</a><a href="#preguntas">Preguntas</a></nav>
+  <a class="btn rojo" href="https://rastrobunker.github.io/">Ver catálogo</a>
+</div></header>
+
+<main id="inicio">
+<div class="portada"><div class="w">
+  <div>
+    <h1>La pieza de tu carro, <em>original</em> y con foto real</h1>
+    <p class="sub">Más de @@N_PIEZAS@@ piezas de carrocería de @@N_MARCAS@@ marcas, cada una con su foto y su código. Las retiras en Calidonia, ciudad de Panamá.</p>
+    <form class="busca" id="busca" role="search">
+      <label for="q" style="position:absolute;left:-9999px">Busca tu pieza</label>
+      <input id="q" name="q" type="search" placeholder="Ej.: faro Yaris 2016, parrilla Hilux" autocomplete="off" enterkeyhint="search">
+      <a class="btn rojo" id="ir" href="https://rastrobunker.github.io/">Buscar</a>
+    </form>
+    <div class="chips"><span>Marcas más buscadas:</span>@@CHIPS@@</div>
+  </div>
+  <div class="pzs">@@PORTADA@@</div>
+</div></div>
+
+<div class="conf"><div class="w"><ul>
+  <li><b>Garantía de 3 días</b>Revisas la pieza después de recibirla.</li>
+  <li><b>Efectivo, Yappy o ACH</b>Pagas como te quede mejor.</li>
+  <li><b>Foto real de cada pieza</b>Ves lo que te vas a llevar.</li>
+  <li><b>Lunes a sábado</b>8:00 a. m. a 5:00 p. m.</li>
+</ul></div></div>
+
+<section id="piezas"><div class="w">
+  <h2>Busca por tipo de pieza</h2>
+  <p class="sub">Hay @@N_EXACTO@@ piezas disponibles hoy en @@N_CATS@@ categorías. Estas son las que más se piden.</p>
+  <div class="cats">@@CATS@@</div>
+  <div class="btns"><a class="btn linea" href="https://rastrobunker.github.io/">Ver todas las categorías</a></div>
+</div></section>
+
+<section class="blanco"><div class="w">
+  <h2>O entra por la marca</h2>
+  <p class="sub">El número es la cantidad de piezas disponibles de cada marca.</p>
+  <div class="marcas">@@MARCAS@@</div>
+</div></section>
+
+<section><div class="w">
+  <h2>Cómo se compra</h2>
+  <ol class="pasos">
+    <li><h3>Busca tu pieza</h3><p>Escribe la pieza, el modelo y el año, o el código si ya lo tienes.</p></li>
+    <li><h3>Escríbenos el código</h3><p>Por WhatsApp te confirmamos que está disponible y te damos el precio.</p></li>
+    <li><h3>Pasa a retirarla</h3><p>La revisas en el local. Tienes 3 días de garantía después de la entrega.</p></li>
+  </ol>
+  <div class="btns"><a class="btn wa" href="https://wa.me/50761601991?text=Hola%2C%20busco%20una%20pieza%20para%20mi%20carro">WhatsApp 6160-1991</a></div>
+</div></section>
+
+<section id="llegar" class="blanco"><div class="w">
+  <h2>Cómo llegar</h2>
+  <p class="sub">Estamos en Calidonia, ciudad de Panamá, entre la estación 5 de Mayo del Metro y el Super 99 de Calidonia. En Waze o Google Maps escribe <b>Rastro Búnker</b>.</p>
+  <div class="llegar">
+    <div>
+      <div id="mapaVivo"></div>
+      <figure class="radar" style="margin:0">
+        <svg viewBox="0 0 360 372" role="img" aria-label="Croquis de referencias alrededor de Rastro Búnker">
+          <rect width="360" height="372" fill="#F6F5F2" rx="8"/>
+          <g fill="none" stroke="#CFCBC3" stroke-width="1.2">
+            <circle cx="180" cy="196" r="46.7"/><circle cx="180" cy="196" r="93.3"/><circle cx="180" cy="196" r="140" stroke-dasharray="4 5"/>
+            <path d="M180 40V352M24 196H336" stroke-dasharray="2 6"/>
+          </g>
+          <g font-family="Barlow,Segoe UI,sans-serif" font-size="11" fill="#6B665E">
+            <text x="230" y="192">100 m</text><text x="277" y="192">200 m</text><text x="318" y="211" text-anchor="end">300 m</text>
+          </g>
+          <g font-family="Anton,Arial Narrow,sans-serif" font-size="15" fill="#1C1C1E"><text x="180" y="30" text-anchor="middle">N</text><path d="M180 34l-5 9h10z"/></g>
+          <g font-family="Barlow,Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#1C1C1E">
+            <circle cx="183" cy="98" r="6" fill="#1C1C1E"/><text x="172" y="94" text-anchor="end">Super 99</text><text x="172" y="109" text-anchor="end" font-weight="500" fill="#6B665E">Calidonia · 210 m</text>
+            <circle cx="228" cy="63" r="6" fill="#1C1C1E"/><text x="240" y="60">El Machetazo</text><text x="240" y="75" font-weight="500" fill="#6B665E">Calidonia · 300 m</text>
+            <circle cx="189" cy="318" r="6" fill="#1C1C1E"/><text x="201" y="315">Metro 5 de Mayo</text><text x="201" y="330" font-weight="500" fill="#6B665E">Línea 1 · 260 m</text>
+          </g>
+          <path d="M180 170c-11 0-19 8-19 19 0 14 19 32 19 32s19-18 19-32c0-11-8-19-19-19z" fill="#D7192D" stroke="#fff" stroke-width="2"/><circle cx="180" cy="189" r="6.5" fill="#fff"/>
+          <rect x="112" y="226" width="136" height="24" fill="#F2D43D" transform="rotate(-2 180 238)"/><text x="180" y="244" text-anchor="middle" font-family="Permanent Marker,cursive" font-size="15" fill="#151515" transform="rotate(-2 180 238)">Rastro Búnker</text>
+        </svg>
+        <figcaption>Distancias en línea recta desde el punto de Rastro Búnker en Google Maps.</figcaption>
+      </figure>
+    </div>
+    <div>
+      <div class="btns" style="margin-top:0">
+        <a class="btn rojo" href="https://waze.com/ul?ll=8.9644588,-79.5401215&navigate=yes">Abrir en Waze</a>
+        <a class="btn linea" href="https://www.google.com/maps/search/?api=1&query=8.9644588,-79.5401215&query_place_id=ChIJ69qTipKprI8R8RCLV_wTA90">Abrir en Google Maps</a>
+      </div>
+      <ul class="refs">
+        <li><b>260 m</b><span>de la estación <strong>5 de Mayo</strong> del Metro (Línea 1).</span></li>
+        <li><b>210 m</b><span>del <strong>Super 99</strong> de Calidonia.</span></li>
+        <li><b>300 m</b><span>de <strong>El Machetazo</strong> de Calidonia.</span></li>
+      </ul>
+      <p class="horario">Lunes a sábado, de 8:00 a. m. a 5:00 p. m. Domingo cerrado.</p>
+      <p class="sub">Si no encuentras la entrada, escríbenos por WhatsApp al 6160-1991 y te guiamos.</p>
+    </div>
+  </div>
+  <h3 style="margin-top:30px">En carro, paso a paso</h3>
+  <ol class="ruta">@@RUTA@@</ol>
+  <div id="videoVivo"></div>
+</div></section>
+
+<section id="talleres" class="taller"><div class="w">
+  <h2>Para talleres de chapistería</h2>
+  <p class="sub">Si reparas carros todas las semanas, te conviene tenernos a mano.</p>
+  <div class="dos">
+    <div><h3>Lista semanal de piezas nuevas</h3><p>Cada semana enviamos por WhatsApp las piezas que entraron, con código y foto.</p></div>
+    <div><h3>Compramos tus sobrantes</h3><p>Si te quedaron piezas en buen estado de una reparación, nos interesan.</p></div>
+  </div>
+  <div class="btns"><a class="btn wa" href="https://wa.me/50761601991?text=Hola%2C%20tengo%20un%20taller%20y%20quiero%20recibir%20la%20lista%20semanal%20de%20piezas">Quiero la lista semanal</a></div>
+</div></section>
+
+<section id="preguntas"><div class="w">
+  <h2>Preguntas frecuentes</h2>
+  <div class="faq">
+    <details><summary>¿Las piezas son originales?</summary><p>El @@PCT_ORG@@ % de las piezas disponibles son originales, usadas o nuevas. El resto son genéricas. En el catálogo cada pieza dice cuál es.</p></details>
+    <details><summary>¿Cuánto cuesta una pieza?</summary><p>Escríbenos por WhatsApp con el código de la pieza y te damos el precio en el momento.</p></details>
+    <details><summary>¿Cómo sé si le sirve a mi carro?</summary><p>Cada pieza indica la marca, el modelo y los años en que sirve. Si tienes duda, envíanos el año de tu carro y una foto de la pieza que necesitas.</p></details>
+    <details><summary>¿Qué garantía tiene?</summary><p>Tienes 3 días después de la entrega para revisar la pieza y devolverla si hay un problema.</p></details>
+    <details><summary>¿Cómo puedo pagar?</summary><p>En efectivo, por Yappy o por transferencia ACH.</p></details>
+    <details><summary>¿Cuál es el horario?</summary><p>De lunes a sábado, de 8:00 a. m. a 5:00 p. m. Los domingos está cerrado.</p></details>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="w">
+  <div><b>Rastro Búnker</b>Piezas de carrocería nuevas y usadas.<br>Calidonia, ciudad de Panamá.</div>
+  <div><b>Contacto</b><a href="https://wa.me/50761601991">WhatsApp 6160-1991</a><a href="tel:+50761601991">Llamar al 6160-1991</a></div>
+  <div><b>Síguenos</b><a href="https://www.instagram.com/rastrobunker">Instagram @rastrobunker</a><a href="https://www.tiktok.com/@autopartes.bunker">TikTok @autopartes.bunker</a></div>
+</div></footer>
+<a class="btn wa fab" href="https://wa.me/50761601991?text=Hola%2C%20busco%20una%20pieza%20para%20mi%20carro">WhatsApp</a>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"AutoPartsStore","name":"Rastro Búnker","url":"https://rastrobunker.github.io/inicio.html","telephone":"+507 6160-1991","image":"https://rastrobunker.github.io/og.jpg","geo":{"@type":"GeoCoordinates","latitude":8.9644588,"longitude":-79.5401215},"hasMap":"https://www.google.com/maps/search/?api=1&query=8.9644588,-79.5401215&query_place_id=ChIJ69qTipKprI8R8RCLV_wTA90","address":{"@type":"PostalAddress","addressCountry":"PA","addressRegion":"Panamá","addressLocality":"Calidonia, ciudad de Panamá"},"paymentAccepted":"Efectivo, Yappy, ACH","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"08:00","closes":"17:00"}],"sameAs":["https://www.instagram.com/rastrobunker","https://www.tiktok.com/@autopartes.bunker"]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Qué garantía tienen las piezas?","acceptedAnswer":{"@type":"Answer","text":"3 días después de la entrega para revisar la pieza y devolverla si hay un problema."}},{"@type":"Question","name":"¿Cómo puedo pagar?","acceptedAnswer":{"@type":"Answer","text":"En efectivo, por Yappy o por transferencia ACH."}},{"@type":"Question","name":"¿Cuál es el horario de Rastro Búnker?","acceptedAnswer":{"@type":"Answer","text":"De lunes a sábado, de 8:00 a. m. a 5:00 p. m."}},{"@type":"Question","name":"¿Dónde queda Rastro Búnker?","acceptedAnswer":{"@type":"Answer","text":"En Calidonia, ciudad de Panamá, a unos 260 metros de la estación 5 de Mayo del Metro."}}]}]}</script>
+<script>
+(function () {
+  var CAT = "https://rastrobunker.github.io/";
+  var enSitio = /(^|\.)rastrobunker\./.test(location.hostname);
+  var q = document.getElementById("q"), ir = document.getElementById("ir");
+  function destino() { var t = q.value.trim(); return t ? CAT + "?q=" + encodeURIComponent(t) : CAT; }
+  q.addEventListener("input", function () { ir.href = destino(); });
+  document.getElementById("busca").addEventListener("submit", function (e) {
+    e.preventDefault(); ir.href = destino();
+    if (enSitio) location.href = ir.href; else ir.click();
+  });
+  if (!enSitio) return; /* en la vista previa no cargan mapa ni video de otros sitios */
+  document.getElementById("mapaVivo").innerHTML = '<div class="vivo"><iframe title="Mapa de Rastro Búnker" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=8.9644588,-79.5401215&z=17&hl=es&output=embed"></iframe></div>';
+  document.getElementById("videoVivo").innerHTML = '<div class="video"><video controls playsinline preload="none" poster="@@POSTER@@" src="mediaubicacion.mp4"></video></div>';
+})();
+</script>
+</body>
+</html>
