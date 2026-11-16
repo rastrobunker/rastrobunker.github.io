@@ -1053,8 +1053,7 @@ async function rbFicha(p, conPrecio){
   x.textAlign = 'right'; x.fillStyle = GRIS; x.font = `600 30px ${F}`; x.fillText('Efectivo · Yappy · ACH', W - M, y + 52);
   /* contacto */
   y += hConf; x.fillStyle = CARBON; x.fillRect(0, y, W, hPie);
-  x.textAlign = 'left'; x.fillStyle = '#fff'; x.font = `800 40px ${F}`; x.fillText('WhatsApp 6160-1991', M, y + 62);
-  x.textAlign = 'right'; x.fillStyle = CINTA; x.fillText('Waze: Rastro Búnker', W - M, y + 62);
+  x.textAlign = 'left'; x.fillStyle = CINTA; x.font = `800 40px ${F}`; x.fillText('Búscanos en Waze: Rastro Búnker', M, y + 62);
   x.textAlign = 'left'; x.fillStyle = '#B9B5AD'; x.font = `500 27px ${F}`; x.fillText('Calidonia, ciudad de Panamá', M, y + 112);
   x.textAlign = 'right'; x.fillText('Lunes a sábado · 8:00 a. m. a 5:00 p. m.', W - M, y + 112);
   return new Promise(r => c.toBlob(r, 'image/jpeg', 0.92));
