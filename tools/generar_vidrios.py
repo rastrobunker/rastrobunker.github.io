@@ -106,11 +106,10 @@ chips(document.getElementById('tipos'),TIP,tipo,v=>tipo=v);chips(document.getEle
 const w=norm(q).split(/\s+/).filter(Boolean);
 const L=vis.filter(x=>(tipo==='Todos'||x.ti===tipo)&&(mar==='Todas'||x.ma===mar)&&w.every(k=>norm([x.c,x.ma,x.mo,x.a,x.pz,x.l,x.ti].join(' ')).includes(k)));
 document.getElementById('n').textContent=L.length+' de '+vis.length+' vidrios';
-document.getElementById('g').innerHTML=L.length?L.map(x=>{const msg=encodeURIComponent(`Hola, me interesa el vidrio ${x.c}: ${x.pz} ${x.ma} ${x.mo} ${x.a}${x.l?' '+x.l.toLowerCase():''} ($${x.pr}). ¿Está disponible?`);
-return `<div class="c"><img loading="lazy" src="f/${x.id}.webp" alt="${x.pz} ${x.ma} ${x.mo}"><div class="b"><span class="tag">${x.ti}</span>
+document.getElementById('g').innerHTML=L.length?L.map(x=>{return `<div class="c"><img loading="lazy" src="f/${x.id}.webp" alt="${x.pz} ${x.ma} ${x.mo}"><div class="b"><span class="tag">${x.ti}</span>
 <div class="t">${x.ma} ${x.mo} ${x.a}</div><div class="d">${x.pz}${x.l?' · '+x.l:''}</div><div class="d">${x.co}</div>
 <div class="row"><span class="pr">$${x.pr}</span><span class="cod">Código ${x.c}</span></div>
-<a class="wa" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${msg}">Pedir por WhatsApp</a></div></div>`}).join(''):'<div class="vacio">No hay vidrios con esa búsqueda.</div>';
+</div></div>`}).join(''):'<div class="vacio">No hay vidrios con esa búsqueda.</div>';
 document.querySelectorAll('.c img').forEach(i=>i.onclick=()=>{const z=document.getElementById('zoom');z.querySelector('img').src=i.src;z.style.display='flex'})}
 document.getElementById('zoom').onclick=e=>e.currentTarget.style.display='none';
 document.getElementById('q').oninput=e=>{q=e.target.value;pinta()};
