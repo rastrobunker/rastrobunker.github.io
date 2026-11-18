@@ -347,7 +347,7 @@ print(f'páginas: {len(pm)} marcas · {len(pmod)} modelos · {len(pc)} tipos de 
 # 4) sitemap, robots, versiones
 open('sitemap.xml', 'w', encoding='utf-8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     + f'<url><loc>{SITE}</loc></url>\n<url><loc>{SITE}inicio.html</loc></url>\n' + ''.join(f'<url><loc>{u}</loc></url>\n' for u in urls) + '</urlset>\n')
-open('robots.txt', 'w').write(f'User-agent: *\nAllow: /\nDisallow: /caja.html\nDisallow: /subir.html\nSitemap: {SITE}sitemap.xml\n')
+open('robots.txt', 'w').write(f'User-agent: *\nAllow: /\nDisallow: /caja.html\nDisallow: /subir.html\nDisallow: /vidrios.html\nSitemap: {SITE}sitemap.xml\n')
 v = lambda fn: hashlib.md5(open(fn, 'rb').read()).hexdigest()[:8]
 tags = (f'<script async src="fotos-idx.js?v={v("fotos-idx.js")}" onerror="rbReintentar(this)"></script>\n'
         f'<script async src="fotos-extra.js?v={v("fotos-extra.js")}" onerror="rbReintentar(this)"></script>\n')
@@ -362,4 +362,5 @@ if sin: print('SIN FOTO:', sin[:30])
 # 5) página de inicio (inicio.html) con las cantidades y fotos de hoy
 import subprocess
 subprocess.run([sys.executable, os.path.join('tools', 'generar_inicio.py')], check=False)
+subprocess.run([sys.executable, os.path.join('tools', 'generar_vidrios.py')], check=False)
 
