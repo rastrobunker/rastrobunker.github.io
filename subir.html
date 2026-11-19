@@ -125,6 +125,7 @@ h2.sec{margin:26px 2px 0;font-size:22px;color:var(--mute)}
   <button class="btn sec" id="otro">Subir otro lote</button>
 </section>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -278,6 +279,12 @@ function pintaLotes(L){
     mk('Ver fotos', 'sec', () => { abiertos[l._id] = true; cargar().catch(() => mini.textContent = 'No se pudieron cargar.'); });
     if (!ok) mk('Aprobar', '', async e => { e.target.disabled = true; await updateDoc(doc(fs, COL, l._id), { estado: 'aprobado' }).catch(() => alert('No se pudo aprobar.')); });
     else { const s = document.createElement('div'); s.className = 'msg'; s.style.alignSelf = 'center'; s.textContent = 'Dile a Claude: «lote listo»'; fila.appendChild(s); }
+    mk('Zip', 'sec', async e => { const b = e.target; b.disabled = true; b.textContent = 'Armando…';
+      try { const s = await getDocs(collection(fs, COL, l._id, 'fotos')); const zip = new JSZip();
+        s.docs.forEach(x => { const v = x.data(); zip.file(tres(v.i) + '_' + (v.nombre || 'foto.jpg'), v.b64, { base64: true }); });
+        const blob = await zip.generateAsync({ type: 'blob' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'lote_' + l._id + '.zip'; a.click();
+      } catch (x) { alert('No se pudo armar el zip.'); }
+      b.disabled = false; b.textContent = 'Zip'; });
     mk('Borrar', 'sec', async e => { if (!confirm('¿Borrar este lote de ' + l.fotos + ' fotos?')) return; e.target.disabled = true; await borrarLote(l._id).catch(() => alert('No se pudo borrar.')); });
     d.append(h, m, fila, mini); z.appendChild(d);
     if (abiertos[l._id]) cargar().catch(() => {});
