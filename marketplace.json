@@ -38749,6 +38749,20 @@
     "fecha": "2026-11-18",
     "precio": 40
    }
+  ],
+  "SINCODIGO1": [
+   {
+    "ref": "B1-653",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-18",
+    "precio": 120
+   },
+   {
+    "ref": "B3-1160",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-18",
+    "precio": 120
+   }
   ]
  },
  "nota_refs": "Ojo: B2-237 a B2-286 están repetidas: las usa un pack del 20-oct y también el kit 1 del 21-oct (Marketplace_Bunker2_kit1_21oct). Para saber cuál es, mirar el código de la pieza."
