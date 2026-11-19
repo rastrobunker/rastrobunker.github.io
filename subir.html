@@ -210,6 +210,7 @@ async function aBase64(file){
 const dos = n => (n < 10 ? '0' : '') + n, tres = n => ('00' + n).slice(-3);
 const espera = ms => new Promise(ok => setTimeout(ok, ms));
 async function reintenta(fn, veces){ for (let i = 1; ; i++) { try { return await fn(); } catch (e) { if (i >= veces || e.code === 'permission-denied') throw e; await espera(1500 * i); } } }
+async function reintentaRed(fn){ for (let i = 1; ; i++) { try { return await fn(); } catch (e) { if (e.code === 'permission-denied' || i >= 30) throw e; if (!navigator.onLine) await new Promise(ok => addEventListener('online', ok, { once: true })); await espera(Math.min(1500 * i, 20000)); } } }
 function avance(h, t, txt){ $('pb').style.width = Math.round(100 * h / t) + '%'; $('pt').textContent = txt; }
 
 async function subirLote(){
@@ -222,7 +223,7 @@ async function subirLote(){
   avance(hechas, total + 1, 'Foto ' + hechas + ' de ' + total);
   const una = async () => { for (let f; (f = cola.shift()); ) {
     const d = await aBase64(f.file);
-    await reintenta(() => setDoc(doc(fs, COL, loteId, 'fotos', tres(f.n)), { i: f.n, b64: d.b64, kb: d.kb, nombre: f.file.name || '' }), 4);
+    await reintentaRed(() => setDoc(doc(fs, COL, loteId, 'fotos', tres(f.n)), { i: f.n, b64: d.b64, kb: d.kb, nombre: f.file.name || '' }));
     f.ok = true; hechas++; avance(hechas, total + 1, 'Foto ' + hechas + ' de ' + total); } };
   try {
     await Promise.all([una(), una()]);
