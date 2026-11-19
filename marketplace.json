@@ -38117,7 +38117,7 @@
     "ref": "B3-1114",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-18",
-    "precio": 250
+    "precio": 400
    }
   ],
   "GFT018": [
@@ -38201,7 +38201,7 @@
     "ref": "B3-1120",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-18",
-    "precio": 70
+    "precio": 50
    }
   ],
   "DD020": [
@@ -38229,7 +38229,7 @@
     "ref": "B3-1122",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-18",
-    "precio": 70
+    "precio": 50
    }
   ],
   "DD018": [
@@ -38243,7 +38243,7 @@
     "ref": "B3-1123",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-18",
-    "precio": 120
+    "precio": 100
    }
   ],
   "DD017": [
@@ -38257,7 +38257,7 @@
     "ref": "B3-1124",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-18",
-    "precio": 150
+    "precio": 70
    }
   ],
   "PD039": [
@@ -38279,13 +38279,13 @@
     "ref": "B1-619",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-18",
-    "precio": 400
+    "precio": 350
    },
    {
     "ref": "B3-1126",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-18",
-    "precio": 400
+    "precio": 350
    }
   ],
   "TB064": [
@@ -38293,13 +38293,13 @@
     "ref": "B1-620",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-18",
-    "precio": 400
+    "precio": 350
    },
    {
     "ref": "B3-1127",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-18",
-    "precio": 400
+    "precio": 350
    }
   ],
   "TB063": [
@@ -38313,7 +38313,7 @@
     "ref": "B3-1128",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-18",
-    "precio": 400
+    "precio": 350
    }
   ],
   "TB062": [
@@ -38369,7 +38369,7 @@
     "ref": "B3-1132",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-18",
-    "precio": 150
+    "precio": 100
    }
   ],
   "MLT019": [
@@ -38397,7 +38397,7 @@
     "ref": "B3-1134",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-18",
-    "precio": 280
+    "precio": 300
    }
   ],
   "CH156": [
