@@ -362,5 +362,17 @@ if sin: print('SIN FOTO:', sin[:30])
 # 5) página de inicio (inicio.html) con las cantidades y fotos de hoy
 import subprocess
 subprocess.run([sys.executable, os.path.join('tools', 'generar_inicio.py')], check=False)
+
+# refs.json: referencia de Marketplace (B1-642) -> código real (CH169), para buscar en el catálogo
+try:
+    _mj = json.load(open('marketplace.json', encoding='utf-8'))
+    _refs = {}
+    for _c, _v in _mj.get('piezas', {}).items():
+        for _e in _v:
+            _k = _e['ref'].upper()
+            if _k not in _refs or _e.get('fecha', '') >= _refs[_k][1]: _refs[_k] = (_c, _e.get('fecha', ''))
+    open('refs.json', 'w', encoding='utf-8').write(json.dumps({k: v[0] for k, v in _refs.items()}, separators=(',', ':')))
+    print('refs.json:', len(_refs), 'referencias')
+except Exception as _x: print('refs.json no se generó:', _x)
 subprocess.run([sys.executable, os.path.join('tools', 'generar_vidrios.py')], check=False)
 
