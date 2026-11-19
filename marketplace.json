@@ -9567,13 +9567,13 @@
     "ref": "B2-589",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-22",
-    "precio": 160
+    "precio": 250
    },
    {
     "ref": "MX-384",
     "vendedor": "Maxuel",
     "fecha": "2026-11-17",
-    "precio": 160
+    "precio": 250
    }
   ],
   "RV004": [
@@ -25981,13 +25981,13 @@
     "ref": "B2-1268",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-02",
-    "precio": 290
+    "precio": 320
    },
    {
     "ref": "MX-533",
     "vendedor": "Maxuel",
     "fecha": "2026-11-17",
-    "precio": 290
+    "precio": 320
    }
   ],
   "TB017": [
@@ -28391,13 +28391,13 @@
     "ref": "SA-91",
     "vendedor": "Salomón",
     "fecha": "2026-11-05",
-    "precio": 200
+    "precio": 290
    },
    {
     "ref": "MX-580",
     "vendedor": "Maxuel",
     "fecha": "2026-11-17",
-    "precio": 200
+    "precio": 290
    }
   ],
   "LD007": [
@@ -28813,7 +28813,7 @@
     "ref": "SA-122",
     "vendedor": "Salomón",
     "fecha": "2026-11-05",
-    "precio": 160
+    "precio": 200
    }
   ],
   "DT199": [
