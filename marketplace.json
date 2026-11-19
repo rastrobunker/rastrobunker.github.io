@@ -38097,13 +38097,13 @@
     "ref": "B1-606",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-18",
-    "precio": 200
+    "precio": 220
    },
    {
     "ref": "B3-1113",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-18",
-    "precio": 200
+    "precio": 220
    }
   ],
   "GFT013": [
@@ -38279,13 +38279,13 @@
     "ref": "B1-619",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-18",
-    "precio": 300
+    "precio": 400
    },
    {
     "ref": "B3-1126",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-18",
-    "precio": 300
+    "precio": 400
    }
   ],
   "TB064": [
@@ -38293,13 +38293,13 @@
     "ref": "B1-620",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-18",
-    "precio": 300
+    "precio": 400
    },
    {
     "ref": "B3-1127",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-18",
-    "precio": 300
+    "precio": 400
    }
   ],
   "TB063": [
@@ -38307,13 +38307,13 @@
     "ref": "B1-621",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-18",
-    "precio": 300
+    "precio": 400
    },
    {
     "ref": "B3-1128",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-18",
-    "precio": 300
+    "precio": 400
    }
   ],
   "TB062": [
@@ -38321,13 +38321,13 @@
     "ref": "B1-622",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-18",
-    "precio": 250
+    "precio": 600
    },
    {
     "ref": "B3-1129",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-18",
-    "precio": 250
+    "precio": 600
    }
   ],
   "TB061": [
@@ -38335,13 +38335,13 @@
     "ref": "B1-623",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-18",
-    "precio": 350
+    "precio": 450
    },
    {
     "ref": "B3-1130",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-18",
-    "precio": 350
+    "precio": 450
    }
   ],
   "P042": [
@@ -38391,13 +38391,13 @@
     "ref": "B1-627",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-18",
-    "precio": 250
+    "precio": 280
    },
    {
     "ref": "B3-1134",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-18",
-    "precio": 250
+    "precio": 280
    }
   ],
   "CH156": [
