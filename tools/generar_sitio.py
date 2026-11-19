@@ -107,7 +107,7 @@ def modelo(t):
 def clave(t):
     return re.sub(r'\s+', ' ', unicodedata.normalize('NFD', str(t or '').upper()).encode('ascii', 'ignore').decode()).strip()
 PLURAL = {'Parrilla': 'Parrillas', 'Lámpara Delantera': 'Faros y lámparas delanteras', 'Lámpara Trasera': 'Lámparas traseras', 'Defensa Trasera': 'Defensas traseras',
-          'Defensa Delantera': 'Defensas delanteras', 'Flare': 'Flares', 'Cover de Alógena': 'Covers de halógena', 'Guardafango': 'Guardafangos', 'Guardafango Trasero': 'Guardafangos traseros',
+          'Defensa Delantera': 'Defensas delanteras', 'Flare': 'Flares', 'Cover de Alógena': 'Covers de halógena', 'Guardafango': 'Guardafangos', 'Guardafango Trasero': 'Guardafangos traseros', 'Cover de Vagón': 'Covers de vagón (bedliner)',
           'Halógenas / Faros antiniebla': 'Halógenas y faros antiniebla', 'Puerta': 'Puertas', 'Vidrio': 'Vidrios', 'Cubrepolvo': 'Cubrepolvos', 'Refuerzo Delantero': 'Refuerzos delanteros',
           'Capó': 'Capós', 'Marco de Radiador': 'Marcos de radiador', 'Retrovisor': 'Retrovisores', 'Tapa de Baúl': 'Tapas de baúl', 'Estribo': 'Estribos y rolling boards',
           'Defensa Delantera Inferior': 'Defensas delanteras inferiores', 'Defensa Trasera Inferior': 'Defensas traseras inferiores', 'Tapa Superior de Radiador': 'Tapas superiores de radiador',
