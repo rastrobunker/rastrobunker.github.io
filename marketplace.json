@@ -4249,19 +4249,19 @@
     "ref": "B2-278",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
-    "precio": 220
+    "precio": 250
    },
    {
     "ref": "IR-63",
     "vendedor": "Irving",
     "fecha": "2026-11-07",
-    "precio": 220
+    "precio": 250
    },
    {
     "ref": "B3-894",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-12",
-    "precio": 220
+    "precio": 250
    }
   ],
   "792": [
@@ -29829,19 +29829,19 @@
     "ref": "SA-201",
     "vendedor": "Salomón",
     "fecha": "2026-11-05",
-    "precio": 75
+    "precio": 120
    },
    {
     "ref": "B3-895",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-12",
-    "precio": 75
+    "precio": 120
    },
    {
     "ref": "B2-2232",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-14",
-    "precio": 75
+    "precio": 120
    }
   ],
   "766": [
@@ -30469,13 +30469,13 @@
     "ref": "B2-1412",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-05",
-    "precio": 75
+    "precio": 120
    },
    {
     "ref": "B3-896",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-12",
-    "precio": 75
+    "precio": 120
    }
   ],
   "810": [
