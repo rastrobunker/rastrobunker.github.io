@@ -111,7 +111,7 @@ PLURAL = {'Parrilla': 'Parrillas', 'Lámpara Delantera': 'Faros y lámparas dela
           'Halógenas / Faros antiniebla': 'Halógenas y faros antiniebla', 'Puerta': 'Puertas', 'Vidrio': 'Vidrios', 'Cubrepolvo': 'Cubrepolvos', 'Refuerzo Delantero': 'Refuerzos delanteros',
           'Capó': 'Capós', 'Marco de Radiador': 'Marcos de radiador', 'Retrovisor': 'Retrovisores', 'Tapa de Baúl': 'Tapas de baúl', 'Estribo': 'Estribos y rolling boards',
           'Defensa Delantera Inferior': 'Defensas delanteras inferiores', 'Defensa Trasera Inferior': 'Defensas traseras inferiores', 'Tapa Superior de Radiador': 'Tapas superiores de radiador',
-          'Refuerzo Trasero': 'Refuerzos traseros', 'Copa': 'Copas', 'Moldura Trasera': 'Molduras traseras', 'Extensión de Defensa Trasera': 'Extensiones de defensa trasera',
+          'Refuerzo Trasero': 'Refuerzos traseros', 'Copa': 'Copas', 'Moldura Delantera': 'Molduras delanteras', 'Moldura Trasera': 'Molduras traseras', 'Extensión de Defensa Trasera': 'Extensiones de defensa trasera',
           'Protector Inferior': 'Protectores inferiores', 'Ventilador': 'Ventiladores', 'Depósito de Agua': 'Depósitos de agua', 'Extensión de Defensa Delantera': 'Extensiones de defensa delantera',
           'Accesorio Nuevo': 'Accesorios nuevos', 'Soporte de Defensa': 'Soportes de defensa'}
 def plural(c): return PLURAL.get(c, c)
