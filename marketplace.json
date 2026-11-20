@@ -40531,19 +40531,19 @@
     "ref": "B1-653",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-18",
-    "precio": 120
+    "precio": 100
    },
    {
     "ref": "B3-1160",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-18",
-    "precio": 120
+    "precio": 100
    },
    {
     "ref": "MX-812",
     "vendedor": "Maxuel",
     "fecha": "2026-11-19",
-    "precio": 120
+    "precio": 100
    }
   ],
   "DD022": [
