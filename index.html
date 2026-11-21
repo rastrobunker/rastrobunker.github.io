@@ -807,7 +807,7 @@ function rbFin(){window.__rbPend--;if(window.__rbPend<=0){var t=document.getElem
 function RB_FOTOS(m){for(var k in m)window.__RBF[k]=m[k];rbFin();if(window.__rbFotosCb)window.__rbFotosCb();}
 function rbReintentar(el){if(el.dataset.r){rbFin();return;}var s=document.createElement('script');s.async=true;s.dataset.r='1';s.src=el.src+'&r='+Date.now();s.onerror=function(){rbReintentar(s)};document.body.appendChild(s);}
 </script>
-<script async src="fotos-idx.js?v=af3bd07e" onerror="rbReintentar(this)"></script>
+<script async src="fotos-idx.js?v=767a6cad" onerror="rbReintentar(this)"></script>
 <script async src="fotos-extra.js?v=d3ce10c2" onerror="rbReintentar(this)"></script>
 <script id="rb-envio-js">
 /* ===== Buscador por nombre de pieza + envío de varias piezas + sugerencias (2026-10-30) ===== */
