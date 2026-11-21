@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Publicaciones de revendedores · Rastro Búnker</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#f4f3f0;color:#141416}
+header{background:#141416;color:#fff;padding:16px 18px;border-bottom:4px solid #e3262e}
+header b{font-size:20px}header b span{color:#e3262e}header small{display:block;color:#bbb;margin-top:4px}
+main{max-width:860px;margin:0 auto;padding:14px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.k{background:#fff;border-radius:14px;padding:14px;text-align:center;box-shadow:0 1px 3px #0001}
+.k b{display:block;font-size:30px}.k small{color:#666}
+.meta{background:#fff;border-radius:14px;padding:14px;margin-bottom:14px;box-shadow:0 1px 3px #0001}
+.barra{height:14px;background:#eee;border-radius:8px;overflow:hidden;margin-top:8px}.barra i{display:block;height:100%;background:#e3262e}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 1px 3px #0001}
+th,td{padding:11px 10px;text-align:right;font-size:15px;border-bottom:1px solid #eee}th{background:#fafafa;font-size:13px;color:#555}
+td:first-child,th:first-child{text-align:left;font-weight:600}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.ok{background:#22b35e}.med{background:#f0b400}.mal{background:#d33}
+#est{color:#666;font-size:13px;margin:10px 2px}
+.dias{display:flex;gap:4px;align-items:flex-end;height:90px;margin-top:10px}.dias div{flex:1;background:#141416;border-radius:4px 4px 0 0;position:relative;min-height:2px}
+.dias div span{position:absolute;top:-17px;left:0;right:0;text-align:center;font-size:11px;color:#333}
+.etq{display:flex;gap:4px}.etq div{flex:1;text-align:center;font-size:10px;color:#777}
+button{font:inherit;padding:10px 14px;border-radius:10px;border:0;background:#141416;color:#fff}
+</style></head><body>
+<header><b>RASTRO <span>BÚNKER</span> · Publicaciones</b><small>Lo que cada revendedor marca con "Ya la publiqué"</small></header>
+<main>
+<div class="kpis"><div class="k"><b id="hoy">–</b><small>hoy</small></div><div class="k"><b id="sem">–</b><small>últimos 7 días</small></div><div class="k"><b id="tot">–</b><small>en total</small></div></div>
+<div class="meta"><b>Publicaciones por día (últimos 14 días)</b><div class="dias" id="dias"></div><div class="etq" id="etq"></div></div>
+<table><thead><tr><th>Revendedor</th><th>Hoy</th><th>Ayer</th><th>7 días</th><th>Total</th><th>Última</th></tr></thead><tbody id="tb"><tr><td colspan="6">Cargando…</td></tr></tbody></table>
+<div id="est"></div>
+<button onclick="cargar()">Actualizar</button>
+</main>
+<script>
+const SB='https://pumdulcvvnxsdagnysur.supabase.co',KEY='sb_publishable_BZC6dGtbhKOhzHoWEUgphw_S0e_H8Gm';
+const dia=d=>new Date(d).toLocaleDateString('en-CA',{timeZone:'America/Panama'});
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+async function traer(){let filas=[],desde=0;for(;;){const r=await fetch(`${SB}/rest/v1/publicaciones?select=vendedor,codigo,creado&vendedor=neq.PRUEBA&order=creado.desc`,{headers:{apikey:KEY,Range:`${desde}-${desde+999}`}});if(!r.ok)throw new Error('HTTP '+r.status);const j=await r.json();filas=filas.concat(j);if(j.length<1000)break;desde+=1000}return filas}
+async function cargar(){
+  document.getElementById('est').textContent='Actualizando…';
+  try{
+    const F=await traer(),hoy=dia(Date.now()),ayer=dia(Date.now()-864e5),hace7=dia(Date.now()-6*864e5);
+    const V={};let nh=0,ns=0;const porDia={};
+    for(const f of F){const d=dia(f.creado);const v=V[f.vendedor]||(V[f.vendedor]={h:0,a:0,s:0,t:0,u:f.creado});
+      v.t++;if(d===hoy){v.h++;nh++}if(d===ayer)v.a++;if(d>=hace7){v.s++;ns++}if(f.creado>v.u)v.u=f.creado;porDia[d]=(porDia[d]||0)+1}
+    document.getElementById('hoy').textContent=nh;document.getElementById('sem').textContent=ns;document.getElementById('tot').textContent=F.length;
+    const filas=Object.entries(V).sort((a,b)=>b[1].s-a[1].s||b[1].t-a[1].t);
+    document.getElementById('tb').innerHTML=filas.length?filas.map(([n,v])=>{const hrs=(Date.now()-new Date(v.u))/36e5;const c=hrs<24?'ok':hrs<72?'med':'mal';
+      return `<tr><td><span class="dot ${c}"></span>${esc(n)}</td><td>${v.h}</td><td>${v.a}</td><td>${v.s}</td><td>${v.t}</td><td>${new Date(v.u).toLocaleString('es-PA',{timeZone:'America/Panama',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'})}</td></tr>`}).join(''):'<tr><td colspan="6">Todavía nadie ha marcado publicaciones.</td></tr>';
+    const ds=[];for(let i=13;i>=0;i--)ds.push(dia(Date.now()-i*864e5));const mx=Math.max(1,...ds.map(d=>porDia[d]||0));
+    document.getElementById('dias').innerHTML=ds.map(d=>`<div style="height:${(porDia[d]||0)/mx*100}%"><span>${porDia[d]||''}</span></div>`).join('');
+    document.getElementById('etq').innerHTML=ds.map(d=>`<div>${d.slice(8)}</div>`).join('');
+    document.getElementById('est').textContent='Actualizado '+new Date().toLocaleTimeString('es-PA',{timeZone:'America/Panama'})+' · verde: publicó en las últimas 24 h · amarillo: 1-3 días · rojo: más de 3 días';
+  }catch(e){document.getElementById('est').textContent='No se pudo cargar: '+e.message}
+}
+cargar();setInterval(cargar,60000);
+</script></body></html>
