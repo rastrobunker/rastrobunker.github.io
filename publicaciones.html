@@ -29,6 +29,10 @@ button{font:inherit;padding:10px 14px;border-radius:10px;border:0;background:#14
 <div class="meta"><b>Publicaciones por día (últimos 14 días)</b><div class="dias" id="dias"></div><div class="etq" id="etq"></div></div>
 <table><thead><tr><th>Revendedor</th><th>Hoy</th><th>Ayer</th><th>7 días</th><th>Total</th><th>Última</th></tr></thead><tbody id="tb"><tr><td colspan="6">Cargando…</td></tr></tbody></table>
 <div id="est"></div>
+<h3 style="margin:22px 2px 8px">Ventas de piezas publicadas</h3>
+<div id="vmsg" class="meta">Cargando ventas…</div>
+<table id="vtab" style="display:none;margin-bottom:12px"><thead><tr><th>Revendedor</th><th>Publicó</th><th>Vendidas</th><th>Vendido $</th><th>Conversión</th></tr></thead><tbody id="vtb"></tbody></table>
+<table id="vlis" style="display:none"><thead><tr><th>Venta</th><th>Código</th><th>$</th><th>Caja dice</th><th>La publicó</th></tr></thead><tbody id="vlb"></tbody></table>
 <button onclick="cargar()">Actualizar</button>
 </main>
 <script>
@@ -39,7 +43,7 @@ async function traer(){let filas=[],desde=0;for(;;){const r=await fetch(`${SB}/r
 async function cargar(){
   document.getElementById('est').textContent='Actualizando…';
   try{
-    const F=await traer(),hoy=dia(Date.now()),ayer=dia(Date.now()-864e5),hace7=dia(Date.now()-6*864e5);
+    const F=await traer();window.PUB=F;window.dispatchEvent(new Event('pub'));const hoy=dia(Date.now()),ayer=dia(Date.now()-864e5),hace7=dia(Date.now()-6*864e5);
     const V={};let nh=0,ns=0;const porDia={};
     for(const f of F){const d=dia(f.creado);const v=V[f.vendedor]||(V[f.vendedor]={h:0,a:0,s:0,t:0,u:f.creado});
       v.t++;if(d===hoy){v.h++;nh++}if(d===ayer)v.a++;if(d>=hace7){v.s++;ns++}if(f.creado>v.u)v.u=f.creado;porDia[d]=(porDia[d]||0)+1}
@@ -54,4 +58,29 @@ async function cargar(){
   }catch(e){document.getElementById('est').textContent='No se pudo cargar: '+e.message}
 }
 cargar();setInterval(cargar,60000);
+</script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const app=initializeApp({apiKey:"AIzaSyDmVL8mLvzjWr69Ab-s8Lf0A-H_JtWaTXk",authDomain:"rastrobunker-caja.firebaseapp.com",projectId:"rastrobunker-caja",storageBucket:"rastrobunker-caja.firebasestorage.app",messagingSenderId:"415388883458",appId:"1:415388883458:web:4b2a9afbc8ecf031f5251b"});
+const fs=getFirestore(app), DESDE='2026-11-21';
+const $=i=>document.getElementById(i), esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let usuario=null, ventas=null;
+async function cargarVentas(){try{const s=await getDocs(query(collection(fs,'ventas'),where('fecha','>=',DESDE)));ventas=s.docs.map(d=>d.data()).filter(v=>!v.borrado&&v.codigo);pintar()}catch(e){$('vmsg').textContent='No se pudieron leer las ventas ('+(e.code||e.message)+'). Entra con la cuenta del dueño o de caja.'}}
+function pintar(){
+  if(!ventas||!window.PUB)return;
+  const pub={},porV={};
+  for(const f of window.PUB){(pub[f.codigo]=pub[f.codigo]||[]).push(f);const v=porV[f.vendedor]||(porV[f.vendedor]={pub:new Set(),ven:0,monto:0});v.pub.add(f.codigo)}
+  const filas=[];
+  for(const v of ventas){const quien=(pub[v.codigo]||[]).filter(f=>f.creado<=v.fecha);const nombres=[...new Set(quien.map(f=>f.vendedor))];
+    for(const n of nombres){porV[n].ven++;porV[n].monto+=(+v.total||0)/nombres.length}
+    filas.push({v,nombres})}
+  $('vmsg').textContent=ventas.length+' ventas con código desde el '+DESDE.split('-').reverse().join('/')+'. Si dos revendedores publicaron la misma pieza, el monto se reparte entre ellos.';
+  $('vtab').style.display=$('vlis').style.display='';
+  $('vtb').innerHTML=Object.entries(porV).sort((a,b)=>b[1].monto-a[1].monto).map(([n,x])=>`<tr><td>${esc(n)}</td><td>${x.pub.size}</td><td>${x.ven}</td><td>$${x.monto.toFixed(2)}</td><td>${x.pub.size?(100*x.ven/x.pub.size).toFixed(1):0}%</td></tr>`).join('')||'<tr><td colspan="5">Sin datos</td></tr>';
+  $('vlb').innerHTML=filas.sort((a,b)=>b.v.fecha.localeCompare(a.v.fecha)).slice(0,60).map(({v,nombres})=>`<tr><td>${new Date(v.fecha).toLocaleDateString('es-PA',{timeZone:'America/Panama',day:'2-digit',month:'short'})}</td><td>${esc(v.codigo)}</td><td>${(+v.total||0).toFixed(2)}</td><td>${esc(v.vendedor)}</td><td>${nombres.length?esc(nombres.join(', ')):'—'}</td></tr>`).join('');
+}
+window.addEventListener('pub',pintar);
+onAuthStateChanged(getAuth(app),u=>{usuario=u;if(u)cargarVentas();else $('vmsg').innerHTML='Para ver las ventas, entra primero a la <a href="caja.html">caja</a> con tu cuenta en este mismo navegador y vuelve aquí.'});
 </script></body></html>
