@@ -376,3 +376,22 @@ try:
 except Exception as _x: print('refs.json no se generó:', _x)
 subprocess.run([sys.executable, os.path.join('tools', 'generar_vidrios.py')], check=False)
 
+
+# ---- copia del catálogo dentro de caja.html (CAT y CAT_CANT), para que la caja reconozca todas las piezas ----
+def _caja_cat():
+    import json as _j, re as _re
+    h = open('caja.html', encoding='utf8').read()
+    cat, cant = {}, {}
+    for p in prod:
+        lado = p.get('lado') or ''
+        nom = ' '.join(x for x in [p['categoria'], p['marca'], p['modelo'], p['anio'], lado if lado in ('LH', 'RH') else ''] if x)
+        if 'NEW' in (p.get('condicion') or '').upper() and (p.get('condicion') or '').upper() != 'NEW': nom += ' (Nuevo)'
+        cat[p['codigo']] = [nom, p['precio'], bool(p.get('vendido'))]
+        if (p.get('cantidad') or 1) > 1: cant[p['codigo']] = p['cantidad']
+    for nombre, val in (('CAT', cat), ('CAT_CANT', cant)):
+        i = h.find(f'const {nombre} = '); j = h.find('};', i)
+        assert i > 0 and j > i, nombre
+        h = h[:i] + f'const {nombre} = ' + _j.dumps(val, ensure_ascii=False, separators=(',', ':')) + h[j + 1:]
+    open('caja.html', 'w', encoding='utf8').write(h)
+    print('caja.html: copia del catálogo con', len(cat), 'piezas')
+_caja_cat()
