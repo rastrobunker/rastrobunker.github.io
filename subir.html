@@ -284,8 +284,8 @@ async function fotosDe(l){
 }
 const abiertos = {};
 function pintaLotes(L){
-  // los que Claude ya procesó se borran solos
-  L.filter(l => l.estado === 'procesado').forEach(l => borrarLote(l._id, l).catch(() => {}));
+  // los procesados viejos (fotos en Firestore) se borran solos; los de Supabase se quedan guardados en la nube
+  L.filter(l => l.estado === 'procesado' && !esSb(l)).forEach(l => borrarLote(l._id, l).catch(() => {}));
   L = L.filter(l => l.estado !== 'procesado').sort((a, b) => (a.fecha < b.fecha ? 1 : -1));
   const z = $('lotes'); z.innerHTML = '';
   if (!L.length) { z.innerHTML = '<div class="msg" style="margin:8px 2px">No hay lotes pendientes.</div>'; return; }
@@ -313,7 +313,7 @@ function pintaLotes(L){
         const blob = await zip.generateAsync({ type: 'blob' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'lote_' + l._id + '.zip'; a.click();
       } catch (x) { alert('No se pudo armar el zip.'); }
       b.disabled = false; b.textContent = 'Zip'; });
-    mk('Borrar', 'sec', async e => { if (!confirm('¿Borrar este lote de ' + l.fotos + ' fotos?')) return; e.target.disabled = true; await borrarLote(l._id, l).catch(() => alert('No se pudo borrar.')); });
+    mk('Borrar', 'sec', async e => { if (!confirm('¿Borrar este lote de ' + l.fotos + ' fotos?' + (esSb(l) ? '\n\nOJO: también se borran las fotos de la nube (Supabase). Solo queda el zip que guardaste.' : ''))) return; e.target.disabled = true; await borrarLote(l._id, l).catch(() => alert('No se pudo borrar.')); });
     d.append(h, m, fila, mini); z.appendChild(d);
     if (abiertos[l._id]) cargar().catch(() => {});
   });
