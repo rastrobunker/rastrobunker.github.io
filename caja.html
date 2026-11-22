@@ -105,7 +105,7 @@ select{width:100%;font:inherit;font-size:16px;padding:11px 12px;border-radius:10
 .cat-stats .cs-nota{text-align:center;font-size:.72rem;color:#777;margin-top:6px}
 .btn.sec{background:var(--chip);color:var(--ink)}
 .bk{font-size:.85rem;color:var(--mute);margin-top:8px}
-body.rol-vendedor .no-vend{display:none!important}body.rol-vendedor .tot{grid-template-columns:1fr}
+body.rol-vendedor .no-vend,body.solo-hoy .no-hoy{display:none!important}body.rol-vendedor .tot{grid-template-columns:1fr}
 body.rol-caja .no-caja{display:none!important}
 .pagos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.pagos button{padding:10px 4px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:600 .95rem Barlow,sans-serif}.pagos button.on{background:var(--red);border-color:var(--red);color:#fff}
 .com{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}.com:last-child{border-bottom:0}.com button{padding:8px 12px;border-radius:10px;border:0;background:var(--red);color:#fff;font:600 .9rem Barlow,sans-serif}.com .ok{color:var(--ok);font-weight:600}
@@ -132,9 +132,9 @@ main,nav{display:none}body.dentro main{display:block}body.dentro nav{display:fle
 </section>
 <main>
   <div class="yo"><span id="quienSoy"></span><button class="link" id="salir" style="margin:0">Cerrar sesión</button></div>
-  <div class="mes"><button id="prev" aria-label="Mes anterior">‹</button><div class="lbl" id="mesLbl"></div><button id="next" aria-label="Mes siguiente">›</button></div>
+  <div class="mes no-hoy"><button id="prev" aria-label="Mes anterior">‹</button><div class="lbl" id="mesLbl"></div><button id="next" aria-label="Mes siguiente">›</button></div>
   <div class="tot">
-    <div><span>Ventas</span><b id="tV">$0</b></div>
+    <div><span id="tVl">Ventas</span><b id="tV">$0</b></div>
     <div class="no-vend"><span>Gastos</span><b id="tG">$0</b></div>
     <div id="tGbox" class="g no-vend"><span>En mano hoy</span><b id="tN">$0</b><small id="tNm" style="display:block;font-size:11px;opacity:.85"></small></div>
   </div>
@@ -333,7 +333,7 @@ const EN_MANO_INI = 70; // efectivo que había en mano el lunes 12-oct-2026
 const rentaFuera = k => PAGOS_HECHOS['renta|' + k] ? 1284 : 0; // renta pagada fuera de la caja: se resta del saldo de ese mes // pagados fuera de la caja (renta oct con préstamos)
 const DEUDAS_OCULTAS = r => r._id === 'deuda-astrid' || r._id === 'deuda-maxuel' || r._id === 'deuda-leonardo' || /^leo(nardo)?\b/.test(String(r.concepto||'').trim().toLowerCase()) || /^maxuel/.test(String(r.concepto||'').trim().toLowerCase()) || /^(deuda )?astrid/.test(String(r.concepto||'').trim().toLowerCase()); // deuda de Astrid ya no va (12-oct)
 const enSaldo = v => String(v.fecha) >= SALDO_DESDE || (String(v.fecha) >= '2026-10-11T05:00:00Z' && JSON.stringify(v).toLowerCase().includes('apv')); // defensa APV vendida el 12-oct sí cuenta
-const AVISOS = 'rb-ventas-ccfb6a27'; // tema de la app ntfy para las notificaciones de venta
+const AVISOS = 'rb-avisos-334c8ec66412'; // tema de la app ntfy para las notificaciones de venta
 const DEUDAS_INI = [['deuda-vieja','Deuda vieja',1119.29,'2026-09-01T12:00:00Z'],['deuda-nueva','Deuda nueva',370.40,'2026-09-02T12:00:00Z'],['deuda-maxuel','Maxuel (préstamo renta)',400,'2026-10-11T12:00:00Z'],['deuda-leonardo','Leonardo (renta $103 + abono Astrid $125)',228,'2026-10-11T12:01:00Z']];
 const NOMBRE_DEUDA = {'deuda-vieja':'Engel · deuda vieja','deuda-nueva':'Engel · deuda nueva'};
 const esGasto = r => !r.tipo || r.tipo === 'gasto';
@@ -376,7 +376,7 @@ onAuthStateChanged(auth, u => {
   yo = u.uid; dueno = yo === DUENO; rol = ROLES[yo] || null;
   document.body.classList.remove('rol-dueno','rol-caja','rol-vendedor');
   if (!rol) { setSync('Usuario sin rol','off'); alert('Este usuario (' + u.email + ') entró, pero no tiene permiso en la caja.\nSu código es: ' + u.uid + '\nMándale este código a Engel para darle acceso.'); signOut(auth); return; }
-  document.body.classList.add('dentro','rol-' + rol); document.body.classList.toggle('es-dueno', dueno);
+  document.body.classList.add('dentro','rol-' + rol); document.body.classList.toggle('es-dueno', dueno); document.body.classList.toggle('solo-hoy', yo === VENDEDOR2);
   if (rol === 'caja') document.querySelector('.tab[data-s="gastos"]').click();
   $('quienSoy').textContent = u.email;
   subs.push(onSnapshot(collection(fs, 'precios'), s => { PREC = {}; s.docs.forEach(d => { const f = d.data(); if (f.codigo && +f.precio > 0) PREC[f.codigo] = +f.precio; }); aplicarPrecios(); }, () => {}));
@@ -1033,9 +1033,14 @@ function pintar(){
   $('tN').textContent = money(mano);
   $('tNm').innerHTML = `Ganancia de ${mNom} (ventas − gastos): ${money(tq)}`;
   $('tGbox').className = (mano < 0 ? 'neg' : 'g') + ' no-vend';
-  $('vTit').textContent = `Ventas del mes (${vm.length})`;
+  $('vTit').textContent = `Ventas del mes (${vm.length})`; $('tVl').textContent = 'Ventas';
   pintarHoy();
   $('vList').innerHTML = vm.length ? vm.map(r => item(r)).join('') : '<li class="empty">Sin ventas este mes.</li>';
+  if (yo === VENDEDOR2) { // Salomón: solo sus ventas de hoy, sin totales del mes
+    const hoyS = new Date().toDateString(), vh = datos.ventas.filter(v => !v.borrado && String(v.fecha) >= VENTAS_DESDE && new Date(v.fecha).toDateString() === hoyS).sort(orden);
+    $('tVl').textContent = 'Vendiste hoy'; $('tV').textContent = money(vh.reduce((s2, v) => s2 + (+v.total || 0), 0));
+    $('vTit').textContent = `Tus ventas de hoy (${vh.length})`;
+    $('vList').innerHTML = vh.length ? vh.map(r => item(r)).join('') : '<li class="empty">Todavía no hay ventas hoy.</li>'; }
   const gmL = datos.gastos.filter(g => g.mes === k && !g.borrado && (esGasto(g) || g.tipo === 'abono')).sort(orden);
   $('gMesLbl').textContent = ml; $('gTit').textContent = `Gastos y abonos de ${mNom} (${gmL.length})`;
   $('gList').innerHTML = gmL.length ? gmL.map(r => item(r)).join('') : '<li class="empty">Sin gastos ni abonos este mes.</li>';
