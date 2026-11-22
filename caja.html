@@ -205,10 +205,6 @@ main,nav{display:none}body.dentro main{display:block}body.dentro nav{display:fle
       <div id="cList"></div>
       <button class="btn wa" id="cWa">Enviar comisiones por WhatsApp</button>
     </div>
-    <div class="card"><h2>Quincena (Búnker Nº1, Nº2 y Nº3)</h2>
-      <div class="mes"><button id="qPrev" aria-label="Quincena anterior">‹</button><div class="lbl" id="qLbl"></div><button id="qNext" aria-label="Quincena siguiente">›</button></div>
-      <div class="ob">Sus comisiones de cada semana se juntan y se pagan cada quincena, con su pago semanal: Búnker Nº1 (vendedor de planta) $100, Búnker Nº2 $20 y Búnker Nº3 $20 por semana.</div>
-      <div id="qList"></div>
     </div>
     <button class="btn wa" id="repDia">Enviar reporte del día por WhatsApp</button>
   </section>
@@ -695,63 +691,44 @@ const fijoQ = n => { if (n === PLANTA || /b[uú]nker\s*(#|n[º°o]?\.?)?\s*(1|un
   if (/b[uú]nker\s*(#|n[º°o]?\.?)?\s*(2|dos)\b/i.test(n)) return {cat: 'bunker2', sem: 20, nom: 'Búnker Nº2'};
   if (/b[uú]nker\s*(#|n[º°o]?\.?)?\s*(3|tres)\b/i.test(n)) return {cat: 'bunker3', sem: 20, nom: 'Búnker Nº3'}; return null; };
 const vaQuin = (n, sab) => !!fijoQ(n) && ymd(sab) >= Q_DESDE;
-let qOff = 0;
-function quinActual(off){ const d = new Date(); d.setHours(12,0,0,0); let y = d.getFullYear(), m = d.getMonth(), q = d.getDate() <= 15 ? 0 : 1; let t = m * 2 + q + off; y += Math.floor(t / 24); t = ((t % 24) + 24) % 24; m = Math.floor(t / 2); q = t % 2;
-  const a = new Date(y, m, q ? 16 : 1), b = new Date(y, m, q ? ultimoDia(y, m) : 15); return {key: `${y}-${String(m + 1).padStart(2, '0')}-Q${q + 1}`, a, b}; }
-function quincena(off = qOff){
-  const Q = quinActual(off), sems = [], por = {};
-  for (let o = -8; o <= 6; o++) { const ini = inicioSem(o), sab = new Date(ini); sab.setDate(sab.getDate() + 6); sab.setHours(12,0,0,0);
-    if (sab >= Q.a && sab <= new Date(Q.b.getFullYear(), Q.b.getMonth(), Q.b.getDate(), 23) && ymd(sab) >= Q_DESDE) sems.push({o, sab}); }
-  const fut = new Date(); for (const w of sems) { const {lista} = comisionesSem(w.o); lista.filter(p => fijoQ(p.n)).forEach(p => { const f = fijoQ(p.n), x = por[f.cat] ||= {n: f.nom, cat: f.cat, nombres: [], com: 0, vendido: 0, piezas: 0, deuda: 0};
-    if (!x.nombres.includes(p.n)) x.nombres.push(p.n); x.com = r2(x.com + p.com - p.desc); x.vendido = r2(x.vendido + p.vendido); x.piezas += p.ventas.length; x.deuda = r2(x.deuda + Math.max(0, p.deuda - p.desc)); }); }
-  [[PLANTA], ['Bunker 2'], ['Bunker 3']].forEach(([n]) => { const f = fijoQ(n); por[f.cat] ||= {n: f.nom, cat: f.cat, nombres: [], com: 0, vendido: 0, piezas: 0, deuda: 0}; });
-  const nSem = sems.filter(w => { const ini = new Date(w.sab); ini.setDate(ini.getDate() - 6); return ini <= fut; }).length;
-  Object.values(por).forEach(x => { const f = {bunker1: 100, bunker2: 20, bunker3: 20}[x.cat]; x.sem = f; x.semanas = nSem; x.fijo = r2(f * nSem); x.total = r2(x.com + x.fijo);
-    x.perC = 'QCOM-' + Q.key + '-' + x.cat; x.perF = 'QFIJO-' + Q.key + '-' + x.cat;
-    x.pag = r2(datos.gastos.filter(g => !g.borrado && esGasto(g) && (g.periodo === x.perC || g.periodo === x.perF)).reduce((s2, g) => s2 + (+g.monto || 0), 0)); });
-  return {Q, sems, lista: Object.values(por).sort((a,b) => (b.vendido - a.vendido) || (b.total - a.total))};
+// quincena a la que pertenece una semana (por su sábado): 1 al 15 o 16 al fin de mes
+function quinDe(sab){ const y = sab.getFullYear(), m = sab.getMonth(), q = sab.getDate() <= 15 ? 1 : 2, b = q === 1 ? 15 : ultimoDia(y, m);
+  return {key: `${y}-${String(m + 1).padStart(2, '0')}-Q${q}`, a: new Date(y, m, q === 1 ? 1 : 16), b: new Date(y, m, b, 23, 59), dia: b, lbl: `${q === 1 ? 1 : 16}–${b} ${MESES[m]}`}; }
+// comisiones acumuladas de la quincena hasta la semana que se está viendo (para Búnker Nº1, Nº2 y Nº3)
+function acumQ(off){
+  const sab0 = new Date(inicioSem(off)); sab0.setDate(sab0.getDate() + 6); sab0.setHours(12,0,0,0); const Q = quinDe(sab0), acc = {};
+  for (let k = 0; k < 4; k++) { const sab = new Date(inicioSem(off - k)); sab.setDate(sab.getDate() + 6); sab.setHours(12,0,0,0);
+    if (sab < Q.a || ymd(sab) < Q_DESDE) break;
+    comisionesSem(off - k).lista.filter(p => fijoQ(p.n)).forEach(p => { const x = acc[p.n] ||= {n: p.n, com: 0, vendido: 0, ventas: [], desc: 0, deuda: 0, devs: [], semanas: 0};
+      x.com = r2(x.com + p.com - p.desc); x.vendido = r2(x.vendido + p.vendido); x.ventas.push(...p.ventas); x.semanas++; if (k === 0) { x.deuda = r2(Math.max(0, p.deuda - p.desc)); x.devs = p.devs; } }); }
+  Object.values(acc).forEach(x => { x.q = Q; x.perQ = 'QCOM-' + Q.key + '-' + x.n; x.pagQ = yaPagoCom(x.perQ); x.falta = r2(x.com - x.pagQ); });
+  return {Q, acc};
 }
-function pintarQuincena(){
-  if (!$('qList')) return;
-  const {Q, lista} = quincena(), fl = d => d.getDate() + ' ' + MESES[d.getMonth()];
-  $('qLbl').textContent = `${Q.key.endsWith('Q1') ? '1ª' : '2ª'} quincena · ${fl(Q.a)} al ${fl(Q.b)}`;
-  $('qList').innerHTML = lista.map(x => { const falta = r2(x.total - x.pag), ok = x.total > 0 && falta <= 0.009;
-    return `<div class="com"><div><div class="nm">${esc(x.n)}</div><div class="ob">${x.piezas} pieza${x.piezas === 1 ? '' : 's'} · vendió ${money(x.vendido)} · comisiones ${money(x.com)}</div>${x.nombres.length ? `<div class="ob">Ventas de: ${esc(x.nombres.join(', '))}</div>` : ''}<div class="ob">+ pago semanal ${money(x.sem)} × ${x.semanas} semana${x.semanas === 1 ? '' : 's'} = ${money(x.fijo)}</div>${x.deuda > 0 ? `<div class="ob" style="color:#c0392b">Debe ${money(x.deuda)} de comisión de venta borrada</div>` : ''}</div>
-      <div style="text-align:right"><b>${money(x.total)}</b><br>${ok ? '<span class="ok">✓ pagada</span>' : x.total > 0 ? `${x.pag ? `<span class="ob">ya pagó ${money(x.pag)}</span><br>` : ''}<button data-qpag="${x.cat}">Pagar${x.cat !== 'bunker1' ? ' (10% o 15%)' : ' ' + money(falta)}</button>` : ''}</div></div>`; }).join('')
-    + `<div class="res-row"><span>Total de la quincena</span><b>${money(lista.reduce((s2, x) => s2 + Math.max(0, x.total - x.pag), 0))}</b></div>`;
+// pago semanal fijo de Búnker Nº1, Nº2 y Nº3: se suma por semana y se paga al cerrar la quincena (15 y fin de mes)
+function fijosQ(Q){
+  const hoy = new Date(); let sem = 0;
+  for (let o = -4; o <= 3; o++) { const ini = inicioSem(o), sab = new Date(ini); sab.setDate(sab.getDate() + 6); sab.setHours(12,0,0,0);
+    if (sab >= Q.a && sab <= Q.b && ini <= hoy && ymd(sab) >= Q_DESDE) sem++; }
+  return ['bunker1','bunker2','bunker3'].map(cat => { const v = CATS[cat].fijo, per = 'QFIJO-' + Q.key + '-' + cat, pag = r2(datos.gastos.filter(g => !g.borrado && esGasto(g) && g.periodo === per).reduce((s2, g) => s2 + (+g.monto || 0), 0));
+    return {cat, v, sem, total: r2(v * sem), pag, falta: r2(v * sem - pag), per, Q}; });
 }
-$('qPrev').onclick = () => { qOff--; pintarQuincena(); };
-$('qNext').onclick = () => { if (qOff < 0) { qOff++; pintarQuincena(); } };
-$('qList').onclick = async e => {
-  const c = e.target.dataset && e.target.dataset.qpag; if (!c) return;
-  const {Q, lista} = quincena(), x = lista.find(y => y.cat === c); if (!x) return; const n = x.n;
-  let com = x.com, pctEl = null;
-  if (x.cat !== 'bunker1' && x.vendido > 0) { pctEl = await elegirPct(n, x.vendido, 'en la quincena'); if (!pctEl) return; com = r2(x.vendido * pctEl / 100 - x.deuda); }
-  const yaC = r2(datos.gastos.filter(g => !g.borrado && esGasto(g) && g.periodo === x.perC).reduce((s2, g) => s2 + (+g.monto || 0), 0));
-  const yaF = r2(datos.gastos.filter(g => !g.borrado && esGasto(g) && g.periodo === x.perF).reduce((s2, g) => s2 + (+g.monto || 0), 0));
-  const fC = r2(Math.max(0, com - yaC)), fF = r2(Math.max(0, x.fijo - yaF));
-  if (fC + fF <= 0.009) return alert('Esa quincena ya está pagada.');
-  if (!confirm(`¿Registrar el pago de la quincena a ${n}?\nComisiones${pctEl ? ` (${pctEl}%)` : ''}: ${money(fC)}\nPago semanal: ${money(fF)}\nTotal: ${money(r2(fC + fF))}\nSe guarda como gasto.`)) return;
-  const f = new Date(), lbl = $('qLbl').textContent;
-  try {
-    if (fC > 0) await guardar('gastos', {tipo: 'gasto', cat: 'comisiones', concepto: 'Comisión ' + n + (pctEl ? ` (${pctEl}%)` : ''), detalle: `${lbl} · ${x.piezas} pieza(s) · vendió ${money(x.vendido)}`, monto: fC, periodo: x.perC, fecha: f.toISOString(), mes: mesKey(f)});
-    if (fF > 0) await guardar('gastos', {tipo: 'gasto', cat: x.cat, concepto: CATS[x.cat].n, detalle: `${lbl} · ${x.semanas} semana(s) × ${money(x.sem)}`, monto: fF, periodo: x.perF, fecha: f.toISOString(), mes: mesKey(f)});
-  } catch(z) { alert('No se pudo guardar: ' + (z.code || z.message)); }
-};
 const fCorta = d => d.toLocaleDateString('es-PA', {day:'numeric', month:'short'});
 function pintarComisiones(){
   if (!$('cList')) return;
-  const {ini, sab, lista} = comisionesSem();
+  const {ini, sab, lista: l0} = comisionesSem(), {Q, acc} = acumQ(semOff);
+  const lista = [...l0.filter(p => !vaQuin(p.n, sab)), ...Object.values(acc)].sort((a,b) => (b.vendido - a.vendido) || (b.com - a.com));
   $('cLbl').textContent = `Dom ${fCorta(ini)} – Sáb ${fCorta(sab)}`;
   $('cList').innerHTML = lista.length ? lista.map(p => { const falta = faltaCom(sab, p), pag = falta <= 0.009, ya = yaPagoCom(perCom(sab, p.n));
     const dv = p.devs.length ? `<div class="ob" style="color:#c0392b">Venta borrada: ${p.devs.map(d => (d.v.codigo || d.v.nombre) + ' ' + money(d.monto)).join(', ')}</div>` : '';
     const dsc = p.desc > 0 ? `<div class="ob" style="color:#c0392b">− ${money(p.desc)} devuelve comisión de venta borrada</div>` : '';
     const sig = p.deuda > p.desc ? `<div class="ob" style="color:#c0392b">Debe ${money(r2(p.deuda - p.desc))}: se le descuenta la próxima semana</div>` : '';
     if (!p.com) return `<div class="com"><div><div class="nm">${esc(p.n)}</div><div class="ob">Sin ventas esta semana</div>${dv}${sig}</div><div style="text-align:right"><b>${money(0)}</b></div></div>`;
-    if (vaQuin(p.n, sab)) return `<div class="com"><div><div class="nm">${esc(p.n)} · ${pctTxt(p)}</div><div class="ob">${p.ventas.length} pieza${p.ventas.length === 1 ? '' : 's'} · vendió ${money(p.vendido)}</div>${dv}${dsc}${sig}</div><div style="text-align:right"><b>${money(r2(p.com - p.desc))}</b><br><span class="ob">Se paga en la quincena</span></div></div>`;
+    if (p.q) return `<div class="com"><div><div class="nm">${esc(p.n)} · ${pctTxt(p)}</div><div class="ob">Quincena ${p.q.lbl} (acumulado) · ${p.ventas.length} pieza${p.ventas.length === 1 ? '' : 's'} · vendió ${money(p.vendido)}</div>${dv}${p.deuda > 0 ? `<div class="ob" style="color:#c0392b">Debe ${money(p.deuda)}: se descuenta</div>` : ''}</div>
+      <div style="text-align:right"><b>${money(p.com)}</b><br>${p.falta <= 0.009 ? '<span class="ok">✓ pagada</span>' : `${p.pagQ ? `<span class="ob">ya pagó ${money(p.pagQ)}</span><br>` : ''}<span class="ob">se paga el ${p.q.dia}</span><br><button data-com="${esc(p.n)}">Pagar${esB23(p.n) ? ' (10% o 15%)' : ' ' + money(p.falta)}</button>`}</div></div>`;
     return `<div class="com"><div><div class="nm">${esc(p.n)} · ${pctTxt(p)}</div><div class="ob">${p.ventas.length} pieza${p.ventas.length === 1 ? '' : 's'} · vendió ${money(p.vendido)}</div>${dv}${dsc}${sig}</div>
       <div style="text-align:right"><b>${money(r2(p.com - p.desc))}</b>${p.desc > 0 ? `<br><span class="ob">de ${money(p.com)}</span>` : ''}<br>${pag ? '<span class="ok">✓ pagada</span>' : `${ya ? `<span class="ob">ya pagó ${money(ya)}</span><br>` : ''}<button data-com="${esc(p.n)}">Pagar${esB23(p.n) ? ' (10% o 15%)' : ' ' + money(falta)}</button> <button class="link" data-compag="${esc(p.n)}">Ya se pagó</button>`}</div></div>`; }).join('')
-    + `<div class="res-row"><span>Total a pagar el sábado</span><b>${money(lista.filter(p => !vaQuin(p.n, sab)).reduce((s,p) => s + Math.max(0, faltaCom(sab, p)), 0))}</b></div>`
+    + `<div class="res-row"><span>Total a pagar el sábado</span><b>${money(lista.filter(p => !p.q).reduce((s,p) => s + Math.max(0, faltaCom(sab, p)), 0))}</b></div>`
+    + (Object.keys(acc).length ? `<div class="res-row"><span>Quincena ${Q.lbl} (Búnker Nº1, Nº2 y Nº3)</span><b>${money(Object.values(acc).reduce((s,p) => s + Math.max(0, p.falta), 0))}</b></div>` : '')
     : '<div class="empty">Sin ventas con vendedor esta semana.</div>';
 }
 $('cPrev').onclick = () => { semOff--; pintarComisiones(); };
@@ -762,8 +739,15 @@ $('cList').onclick = async e => {
     if (!confirm(`¿Quitar la comisión de ${cp} (${money(f0)}) porque ya se pagó y está apuntada como gasto? No se suma otra vez a los gastos.`)) return;
     try { const f = new Date(); await guardar('gastos', {tipo: 'compagada', concepto: 'Comisión ' + cp + ' (ya pagada aparte)', monto: f0, periodo: perCom(sab, cp), fecha: f.toISOString(), mes: mesKey(f)}); } catch(x) { alert('No se pudo guardar: ' + (x.code || x.message)); } return; }
   const n = e.target.dataset && e.target.dataset.com; if (!n) return;
-  const {sab, lista} = comisionesSem(), p = lista.find(x => x.n === n); if (!p) return;
-  if (vaQuin(n, sab)) return alert(n + ' se paga en la quincena.');
+  const {sab, lista} = comisionesSem();
+  if (fijoQ(n) && ymd(sab) >= Q_DESDE) { const q = acumQ(semOff).acc[n]; if (!q) return; let monto = q.falta, pctEl = null;
+    if (esB23(n)) { pctEl = await elegirPct(n, q.vendido, 'en la quincena ' + q.q.lbl); if (!pctEl) return; monto = r2(q.vendido * pctEl / 100 - q.deuda - q.pagQ); }
+    if (monto <= 0.009) return alert('Esa quincena ya está pagada.');
+    if (!confirm(`¿Registrar el pago de ${money(monto)} de comisión a ${n} (quincena ${q.q.lbl})? Se guarda como gasto.`)) return;
+    const f = new Date();
+    try { await guardar('gastos', {tipo: 'gasto', cat: 'comisiones', concepto: 'Comisión ' + n + (pctEl ? ` (${pctEl}%)` : ''), detalle: `Quincena ${q.q.lbl} · ${q.ventas.length} pieza(s) · vendió ${money(q.vendido)}`, monto, periodo: q.perQ, fecha: f.toISOString(), mes: mesKey(f)}); }
+    catch(x) { alert('No se pudo guardar: ' + (x.code || x.message)); } return; }
+  const p = lista.find(x => x.n === n); if (!p) return;
   let falta = faltaCom(sab, p), ya = yaPagoCom(perCom(sab, n)), pctEl = null; if (falta <= 0.009 && !esB23(n)) return alert('Esa comisión ya está pagada completa.');
   let desc = p.desc || 0;
   if (esB23(n)) { pctEl = await elegirPct(n, p.vendido); if (!pctEl) return; const br = r2(p.vendido * pctEl / 100); desc = r2(Math.min(p.deuda || 0, br)); falta = r2(br - desc - ya); if (falta <= 0.009) return alert('Con ese porcentaje ya está pagada.'); }
@@ -773,13 +757,14 @@ $('cList').onclick = async e => {
   catch(x) { alert('No se pudo guardar: ' + (x.code || x.message)); }
 };
 $('cWa').onclick = () => {
-  const {ini, sab, lista} = comisionesSem(); if (!lista.length) return alert('No hay comisiones esta semana.');
+  const {ini, sab, lista: l0} = comisionesSem(), {Q, acc} = acumQ(semOff);
+  const lista = [...l0.filter(p => !vaQuin(p.n, sab)), ...Object.values(acc)].sort((a,b) => (b.vendido - a.vendido) || (b.com - a.com)); if (!lista.length) return alert('No hay comisiones esta semana.');
   const bloques = lista.map(p => `*${p.n}* (${pctTxt(p)})\n` + p.ventas.map(v => `• ${fechaCorta(v.fecha)} · ${v.codigo ? v.codigo + ' ' : ''}${v.nombre} — vendió ${money(v.total)} → ${money(v.comision)}`).join('\n')
     + (p.desc > 0 ? `\n− ${money(p.desc)} devuelve comisión de venta borrada` + (p.devs.length ? ` (${p.devs.map(d => d.v.codigo || d.v.nombre).join(', ')})` : '') : '')
     + (p.deuda > p.desc ? `\nDebe ${money(r2(p.deuda - p.desc))}: se descuenta la próxima semana` : '')
-    + `\nTotal: *${money(r2(p.com - p.desc))}*${vaQuin(p.n, sab) ? ' → se paga en la quincena' : faltaCom(sab, p) <= 0.009 ? ' ✓ pagada' : (yaPagoCom(perCom(sab, p.n)) ? ' · falta ' + money(faltaCom(sab, p)) : '')}`).join('\n\n');
-  const tot = r2(lista.filter(p => !vaQuin(p.n, sab)).reduce((s,p) => s + p.com - p.desc, 0));
-  const txt = `*Rastro Búnker · Comisiones*\nSemana del ${fCorta(ini)} al sábado ${fCorta(sab)}\nRevendedores 10% · vendedor de planta 2%\n\n${bloques}\n\n*TOTAL A PAGAR EL SÁBADO: ${money(tot)}*${lista.some(p => vaQuin(p.n, sab)) ? '\n_(Búnker Nº1, Nº2 y Nº3 se pagan en la quincena)_' : ''}`;
+    + `\nTotal: *${money(r2(p.com - p.desc))}*${p.q ? ` (quincena ${p.q.lbl}, ${p.falta <= 0.009 ? '✓ pagada' : 'se paga el ' + p.q.dia})` : faltaCom(sab, p) <= 0.009 ? ' ✓ pagada' : (yaPagoCom(perCom(sab, p.n)) ? ' · falta ' + money(faltaCom(sab, p)) : '')}`).join('\n\n');
+  const tot = r2(lista.filter(p => !p.q).reduce((s,p) => s + p.com - p.desc, 0));
+  const txt = `*Rastro Búnker · Comisiones*\nSemana del ${fCorta(ini)} al sábado ${fCorta(sab)}\nRevendedores 10% · vendedor de planta 2%\n\n${bloques}\n\n*TOTAL A PAGAR EL SÁBADO: ${money(tot)}*${lista.some(p => p.q) ? `\n_(Búnker Nº1, Nº2 y Nº3: se acumula y se paga el ${Q.dia})_` : ''}`;
   window.open('https://wa.me/?text=' + encodeURIComponent(txt), '_blank');
 };
 $('gCats').onclick = e => { const b = e.target.closest('button'); if (b) { gCat = b.dataset.c; fallos.clear(); formGasto(); } };
@@ -874,9 +859,19 @@ function pintarFijos(){
   const ps = perSemana(hoy);
   const pc = perRenta(hoy), cOk = pagado('claude', pc), fc = 17 - dH;
   h += fila('claude', `Claude · ${money(CATS.claude.fijo)} el 17 de cada mes`, cOk ? '✓ Pagado' : fc > 0 ? `Vence el 17 (faltan ${fc} días)` : fc === 0 ? 'Vence HOY' : 'Atrasado desde el 17', cOk ? 'ok' : fc < 0 ? 'late' : 'pend');
+  const qH = quinDe(hoy), qP = quinDe(new Date(qH.a.getFullYear(), qH.a.getMonth(), qH.a.getDate() - 1, 12));
+  [...fijosQ(qP).filter(x => x.falta > 0.009), ...fijosQ(qH)].forEach(x => { const atr = x.Q.key !== qH.key, fq = x.Q.dia - dH;
+    h += `<div class="fijo"><div><div class="nm">${CATS[x.cat].i} ${CATS[x.cat].n} · ${money(x.v)} por semana</div><div class="st ${x.falta <= 0.009 ? 'ok' : atr ? 'late' : 'pend'}">Quincena ${x.Q.lbl}: ${x.sem} semana${x.sem === 1 ? '' : 's'} = ${money(x.total)}${x.pag ? ` · pagado ${money(x.pag)}` : ''} · ${x.falta <= 0.009 ? (x.total ? '✓ Pagado' : 'sin semanas todavía') : atr ? 'Atrasado' : fq > 0 ? `se paga el ${x.Q.dia} (faltan ${fq} días)` : 'se paga HOY'}</div></div>${x.falta > 0.009 ? `<button data-qfijo="${x.cat}|${x.Q.key}">Pagar ${money(x.falta)}</button>` : ''}</div>`; });
   $('fijos').innerHTML = h;
 }
-$('fijos').onclick = e => { const b = e.target.closest('[data-pagar]'); if (!b) return; gCat = b.dataset.pagar; fallos.clear(); formGasto(); $('gForm').scrollIntoView({behavior: 'smooth', block: 'center'}); };
+$('fijos').onclick = async e => {
+  const qb = e.target.closest('[data-qfijo]');
+  if (qb) { const [cat, key] = qb.dataset.qfijo.split('|'), hoy = new Date(), qH = quinDe(hoy), qP = quinDe(new Date(qH.a.getFullYear(), qH.a.getMonth(), qH.a.getDate() - 1, 12));
+    const x = fijosQ(key === qH.key ? qH : qP).find(y => y.cat === cat); if (!x || x.falta <= 0.009) return;
+    if (!confirm(`¿Registrar el pago de ${money(x.falta)} a ${CATS[cat].n} (quincena ${x.Q.lbl}, ${x.sem} semana(s) × ${money(x.v)})? Se guarda como gasto.`)) return;
+    try { await guardar('gastos', {tipo: 'gasto', cat, concepto: CATS[cat].n, detalle: `Quincena ${x.Q.lbl} · ${x.sem} semana(s) × ${money(x.v)}`, monto: x.falta, periodo: x.per, fecha: hoy.toISOString(), mes: mesKey(hoy)}); }
+    catch(z) { alert('No se pudo guardar: ' + (z.code || z.message)); } return; }
+  const b = e.target.closest('[data-pagar]'); if (!b) return; gCat = b.dataset.pagar; fallos.clear(); formGasto(); $('gForm').scrollIntoView({behavior: 'smooth', block: 'center'}); };
 $('gVolver').onclick = () => { gCat = 'otros'; fallos.clear(); formGasto(); };
 
 /* ---------- deudas de la empresa y abonos ---------- */
@@ -937,7 +932,7 @@ $('dNueva').onclick = async () => {
   const monto = num(prompt('Monto ($):')); if (!(monto > 0)) return;
   const f = new Date(); await guardar('gastos', {tipo: 'deuda', concepto, monto, fecha: f.toISOString(), mes: mesKey(f)});
 };
-function pintarGastos(){ pintarDeudas(); pintarFijos(); pintarComisiones(); pintarQuincena(); if ($('gPer')) extrasGasto(); }
+function pintarGastos(){ pintarDeudas(); pintarFijos(); pintarComisiones(); if ($('gPer')) extrasGasto(); }
 
 /* ---------- aviso al teléfono (app ntfy) ---------- */
 function avisarVenta(v){
