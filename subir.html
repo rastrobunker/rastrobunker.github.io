@@ -142,7 +142,21 @@ const app = initializeApp({
 const auth = getAuth(app), fs = getFirestore(app);
 const DUENO = 'lS0APooZXTRLyHh46jsRi6jE6oR2';
 const NOMBRES = { 'lS0APooZXTRLyHh46jsRi6jE6oR2': 'dueno', 'KI4dcACG6aM4l7kNr419cCIeR753': 'caja', 'nlXlyeniX3Z87ajgXVs4sSLlI1q2': 'vendedor', 'svF01GJDXVfWyppXY14VZ4xqH1B2': 'salomon' };
-const COL = 'lotes_fotos', MAXKB = 680;
+const COL = 'lotes_fotos', MAXKB = 3000;
+// Las fotos van a Supabase (bucket privado "lotes"); Firestore solo guarda la ficha del lote.
+const SB_FN = 'https://pumdulcvvnxsdagnysur.supabase.co/functions/v1/lotes';
+async function sbFn(accion, datos){
+  const r = await fetch(SB_FN, { method: 'POST', headers: { 'Authorization': 'Bearer ' + await yo.getIdToken(), 'Content-Type': 'application/json' }, body: JSON.stringify({ accion, ...datos }) });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) { const e = new Error(j.error || ('Error ' + r.status)); if (r.status === 403) e.code = 'permission-denied'; throw e; }
+  return j;
+}
+async function sbSube(url, blob){
+  const fd = new FormData(); fd.append('cacheControl', '3600'); fd.append('', blob, 'foto.jpg');
+  const r = await fetch(url, { method: 'PUT', headers: { 'x-upsert': 'true' }, body: fd });
+  if (!r.ok) throw new Error('Subida ' + r.status);
+}
+const esSb = l => l.donde === 'supabase';
 const $ = id => document.getElementById(id);
 let fotos = [], seq = 0, ocupado = false, ultimo = null, loteId = null, yo = null, usuario = '', soyDueno = false, sub = null;
 
@@ -189,7 +203,7 @@ function pinta(){
   $('subir').disabled = !fotos.length; $('subir').textContent = fotos.length ? ('Subir lote · ' + fotos.length + ' fotos') : 'Subir lote';
 }
 
-/* ---------- comprimir (cada foto debe caber en un documento) ---------- */
+/* ---------- comprimir (fotos buenas, sin pasar de 3 MB) ---------- */
 async function aLienzo(file, lado){
   let src = null;
   if (window.createImageBitmap) src = await createImageBitmap(file, { imageOrientation: 'from-image' }).catch(() => null);
@@ -199,13 +213,14 @@ async function aLienzo(file, lado){
   c.getContext('2d').drawImage(src, 0, 0, c.width, c.height); if (src.close) src.close(); return c;
 }
 const aBlob = (c, q) => new Promise((ok, no) => c.toBlob(b => b ? ok(b) : no(new Error('No se pudo comprimir')), 'image/jpeg', q));
-async function aBase64(file){
+async function aJpeg(file){
   let b = null;
-  for (const [lado, q] of [[1800, .82], [1800, .7], [1600, .68], [1400, .62], [1200, .55]]) {
+  for (const [lado, q] of [[2400, .85], [2000, .8], [1800, .72], [1400, .62]]) {
     b = await aBlob(await aLienzo(file, lado), q); if (b.size <= MAXKB * 1024) break; }
   if (b.size > MAXKB * 1024) throw new Error('Una foto pesa demasiado');
-  return new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok({ b64: String(r.result).split(',')[1], kb: Math.round(b.size / 1024) }); r.onerror = () => no(new Error('No se pudo leer')); r.readAsDataURL(b); });
+  return b;
 }
+const nombreFoto = f => tres(f.n) + '_' + ((f.file.name || 'foto').replace(/\.[^.]*$/, '').replace(/[^A-Za-z0-9_-]/g, '_').slice(0, 40) || 'foto') + '.jpg';
 
 /* ---------- subir ---------- */
 const dos = n => (n < 10 ? '0' : '') + n, tres = n => ('00' + n).slice(-3);
@@ -222,15 +237,19 @@ async function subirLote(){
   fotos.forEach((f, i) => f.n = i + 1);
   let hechas = fotos.filter(f => f.ok).length; const cola = fotos.filter(f => !f.ok);
   avance(hechas, total + 1, 'Foto ' + hechas + ' de ' + total);
+  const urls = {};
   const una = async () => { for (let f; (f = cola.shift()); ) {
-    const d = await aBase64(f.file);
-    await reintentaRed(() => setDoc(doc(fs, COL, loteId, 'fotos', tres(f.n)), { i: f.n, b64: d.b64, kb: d.kb, nombre: f.file.name || '' }));
+    const blob = await aJpeg(f.file);
+    await reintentaRed(() => sbSube(urls[nombreFoto(f)], blob));
     f.ok = true; hechas++; avance(hechas, total + 1, 'Foto ' + hechas + ' de ' + total); } };
   try {
+    for (let i = 0; i < cola.length; i += 100) {
+      const r = await reintentaRed(() => sbFn('subir', { lote: loteId, nombres: cola.slice(i, i + 100).map(nombreFoto) }));
+      r.subidas.forEach(s => urls[s.nombre] = s.url); }
     await Promise.all([una(), una()]);
     avance(total, total + 1, 'Guardando el lote…');
     const nota = $('nota').value.trim();
-    await reintenta(() => setDoc(doc(fs, COL, loteId), { uid: yo.uid, usuario, fecha: a.toISOString(), fotos: total, nota, estado: soyDueno ? 'aprobado' : 'pendiente' }), 4);
+    await reintenta(() => setDoc(doc(fs, COL, loteId), { uid: yo.uid, usuario, fecha: a.toISOString(), fotos: total, nota, donde: 'supabase', estado: soyDueno ? 'aprobado' : 'pendiente' }), 4);
     ultimo = { n: total, nota }; loteId = null;
     fotos.forEach(f => URL.revokeObjectURL(f.url)); fotos = []; $('nota').value = ''; pinta();
     $('lt').textContent = 'Lote subido · ' + ultimo.n + ' fotos';
@@ -251,15 +270,22 @@ $('avisar').onclick = () => { if (!ultimo) return;
 $('otro').onclick = () => ver('vFotos');
 
 /* ---------- dueño: aprobar lotes ---------- */
-async function borrarLote(id){
-  const s = await getDocs(collection(fs, COL, id, 'fotos'));
-  for (let i = 0; i < s.docs.length; i += 200) { const b = writeBatch(fs); s.docs.slice(i, i + 200).forEach(d => b.delete(d.ref)); await b.commit(); }
+async function borrarLote(id, l){
+  if (l && esSb(l)) await sbFn('borrar', { lote: id });
+  else { const s = await getDocs(collection(fs, COL, id, 'fotos'));
+    for (let i = 0; i < s.docs.length; i += 200) { const b = writeBatch(fs); s.docs.slice(i, i + 200).forEach(d => b.delete(d.ref)); await b.commit(); } }
   await deleteDoc(doc(fs, COL, id));
+}
+// fotos de un lote como [{ nombre, src }] (Supabase o lotes viejos en Firestore)
+async function fotosDe(l){
+  if (esSb(l)) return (await sbFn('ver', { lote: l._id })).fotos.map(f => ({ nombre: f.nombre, src: f.url }));
+  const s = await getDocs(collection(fs, COL, l._id, 'fotos'));
+  return s.docs.map(x => { const v = x.data(); return { nombre: tres(v.i) + '_' + (v.nombre || 'foto.jpg'), b64: v.b64, src: 'data:image/jpeg;base64,' + v.b64 }; });
 }
 const abiertos = {};
 function pintaLotes(L){
   // los que Claude ya procesó se borran solos
-  L.filter(l => l.estado === 'procesado').forEach(l => borrarLote(l._id).catch(() => {}));
+  L.filter(l => l.estado === 'procesado').forEach(l => borrarLote(l._id, l).catch(() => {}));
   L = L.filter(l => l.estado !== 'procesado').sort((a, b) => (a.fecha < b.fecha ? 1 : -1));
   const z = $('lotes'); z.innerHTML = '';
   if (!L.length) { z.innerHTML = '<div class="msg" style="margin:8px 2px">No hay lotes pendientes.</div>'; return; }
@@ -274,18 +300,20 @@ function pintaLotes(L){
     const mk = (t, cls, fn) => { const b = document.createElement('button'); b.className = 'btn ' + cls; b.textContent = t; b.onclick = fn; fila.appendChild(b); return b; };
     const mini = document.createElement('div'); mini.className = 'mini';
     const cargar = async () => { mini.textContent = 'Cargando fotos…';
-      const s = await getDocs(collection(fs, COL, l._id, 'fotos')); mini.textContent = '';
-      s.docs.forEach(x => { const im = document.createElement('img'); im.src = 'data:image/jpeg;base64,' + x.data().b64; im.alt = ''; mini.appendChild(im); }); };
+      const F = await fotosDe(l); mini.textContent = '';
+      F.forEach(x => { const im = document.createElement('img'); im.loading = 'lazy'; im.src = x.src; im.alt = ''; mini.appendChild(im); }); };
     mk('Ver fotos', 'sec', () => { abiertos[l._id] = true; cargar().catch(() => mini.textContent = 'No se pudieron cargar.'); });
     if (!ok) mk('Aprobar', '', async e => { e.target.disabled = true; await updateDoc(doc(fs, COL, l._id), { estado: 'aprobado' }).catch(() => alert('No se pudo aprobar.')); });
     else { const s = document.createElement('div'); s.className = 'msg'; s.style.alignSelf = 'center'; s.textContent = 'Dile a Claude: «lote listo»'; fila.appendChild(s); }
     mk('Zip', 'sec', async e => { const b = e.target; b.disabled = true; b.textContent = 'Armando…';
-      try { const s = await getDocs(collection(fs, COL, l._id, 'fotos')); const zip = new JSZip();
-        s.docs.forEach(x => { const v = x.data(); zip.file(tres(v.i) + '_' + (v.nombre || 'foto.jpg'), v.b64, { base64: true }); });
+      try { const F = await fotosDe(l); const zip = new JSZip(); let k = 0;
+        for (const x of F) { b.textContent = 'Armando ' + (++k) + '/' + F.length;
+          if (x.b64) zip.file(x.nombre, x.b64, { base64: true });
+          else { const r = await fetch(x.src); if (!r.ok) throw new Error('foto ' + x.nombre); zip.file(x.nombre, await r.blob()); } }
         const blob = await zip.generateAsync({ type: 'blob' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'lote_' + l._id + '.zip'; a.click();
       } catch (x) { alert('No se pudo armar el zip.'); }
       b.disabled = false; b.textContent = 'Zip'; });
-    mk('Borrar', 'sec', async e => { if (!confirm('¿Borrar este lote de ' + l.fotos + ' fotos?')) return; e.target.disabled = true; await borrarLote(l._id).catch(() => alert('No se pudo borrar.')); });
+    mk('Borrar', 'sec', async e => { if (!confirm('¿Borrar este lote de ' + l.fotos + ' fotos?')) return; e.target.disabled = true; await borrarLote(l._id, l).catch(() => alert('No se pudo borrar.')); });
     d.append(h, m, fila, mini); z.appendChild(d);
     if (abiertos[l._id]) cargar().catch(() => {});
   });

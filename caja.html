@@ -680,7 +680,7 @@ function comisionesSem(){
   const sab = new Date(ini); sab.setDate(sab.getDate() + 6); const k = ymd(sab), devs = devolCom();
   devs.filter(d => d.sab <= k).forEach(d => { por[d.n] ||= {n: d.n, ventas: [], vendido: 0, com: 0}; });
   Object.values(por).forEach(p => { p.com = r2(p.com); p.deuda = deudaCom(p.n, sab); p.desc = r2(Math.min(p.deuda, p.com)); p.devs = devs.filter(d => d.n === p.n && d.sab === k); });
-  return {ini, sab, lista: Object.values(por).filter(p => p.com > 0 || p.deuda > 0).sort((a,b) => b.com - a.com)};
+  return {ini, sab, lista: Object.values(por).filter(p => p.com > 0 || p.deuda > 0).sort((a,b) => (b.vendido - a.vendido) || (b.com - a.com))};
 }
 const perCom = (sab, n) => 'COM-' + ymd(sab) + '-' + n;
 const fCorta = d => d.toLocaleDateString('es-PA', {day:'numeric', month:'short'});
