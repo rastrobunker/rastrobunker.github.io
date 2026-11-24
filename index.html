@@ -59,11 +59,15 @@
   .rb3d-tip.on { opacity: 1; }
   .rb3d-tip b { display: block; color: #fff; font-size: 13px; }
   .rb3d-tip span { color: #ffb4c0; }
-  .rb3d-vistas { display: flex; align-items: center; gap: 6px; padding: 8px 12px 12px; border-top: 1px solid rgba(255,255,255,.07); background: rgba(0,0,0,.25); }
-  .rb3d-vistas button { background: rgba(255,255,255,.06); color: #D5D9E0; border: 1px solid rgba(255,255,255,.08); border-radius: 6px; padding: 8px 14px; font-size: 12px; font-weight: bold; cursor: pointer; }
+  /* vistas: pequeñas, dentro del área del carro */
+  .rb3d-vistas { position: absolute; top: 8px; right: 10px; display: flex; gap: 4px; z-index: 3; }
+  .rb3d-vistas button { background: rgba(255,255,255,.07); color: #C9CED6; border: 1px solid rgba(255,255,255,.1); border-radius: 999px; padding: 5px 10px; font-size: 11px; font-weight: bold; cursor: pointer; }
   .rb3d-vistas button.on { background: #c2001f; border-color: #ff1744; color: #fff; }
-  .rb3d-ayuda { margin-left: auto; font-size: 11px; color: #7d838d; }
-  @media (max-width: 420px) { .rb3d-vistas button { padding: 7px 10px; } .rb3d-ayuda { display: none; } }
+  .rb3d-ayuda { position: absolute; left: 14px; top: 13px; font-size: 11px; color: #7d838d; pointer-events: none; }
+  /* tipo de vehículo: barra de abajo, como la de modos en la pantalla del carro */
+  .rb3d-tipos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; padding: 10px 12px 12px; border-top: 1px solid rgba(255,255,255,.07); background: rgba(0,0,0,.28); }
+  .rb3d-tipos button { background: rgba(255,255,255,.05); color: #D5D9E0; border: 1px solid rgba(255,255,255,.08); border-radius: 6px; padding: 10px 4px; font-size: 13px; font-weight: bold; cursor: pointer; }
+  .rb3d-tipos button.on { background: linear-gradient(180deg, #e0102e, #a8001a); border-color: #ff1744; color: #fff; box-shadow: 0 0 14px rgba(255,23,68,.35); }
 
   /* ---------- Zonas del carro en la pantalla de categorías (2026-11-24) ---------- */
   .sec-head.zona { position: static; margin-top: 26px; }
@@ -633,10 +637,12 @@ body.rb-sel .wa-fab{bottom:86px}
 
     <section class="rb3d" id="rb3d" aria-label="Busca la pieza tocando el carro" hidden>
       <div class="rb3d-top"><span class="rb3d-tab">Busca por pieza</span><span class="rb3d-sub">Toca la pieza que necesitas<br>y te mostramos las disponibles</span></div>
-      <div class="rb3d-stage"><div class="rb3d-tip"></div><div class="rb3d-load">Cargando carro 3D…</div></div>
-      <div class="rb3d-vistas"><button type="button" data-vista="frente">Frente</button><button type="button" data-vista="lado">Costado</button><button type="button" data-vista="atras">Atrás</button><span class="rb3d-ayuda">Desliza para girar</span></div>
+      <div class="rb3d-stage"><div class="rb3d-tip"></div><div class="rb3d-load">Cargando carro 3D…</div>
+        <div class="rb3d-vistas"><button type="button" data-vista="frente">Frente</button><button type="button" data-vista="lado">Lado</button><button type="button" data-vista="atras">Atrás</button></div>
+        <span class="rb3d-ayuda">Desliza para girar</span></div>
+      <div class="rb3d-tipos" role="tablist" aria-label="Tipo de vehículo"><button type="button" data-tipo="suv">SUV</button><button type="button" data-tipo="sedan">Sedán</button><button type="button" data-tipo="pickup">Pickup</button><button type="button" data-tipo="camion">Camión</button></div>
     </section>
-    <script src="carro3d.js?v=1" defer></script>
+    <script src="carro3d.js?v=2" defer></script>
     <div class="nav-cats" id="navCats"></div>
 <div class="rb-chips" id="rbChips"></div>
 <div class="grid" id="productos"></div>
