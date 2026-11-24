@@ -43,6 +43,28 @@
               display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
   .sec-head span { font-weight: bold; font-size: 15px; letter-spacing: 0.6px; color: #1C1C1E; }
   .sec-head small { color: #6B665E; font-size: 11px; white-space: nowrap; }
+  /* ---------- Carro 3D tocable, estilo pantalla del carro (2026-11-24) ---------- */
+  .rb3d { margin: 4px 0 18px; border-radius: 18px; overflow: hidden; color: #E9ECF1;
+          background: radial-gradient(120% 90% at 50% 62%, #2a2d33 0%, #15171b 55%, #0c0d10 100%);
+          border: 1px solid #000; box-shadow: 0 10px 30px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.04); }
+  .rb3d[hidden] { display: none; }
+  .rb3d-top { display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px 0; }
+  .rb3d-tab { background: #c2001f; color: #fff; font-size: 12px; font-weight: bold; padding: 6px 11px; border-radius: 4px; letter-spacing: .3px; white-space: nowrap; }
+  .rb3d-sub { font-size: 12px; line-height: 1.35; color: #A7ADB7; }
+  .rb3d-stage { position: relative; height: clamp(230px, 64vw, 430px); }
+  .rb3d-stage canvas { display: block; width: 100%; height: 100%; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+  .rb3d-load { position: absolute; inset: 0; display: grid; place-items: center; color: #7d838d; font-size: 13px; }
+  .rb3d-tip { position: absolute; transform: translate(-50%, -100%); pointer-events: none; background: rgba(12,13,16,.92); border: 1px solid #ff1744;
+              border-radius: 8px; padding: 6px 10px; font-size: 12px; text-align: center; white-space: nowrap; opacity: 0; transition: opacity .12s; z-index: 2; }
+  .rb3d-tip.on { opacity: 1; }
+  .rb3d-tip b { display: block; color: #fff; font-size: 13px; }
+  .rb3d-tip span { color: #ffb4c0; }
+  .rb3d-vistas { display: flex; align-items: center; gap: 6px; padding: 8px 12px 12px; border-top: 1px solid rgba(255,255,255,.07); background: rgba(0,0,0,.25); }
+  .rb3d-vistas button { background: rgba(255,255,255,.06); color: #D5D9E0; border: 1px solid rgba(255,255,255,.08); border-radius: 6px; padding: 8px 14px; font-size: 12px; font-weight: bold; cursor: pointer; }
+  .rb3d-vistas button.on { background: #c2001f; border-color: #ff1744; color: #fff; }
+  .rb3d-ayuda { margin-left: auto; font-size: 11px; color: #7d838d; }
+  @media (max-width: 420px) { .rb3d-vistas button { padding: 7px 10px; } .rb3d-ayuda { display: none; } }
+
   /* ---------- Zonas del carro en la pantalla de categorías (2026-11-24) ---------- */
   .sec-head.zona { position: static; margin-top: 26px; }
   .sec-head.zona:first-child { margin-top: 4px; }
@@ -609,6 +631,12 @@ body.rb-sel .wa-fab{bottom:86px}
       <span id="total">Mostrando 0 productos</span>
     </div>
 
+    <section class="rb3d" id="rb3d" aria-label="Busca la pieza tocando el carro" hidden>
+      <div class="rb3d-top"><span class="rb3d-tab">Busca por pieza</span><span class="rb3d-sub">Toca la pieza que necesitas<br>y te mostramos las disponibles</span></div>
+      <div class="rb3d-stage"><div class="rb3d-tip"></div><div class="rb3d-load">Cargando carro 3D…</div></div>
+      <div class="rb3d-vistas"><button type="button" data-vista="frente">Frente</button><button type="button" data-vista="lado">Costado</button><button type="button" data-vista="atras">Atrás</button><span class="rb3d-ayuda">Desliza para girar</span></div>
+    </section>
+    <script src="carro3d.js?v=1" defer></script>
     <div class="nav-cats" id="navCats"></div>
 <div class="rb-chips" id="rbChips"></div>
 <div class="grid" id="productos"></div>
@@ -1313,6 +1341,7 @@ const PRODUCTOS_INICIALES = [{"id":1,"codigo":"001","categoria":"Lámpara Delant
     // no se listan las piezas de una — se guardan agrupadas y el usuario
     // entra a la que quiera ver (evita el "bajar infinito" en el inicio).
     const modoSelector = !busqueda && !categoria;
+    { const c3 = document.getElementById("rb3d"); if (c3) c3.hidden = !modoSelector; }
 
     // Reinicia la paginación cada vez que cambia algún filtro real
     if (categoria !== marcaCatDe) { marcaCat = ""; marcaCatDe = categoria; }
