@@ -204,21 +204,29 @@ function pinta(){
 }
 
 /* ---------- comprimir (fotos buenas, sin pasar de 3 MB) ---------- */
-async function aLienzo(file, lado){
+async function leer(file){
   let src = null;
   if (window.createImageBitmap) src = await createImageBitmap(file, { imageOrientation: 'from-image' }).catch(() => null);
-  if (!src) src = await new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(im); im.onerror = () => no(new Error('No se pudo leer una foto')); im.src = URL.createObjectURL(file); });
-  const k = Math.min(1, lado / Math.max(src.width, src.height)), c = document.createElement('canvas');
-  c.width = Math.round(src.width * k); c.height = Math.round(src.height * k);
-  c.getContext('2d').drawImage(src, 0, 0, c.width, c.height); if (src.close) src.close(); return c;
+  if (!src) src = await new Promise((ok, no) => { const u = URL.createObjectURL(file), im = new Image(); im.onload = () => { URL.revokeObjectURL(u); ok(im); }; im.onerror = () => no(new Error('No se pudo leer una foto')); im.src = u; });
+  return src;
+}
+function dibujar(src, lado){
+  const w = src.width || src.naturalWidth, h = src.height || src.naturalHeight;
+  const k = Math.min(1, lado / Math.max(w, h)), c = document.createElement('canvas');
+  c.width = Math.round(w * k); c.height = Math.round(h * k);
+  c.getContext('2d').drawImage(src, 0, 0, c.width, c.height); return c;
 }
 const aBlob = (c, q) => new Promise((ok, no) => c.toBlob(b => b ? ok(b) : no(new Error('No se pudo comprimir')), 'image/jpeg', q));
+// la foto se lee una sola vez; sale la foto buena (máx. 3 MB) y una copia chiquita para "Ver fotos"
 async function aJpeg(file){
-  let b = null;
-  for (const [lado, q] of [[2400, .85], [2000, .8], [1800, .72], [1400, .62]]) {
-    b = await aBlob(await aLienzo(file, lado), q); if (b.size <= MAXKB * 1024) break; }
-  if (b.size > MAXKB * 1024) throw new Error('Una foto pesa demasiado');
-  return b;
+  const src = await leer(file); let b = null, c = null;
+  try {
+    for (const [lado, q] of [[2400, .85], [2000, .8], [1800, .72], [1400, .62]]) {
+      c = dibujar(src, lado); b = await aBlob(c, q); if (b.size <= MAXKB * 1024) break; }
+    if (b.size > MAXKB * 1024) throw new Error('Una foto pesa demasiado');
+    const mini = await aBlob(dibujar(c, 360), .7).catch(() => null);
+    return { b, mini };
+  } finally { if (src.close) src.close(); }
 }
 const nombreFoto = f => tres(f.n) + '_' + ((f.file.name || 'foto').replace(/\.[^.]*$/, '').replace(/[^A-Za-z0-9_-]/g, '_').slice(0, 40) || 'foto') + '.jpg';
 
@@ -239,13 +247,14 @@ async function subirLote(){
   avance(hechas, total + 1, 'Foto ' + hechas + ' de ' + total);
   const urls = {};
   const una = async () => { for (let f; (f = cola.shift()); ) {
-    const blob = await aJpeg(f.file);
-    await reintentaRed(() => sbSube(urls[nombreFoto(f)], blob));
+    const { b: blob, mini } = await aJpeg(f.file), u = urls[nombreFoto(f)];
+    await reintentaRed(() => sbSube(u.url, blob));
+    if (mini && u.mini) await reintenta(() => sbSube(u.mini, mini), 3).catch(() => {}); // si la chiquita falla, no pasa nada
     f.ok = true; hechas++; avance(hechas, total + 1, 'Foto ' + hechas + ' de ' + total); } };
   try {
     for (let i = 0; i < cola.length; i += 100) {
-      const r = await reintentaRed(() => sbFn('subir', { lote: loteId, nombres: cola.slice(i, i + 100).map(nombreFoto) }));
-      r.subidas.forEach(s => urls[s.nombre] = s.url); }
+      const r = await reintentaRed(() => sbFn('subir', { lote: loteId, minis: true, nombres: cola.slice(i, i + 100).map(nombreFoto) }));
+      r.subidas.forEach(s => urls[s.nombre] = s); }
     await Promise.all([una(), una()]);
     avance(total, total + 1, 'Guardando el lote…');
     const nota = $('nota').value.trim();
@@ -277,8 +286,14 @@ async function borrarLote(id, l){
   await deleteDoc(doc(fs, COL, id));
 }
 // fotos de un lote como [{ nombre, src }] (Supabase o lotes viejos en Firestore)
+// se guardan en memoria 5 horas: así no se vuelven a pedir ni a bajar cada vez que cambia algo en los lotes
+const yaVistas = {};
 async function fotosDe(l){
-  if (esSb(l)) return (await sbFn('ver', { lote: l._id })).fotos.map(f => ({ nombre: f.nombre, src: f.url }));
+  const c = yaVistas[l._id]; if (c && Date.now() - c.t < 5 * 3600e3 && c.n === l.fotos) return c.F;
+  const F = await fotosDe0(l); yaVistas[l._id] = { F, t: Date.now(), n: l.fotos }; return F;
+}
+async function fotosDe0(l){
+  if (esSb(l)) return (await sbFn('ver', { lote: l._id })).fotos.map(f => ({ nombre: f.nombre, src: f.url, mini: f.mini }));
   const s = await getDocs(collection(fs, COL, l._id, 'fotos'));
   return s.docs.map(x => { const v = x.data(); return { nombre: tres(v.i) + '_' + (v.nombre || 'foto.jpg'), b64: v.b64, src: 'data:image/jpeg;base64,' + v.b64 }; });
 }
@@ -299,9 +314,10 @@ function pintaLotes(L){
     const fila = document.createElement('div'); fila.className = 'fila';
     const mk = (t, cls, fn) => { const b = document.createElement('button'); b.className = 'btn ' + cls; b.textContent = t; b.onclick = fn; fila.appendChild(b); return b; };
     const mini = document.createElement('div'); mini.className = 'mini';
-    const cargar = async () => { mini.textContent = 'Cargando fotos…';
+    const cargar = async () => { if (!yaVistas[l._id]) mini.textContent = 'Cargando fotos…';
       const F = await fotosDe(l); mini.textContent = '';
-      F.forEach(x => { const im = document.createElement('img'); im.loading = 'lazy'; im.src = x.src; im.alt = ''; mini.appendChild(im); }); };
+      F.forEach(x => { const im = document.createElement('img'); im.loading = 'lazy'; im.decoding = 'async'; im.src = x.mini || x.src; im.alt = '';
+        im.onclick = () => window.open(x.src, '_blank'); mini.appendChild(im); }); };
     mk('Ver fotos', 'sec', () => { abiertos[l._id] = true; cargar().catch(() => mini.textContent = 'No se pudieron cargar.'); });
     if (!ok) mk('Aprobar', '', async e => { e.target.disabled = true; await updateDoc(doc(fs, COL, l._id), { estado: 'aprobado' }).catch(() => alert('No se pudo aprobar.')); });
     else { const s = document.createElement('div'); s.className = 'msg'; s.style.alignSelf = 'center'; s.textContent = 'Dile a Claude: «lote listo»'; fila.appendChild(s); }

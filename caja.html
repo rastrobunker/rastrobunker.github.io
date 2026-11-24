@@ -335,6 +335,17 @@ const rentaFuera = k => PAGOS_HECHOS['renta|' + k] ? 1284 : 0; // renta pagada f
 const DEUDAS_OCULTAS = r => r._id === 'deuda-astrid' || r._id === 'deuda-maxuel' || r._id === 'deuda-leonardo' || /^leo(nardo)?\b/.test(String(r.concepto||'').trim().toLowerCase()) || /^maxuel/.test(String(r.concepto||'').trim().toLowerCase()) || /^(deuda )?astrid/.test(String(r.concepto||'').trim().toLowerCase()); // deuda de Astrid ya no va (12-oct)
 const enSaldo = v => String(v.fecha) >= SALDO_DESDE || (String(v.fecha) >= '2026-10-11T05:00:00Z' && JSON.stringify(v).toLowerCase().includes('apv')); // defensa APV vendida el 12-oct sí cuenta
 const AVISOS = 'rb-avisos-334c8ec66412'; // tema de la app ntfy para las notificaciones de venta
+/* manda el aviso al teléfono; si no sale (sin internet, ntfy caído o con límite), se avisa en pantalla en vez de callarse */
+function ntfy(q, body){
+  const ir = () => fetch(`https://ntfy.sh/${AVISOS}?${q}`, {method: 'POST', body}).then(r => { if (!r.ok) throw new Error('ntfy respondió ' + r.status); });
+  return ir().catch(() => new Promise(ok => setTimeout(ok, 3000)).then(ir)).catch(e => { console.warn('Aviso al teléfono no enviado', e); avisoNoSalio(String(e && e.message || e)); });
+}
+function avisoNoSalio(motivo){
+  const b = document.createElement('div');
+  b.style.cssText = 'position:fixed;left:8px;right:8px;bottom:12px;z-index:9999;background:#e89a4a;color:#111;padding:12px 14px;border-radius:10px;font:600 15px system-ui,sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.4);cursor:pointer';
+  b.textContent = '⚠ No salió el aviso al teléfono (lo que registraste SÍ se guardó). Revisa el internet. Toca para cerrar. [' + motivo + ']';
+  b.onclick = () => b.remove(); document.body.appendChild(b); setTimeout(() => b.remove(), 15000);
+}
 const DEUDAS_INI = [['deuda-vieja','Deuda vieja',1119.29,'2026-09-01T12:00:00Z'],['deuda-nueva','Deuda nueva',370.40,'2026-09-02T12:00:00Z'],['deuda-maxuel','Maxuel (préstamo renta)',400,'2026-10-11T12:00:00Z'],['deuda-leonardo','Leonardo (renta $103 + abono Astrid $125)',228,'2026-10-11T12:01:00Z']];
 const NOMBRE_DEUDA = {'deuda-vieja':'Engel · deuda vieja','deuda-nueva':'Engel · deuda nueva'};
 const esGasto = r => !r.tipo || r.tipo === 'gasto';
@@ -392,7 +403,7 @@ onAuthStateChanged(auth, u => {
 function avisarCaja(titulo, txt){
   if (rol !== 'caja') return;
   const q = new URLSearchParams({title: titulo, tags: 'pencil2', priority: 'default', click: 'https://rastrobunker.github.io/caja.html'});
-  fetch(`https://ntfy.sh/${AVISOS}?${q}`, {method: 'POST', body: txt}).catch(() => {});
+  ntfy(q, txt);
 }
 const descReg = (t, r) => t === 'ventas' ? `${r.codigo ? r.codigo + ' ' : ''}${r.nombre || ''} · ${money(r.total)}` : `${r.concepto || ''}${r.detalle ? ' (' + r.detalle + ')' : ''} · ${money(r.monto)}`;
 async function guardar(t, data){
@@ -417,7 +428,7 @@ function avisarFalloCatalogo(codigo, n){
   b.textContent = '⚠ La venta SÍ se guardó, pero el catálogo NO se actualizó (código ' + codigo + ', ' + n + ' ud.). Avísale al dueño antes de vender esa pieza. Toca para cerrar.';
   b.onclick = () => b.remove(); document.body.appendChild(b);
   const q = new URLSearchParams({title: '⚠ Catálogo sin actualizar', tags: 'warning', priority: 'high'});
-  fetch(`https://ntfy.sh/${AVISOS}?${q}`, {method: 'POST', body: 'Código ' + codigo + ' (' + n + ' ud.) no se marcó como vendido en el catálogo. Revisar reglas de vendidos o la cuenta que registró la venta.'}).catch(() => {});
+  ntfy(q, 'Código ' + codigo + ' (' + n + ' ud.) no se marcó como vendido en el catálogo. Revisar reglas de vendidos o la cuenta que registró la venta.');
 }
 
 /* ---------- solo dueño: carga inicial y respaldo diario ---------- */
@@ -938,7 +949,7 @@ function pintarGastos(){ pintarDeudas(); pintarFijos(); pintarComisiones(); if (
 function avisarVenta(v){
   const txt = `${money(v.total)} · ${v.codigo ? v.codigo + ' ' : ''}${v.nombre}${v.cantidad > 1 ? ' (x' + v.cantidad + ')' : ''}\nCliente: ${v.cliente || '—'} · por ${NOMBRES[yo] || 'equipo'}`;
   const q = new URLSearchParams({title: 'Venta registrada ' + money(v.total), tags: 'moneybag', priority: 'high', click: 'https://rastrobunker.github.io/caja.html'});
-  fetch(`https://ntfy.sh/${AVISOS}?${q}`, {method: 'POST', body: txt}).catch(() => {});
+  ntfy(q, txt);
 }
 
 /* ---------- recibo ---------- */
