@@ -31,7 +31,7 @@
   .nav-cats { position: sticky; top: var(--barra, 52px); z-index: 40; background: #FFFFFF; padding: 10px 0 8px; margin-bottom: 6px;
               display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .nav-cats::-webkit-scrollbar { display: none; }
-  .nav-cats button { flex: 0 0 auto; background: #FFFFFF; color: #ddd; border: 1px solid #2f2f2f; border-radius: 999px;
+  .nav-cats button { flex: 0 0 auto; background: #FFFFFF; color: #1C1C1E; border: 1px solid #D6D3CC; border-radius: 999px;
                      padding: 8px 14px; font-size: 12px; font-weight: bold; cursor: pointer; white-space: nowrap; }
   .nav-cats button:hover { border-color: #ff1744; color: #1C1C1E; }
   .nav-cats button.top { background: linear-gradient(90deg,#c2001f,#ff1744); color: #fff; border-color:#ff1744; }
@@ -43,6 +43,13 @@
               display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
   .sec-head span { font-weight: bold; font-size: 15px; letter-spacing: 0.6px; color: #1C1C1E; }
   .sec-head small { color: #6B665E; font-size: 11px; white-space: nowrap; }
+  /* ---------- Zonas del carro en la pantalla de categorías (2026-11-24) ---------- */
+  .sec-head.zona { position: static; margin-top: 26px; }
+  .sec-head.zona:first-child { margin-top: 4px; }
+  .sec-head.zona span { font-size: 17px; letter-spacing: 1px; }
+  .nav-cats button small { font-weight: normal; opacity: .65; margin-left: 4px; }
+  .nav-cats button.top small { opacity: .85; }
+  .nav-cats .lbl { flex: 0 0 auto; align-self: center; font-size: 11px; color: #6B665E; font-weight: bold; padding-left: 2px; }
 
   @media (max-width: 600px) {
     .sec-head { padding: 9px 12px; }
@@ -883,7 +890,7 @@ function rbCoincide(p, q){
   if (r.lado && p.lado !== r.lado) return false;
   if (r.anio){ const g=rbRango(p.anio); if (g && (r.anio<g[0]-0 || r.anio>g[1])) return false; }
   if (!r.toks.length) return !!(r.cats.length || r.lado || r.anio || r.posSolo);
-  const txt = RB_NORM(`${p.codigo} ${p.marca} ${p.modelo} ${p.categoria} ${p.alias||''} ${p.detalle||''}`).replace(/[^a-z0-9#\/ ]+/g,' ');
+  const txt = RB_NORM(`${p.codigo} ${p.marca} ${p.modelo} ${p.categoria} ${RB_CATNOM[p.categoria]||''} ${p.alias||''} ${p.detalle||''}`).replace(/[^a-z0-9#\/ ]+/g,' ');
   const compact = txt.replace(/\s+/g,'');
   return r.toks.every(t => txt.includes(t) || compact.includes(t.replace(/-/g,'')));
 }
@@ -915,6 +922,11 @@ const RB_ZONAS = {
   lado:   ['Puerta','Moldura de Puerta','Vidrio','Retrovisor','Estribo','Flare','Guardafango','Guardafango Trasero','Cover de Vagón','Cubrepolvo','Copa']
 };
 const RB_NOMZ = {frente:'Del frente', atras:'De atrás', lado:'Del costado'};
+/* Nombre que ve el cliente para cada categoría (el valor guardado en el catálogo no cambia) */
+const RB_CATNOM = {'Lámpara Delantera':'Faro Delantero','Cover de Alógena':'Cover de Halógena','Halógenas / Faros antiniebla':'Halógena / Faro antiniebla',
+  'Guardafango':'Guardafango Delantero','Copa':'Copa de Rin','Ventilador':'Electroventilador','Estribo':'Estribo (Rolling Board)',
+  'Tapa Superior de Radiador':'Tolva (Tapa Superior de Radiador)','Protector Inferior':'Pechera (Protector Inferior)','Cover de Vagón':'Cover de Vagón (Bedliner)'};
+function catNom(c){ return RB_CATNOM[c] || c || ''; }
 function rbZonas(cat){ return Object.keys(RB_ZONAS).filter(z=>RB_ZONAS[z].includes(cat)); }
 function rbModeloKey(m){ return RB_NORM(m).replace(/[^a-z0-9]+/g,''); }
 const RB_GENM = new Set(['sedan','hatchback','hb','c','parrilla','cparrilla','inferior','superior','fascia','revo','vigo','gen','phase','new','nueva','nuevo']);
@@ -960,7 +972,7 @@ function rbMiniCard(p,n){
   const enEnvio = rbSel.includes(p.id);
   const precio = SINPRECIOS ? '' : `<span class="pr">$${p.precio}</span>`;
   return `<div class="rbj-card"><div class="ph" onclick="abrirModal(${p.id})">${p.foto?`<img src="${p.foto}" alt="" loading="lazy">`:'📷'}</div>
-  <div class="tx" onclick="abrirModal(${p.id})"><b>${p.categoria}${n>1?` <small>(hay ${n})</small>`:''}</b><span>#${p.codigo}${p.lado&&p.lado!=='N/A'?' · '+p.lado:''}${p.anio?' · '+p.anio:''}</span>${precio}</div>
+  <div class="tx" onclick="abrirModal(${p.id})"><b>${catNom(p.categoria)}${n>1?` <small>(hay ${n})</small>`:''}</b><span>#${p.codigo}${p.lado&&p.lado!=='N/A'?' · '+p.lado:''}${p.anio?' · '+p.anio:''}</span>${precio}</div>
   <button class="${enEnvio?'on':''}" onclick="rbAlternar(${p.id});rbJuegoPintar()" aria-label="Seleccionar para enviar">${enEnvio?'✓':'＋'}</button></div>`;
 }
 function rbJuegoPintar(){
@@ -973,11 +985,11 @@ function rbJuegoPintar(){
     h += `<div class="rbj-z">${nom} <small>${g.length}</small></div><div class="rbj-row">${g.slice(0,20).map(x=>rbMiniCard(x.p,x.n)).join('')}</div>`; }
   box.innerHTML = total ? `<div class="rbj-t">🔧 Piezas del mismo carro <small>${fichaActual.marca} ${fichaActual.modelo} ${fichaActual.anio||''}</small></div><div class="rbj-h">Toca una pieza para verla, o ＋ para seleccionarla y mandarla junto con esta.</div>${h}` : '';
 }
-function rbTxtPieza(p){ const c = condTxt(p.condicion); return `${p.categoria} ${p.marca} ${p.modelo}${p.anio?' '+p.anio:''}${p.lado&&p.lado!=='N/A'?' '+p.lado:''}${c?' · '+c:''}`; }
+function rbTxtPieza(p){ const c = condTxt(p.condicion); return `${catNom(p.categoria)} ${p.marca} ${p.modelo}${p.anio?' '+p.anio:''}${p.lado&&p.lado!=='N/A'?' '+p.lado:''}${c?' · '+c:''}`; }
 function rbItem(p, modo, n){
   const foto = p.foto ? `<img src="${p.foto}" alt="">` : `<img alt="">`;
   const btn = modo==='add' ? `<button class="add" onclick="rbAlternar(${p.id});rbAbrirPanel(rbPanelModo)">＋ Agregar</button>` : `<button class="quitar" onclick="rbAlternar(${p.id});rbAbrirPanel(rbPanelModo)">Quitar</button>`;
-  return `<div class="rb-it">${foto}<div class="t"><b>#${p.codigo} · ${p.categoria}${n>1?` <span style="color:var(--rb-mute);font-weight:600">(hay ${n})</span>`:''}</b>${p.marca} ${p.modelo} ${p.anio||''} ${p.lado&&p.lado!=='N/A'?'· '+p.lado:''}</div>${btn}</div>`;
+  return `<div class="rb-it">${foto}<div class="t"><b>#${p.codigo} · ${catNom(p.categoria)}${n>1?` <span style="color:var(--rb-mute);font-weight:600">(hay ${n})</span>`:''}</b>${p.marca} ${p.modelo} ${p.anio||''} ${p.lado&&p.lado!=='N/A'?'· '+p.lado:''}</div>${btn}</div>`;
 }
 let rbPanelModo = 'env';
 function rbAbrirPanel(modo){
@@ -1027,7 +1039,7 @@ async function rbFicha(p, conPrecio){
   const m = document.createElement('canvas').getContext('2d');
   const precio = (conPrecio && p.precio) ? '$' + p.precio : '';
   m.font = `900 84px ${F}`; const pw = precio ? m.measureText(precio).width + 36 : 0;
-  m.font = `800 52px ${F}`; const lt = fichaLineas(m, `${p.categoria} ${p.marca} ${p.modelo}`.trim(), W - 2*M - pw).slice(0, 3);
+  m.font = `800 52px ${F}`; const lt = fichaLineas(m, `${catNom(p.categoria)} ${p.marca} ${p.modelo}`.trim(), W - 2*M - pw).slice(0, 3);
   const lado = (p.lado && p.lado !== 'N/A') ? (p.lado === 'LH' ? 'Izquierdo (LH)' : p.lado === 'RH' ? 'Derecho (RH)' : p.lado) : '';
   const chips = [p.anio ? String(p.anio) : '', lado, condTxt(p.condicion)].filter(Boolean);
   m.font = `500 32px ${F}`; const det = (p.detalle && !/precio/i.test(p.detalle)) ? fichaLineas(m, p.detalle, W - 2*M).slice(0, 2) : [];
@@ -1125,6 +1137,7 @@ const PRODUCTOS_INICIALES = [{"id":1,"codigo":"001","categoria":"Lámpara Delant
   const PAGINA_TAM = 30;
   let mostrarN = PAGINA_TAM;
   let claveFiltroAnterior = "";
+  let marcaCat = "", marcaCatDe = "";   // marca elegida dentro de una categoría
 
   function recalcProductos() {
     const base = PRODUCTOS_INICIALES
@@ -1243,14 +1256,17 @@ const PRODUCTOS_INICIALES = [{"id":1,"codigo":"001","categoria":"Lámpara Delant
     const valorActual = catSelect.value;
     const hayImportadas = productos.some(p => /^RH-/i.test(String(p.codigo)));
     catSelect.innerHTML = '<option value="">Todas las categorías</option>' +
-      categorias.map(c => `<option value="${c}">${c}</option>`).join("") +
+      categorias.map(c => `<option value="${c}">${catNom(c)}</option>`).join("") +
       (hayImportadas ? '<option value="__RH__">Piezas Nuevas Importadas</option>' : "");
     catSelect.value = valorActual;
   }
 
   function ajustarBarra() {
     const tb = document.querySelector(".top-bar");
-    if (tb) document.documentElement.style.setProperty("--barra", Math.round(tb.getBoundingClientRect().height) + "px");
+    // --barra = alto de todo lo que queda fijo arriba (barra roja + buscador), para que la barra de botones y los títulos no queden tapados
+    const bt = document.querySelector(".buscador-top");
+    const altoBus = bt && getComputedStyle(bt).position === "sticky" ? bt.offsetHeight : 0;
+    if (tb) document.documentElement.style.setProperty("--barra", Math.round(tb.getBoundingClientRect().height + altoBus) + "px");
   }
   window.addEventListener("resize", ajustarBarra);
 
@@ -1299,7 +1315,8 @@ const PRODUCTOS_INICIALES = [{"id":1,"codigo":"001","categoria":"Lámpara Delant
     const modoSelector = !busqueda && !categoria;
 
     // Reinicia la paginación cada vez que cambia algún filtro real
-    const claveFiltro = `${busqueda}|${categoria}|${lado}|${estadoV}|${orden}`;
+    if (categoria !== marcaCatDe) { marcaCat = ""; marcaCatDe = categoria; }
+    const claveFiltro = `${busqueda}|${categoria}|${lado}|${estadoV}|${orden}|${marcaCat}`;
     if (claveFiltro !== claveFiltroAnterior) { mostrarN = PAGINA_TAM; }
     claveFiltroAnterior = claveFiltro;
 
@@ -1365,7 +1382,7 @@ const PRODUCTOS_INICIALES = [{"id":1,"codigo":"001","categoria":"Lámpara Delant
             <div class="card-img">
               ${fotoHtml}
               <div class="sel-check">✓</div>
-              <div class="card-category">${p.categoria}</div>
+              <div class="card-category">${catNom(p.categoria)}</div>
               <div class="brand-stamp">${p.marca}</div>
               <div class="sold-stamp">VENDIDA</div>
             </div>
@@ -1392,12 +1409,12 @@ const PRODUCTOS_INICIALES = [{"id":1,"codigo":"001","categoria":"Lámpara Delant
       "Parrilla","Moldura Delantera","Moldura Trasera","Moldura de Puerta","Moldura Inferior","Faro Antiniebla","Halógenas / Faros antiniebla",
       "Cover de Alógena","Soporte de Defensa","Copa","Retrovisor","Estribo","Puerta","Vidrio","Guardafango","Guardafango Trasero","Cover de Vagón","Capó","Tapa de Baúl","Extensión de Defensa Delantera","Extensión de Defensa Trasera","Refuerzo Delantero","Refuerzo Trasero","Tapa Superior de Radiador","Protector Inferior","Depósito de Agua","Marco de Radiador","Ventilador","Accesorio Nuevo"];
     const NOMBRE_SEC = {
-      "Lámpara Delantera":"FAROS DELANTEROS", "Lámpara Trasera":"LÁMPARAS TRASERAS",
+      "Lámpara Delantera":"FAROS DELANTEROS", "Lámpara Trasera":"LÁMPARAS TRASERAS (STOPS)",
       "Defensa Delantera":"DEFENSAS DELANTERAS", "Defensa Delantera Inferior":"DEFENSAS DELANTERAS INFERIORES", "Defensa Trasera":"DEFENSAS TRASERAS",
-      "Parrilla":"PARRILLAS", "Moldura Delantera":"MOLDURAS DELANTERAS", "Moldura de Puerta":"MOLDURAS DE PUERTA",
+      "Parrilla":"PARRILLAS", "Moldura de Puerta":"MOLDURAS DE PUERTA",
       "Defensa Trasera Inferior":"DEFENSAS TRASERAS INFERIORES", "Moldura Delantera":"MOLDURAS DELANTERAS", "Moldura Trasera":"MOLDURAS TRASERAS", "Moldura Inferior":"MOLDURAS INFERIORES",
       "Faro Antiniebla":"FAROS ANTINIEBLA", "Halógenas / Faros antiniebla":"HALÓGENAS / FAROS ANTINIEBLA", "Cover de Alógena":"COVERS DE HALÓGENA",
-      "Soporte de Defensa":"SOPORTES DE DEFENSA", "Copa":"COPAS DE RIN", "Retrovisor":"RETROVISORES", "Estribo":"ROLLING BOARD Y ESTRIBOS", "Puerta":"PUERTAS", "Vidrio":"VIDRIOS", "Guardafango":"GUARDAFANGOS / GUARDABARROS", "Guardafango Trasero":"GUARDAFANGOS TRASEROS", "Cover de Vagón":"COVERS DE VAGÓN (BEDLINER)", "Capó":"CAPÓS", "Tapa de Baúl":"TAPAS DE BAÚL", "Marco de Radiador":"MARCOS DE RADIADOR", "Ventilador":"ELECTROVENTILADORES", "Accesorio Nuevo":"PIEZAS Y ACCESORIOS NUEVOS", "Extensión de Defensa Delantera":"EXTENSIONES DE DEFENSA DELANTERA", "Extensión de Defensa Trasera":"EXTENSIONES DE DEFENSA TRASERA", "Refuerzo Delantero":"REFUERZOS DELANTEROS", "Refuerzo Trasero":"REFUERZOS TRASEROS", "Tapa Superior de Radiador":"TOLVAS (TAPA SUPERIOR DE RADIADOR)", "Protector Inferior":"PECHERAS (PROTECTOR INFERIOR)", "Depósito de Agua":"DEPÓSITOS DE AGUA (LIMPIAPARABRISAS)"
+      "Soporte de Defensa":"SOPORTES DE DEFENSA", "Copa":"COPAS DE RIN", "Retrovisor":"RETROVISORES", "Estribo":"ESTRIBOS (ROLLING BOARD)", "Puerta":"PUERTAS", "Vidrio":"VIDRIOS", "Guardafango":"GUARDAFANGOS DELANTEROS", "Guardafango Trasero":"GUARDAFANGOS TRASEROS", "Cover de Vagón":"COVERS DE VAGÓN (BEDLINER)", "Capó":"CAPÓS", "Tapa de Baúl":"TAPAS DE BAÚL", "Marco de Radiador":"MARCOS DE RADIADOR", "Ventilador":"ELECTROVENTILADORES", "Accesorio Nuevo":"PIEZAS Y ACCESORIOS NUEVOS", "Extensión de Defensa Delantera":"EXTENSIONES DE DEFENSA DELANTERA", "Extensión de Defensa Trasera":"EXTENSIONES DE DEFENSA TRASERA", "Refuerzo Delantero":"REFUERZOS DELANTEROS", "Refuerzo Trasero":"REFUERZOS TRASEROS", "Tapa Superior de Radiador":"TOLVAS (TAPA SUPERIOR DE RADIADOR)", "Protector Inferior":"PECHERAS (PROTECTOR INFERIOR)", "Depósito de Agua":"DEPÓSITOS DE AGUA (LIMPIAPARABRISAS)"
     };
     const slug = (t) => "sec-" + String(t).normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9]+/g,"-").toLowerCase();
 
@@ -1440,30 +1457,66 @@ const PRODUCTOS_INICIALES = [{"id":1,"codigo":"001","categoria":"Lámpara Delant
       if (cubre.length) tiles.push({ nombre: "CUBREPOLVO", valor: "Cubrepolvo", n: cubre.length, foto: fotoCat(cubre) });
       if (nuevas.length) tiles.push({ nombre: "PIEZAS NUEVAS IMPORTADAS", valor: "__RH__", n: nuevas.length, foto: fotoCat(nuevas) });
 
-      grid.innerHTML = tiles.map(t =>
+      const tileHtml = t =>
         `<div class="cat-tile" onclick="elegirCategoria('${String(t.valor).replace(/'/g, "\\'")}')">` +
           (t.foto ? `<div class="cat-tile-img"><img src="${t.foto}" alt="" loading="lazy"></div>` : "") +
           `<span class="cat-tile-name">${t.nombre}</span>` +
           `<span class="cat-tile-count">${t.n} pieza${t.n !== 1 ? "s" : ""}</span>` +
-        `</div>`
-      ).join("");
-      if (navCats) navCats.innerHTML = "";
+        `</div>`;
+      // Zonas del carro: el cliente busca primero por dónde está la pieza
+      const ZONAS_CAT = [
+        ["FRENTE", "Frente", ["Lámpara Delantera","Defensa Delantera","Defensa Delantera Inferior","Extensión de Defensa Delantera","Parrilla","Capó","Halógenas / Faros antiniebla","Cover de Alógena","Moldura Delantera"]],
+        ["ATRÁS", "Atrás", ["Lámpara Trasera","Defensa Trasera","Defensa Trasera Inferior","Extensión de Defensa Trasera","Tapa de Baúl","Moldura Trasera","Refuerzo Trasero"]],
+        ["COSTADOS", "Costados", ["Guardafango","Guardafango Trasero","Puerta","Flare","Cubrepolvo","Retrovisor","Moldura de Puerta","Estribo","Vidrio","Copa","Cover de Vagón"]],
+        ["ESTRUCTURA Y RADIADOR", "Radiador", ["Refuerzo Delantero","Marco de Radiador","Tapa Superior de Radiador","Ventilador","Depósito de Agua","Protector Inferior","Soporte de Defensa"]],
+        ["NUEVAS Y ACCESORIOS", "Nuevas", ["__RH__","Accesorio Nuevo"]]
+      ];
+      const porValor = {}; tiles.forEach(t => porValor[t.valor] = t);
+      const usadosZ = new Set(); const zonas = [];
+      ZONAS_CAT.forEach(([titulo, corto, cats]) => {
+        const ts = cats.map(c => porValor[c]).filter(Boolean); ts.forEach(t => usadosZ.add(t.valor));
+        if (ts.length) zonas.push([titulo, corto, ts]);
+      });
+      const resto = tiles.filter(t => !usadosZ.has(t.valor));
+      if (resto.length) zonas.push(["OTRAS PIEZAS", "Otras", resto]);
+      grid.innerHTML = zonas.map(([titulo, corto, ts]) => {
+        const n = ts.reduce((s, t) => s + t.n, 0);
+        return `<div class="sec-head zona" id="${slug("zona " + titulo)}"><span>${titulo}</span><small>${n.toLocaleString("es-PA")} piezas · ${ts.length} tipo${ts.length !== 1 ? "s" : ""}</small></div>` +
+          ts.map(tileHtml).join("");
+      }).join("");
+      if (navCats) navCats.innerHTML = zonas.length > 1 ? `<span class="lbl">Ir a:</span>` + zonas.map(([titulo, corto]) =>
+        `<button type="button" onclick="document.getElementById('${slug("zona " + titulo)}').scrollIntoView({behavior:'smooth',block:'start'})">${corto}</button>`
+      ).join("") : "";
       actualizarStatsFooter();
       return;
     }
 
     if (!busqueda && categoria) {
       // --- Una sola categoría elegida: piezas por tandas ---
-      const listaCompleta = usadas.concat(flares, cubre, nuevas);
+      const todasCat = usadas.concat(flares, cubre, nuevas);
+      // Marcas presentes en esta categoría, de la que más piezas tiene a la que menos
+      const cuentaM = {}; todasCat.forEach(p => { const m = String(p.marca || "").trim(); if (m) cuentaM[m] = (cuentaM[m] || 0) + 1; });
+      const marcasCat = Object.keys(cuentaM).sort((a, b) => cuentaM[b] - cuentaM[a] || a.localeCompare(b));
+      if (marcaCat && !cuentaM[marcaCat]) marcaCat = "";
+      const listaCompleta = marcaCat ? todasCat.filter(p => String(p.marca || "").trim() === marcaCat) : todasCat;
       const visibles = listaCompleta.slice(0, mostrarN);
       let htmlCat = `<button type="button" class="volver-cats" onclick="volverCategorias()">← Todas las categorías</button>`;
-      htmlCat += cabecera(tituloCategoria(categoria), listaCompleta.length);
+      htmlCat += cabecera(tituloCategoria(categoria), listaCompleta.length, marcaCat);
+      if (!adminMode && marcaCat) document.getElementById("total").textContent = `${listaCompleta.length.toLocaleString("es-PA")} resultado${listaCompleta.length !== 1 ? "s" : ""}`;
       htmlCat += visibles.map(p => tarjeta(p)).join("");
       if (listaCompleta.length > mostrarN) {
         htmlCat += `<div class="ver-mas-wrap"><button type="button" class="ver-mas-btn" onclick="verMas()">Ver más (${mostrarN} de ${listaCompleta.length})</button></div>`;
       }
       grid.innerHTML = htmlCat;
-      if (navCats) navCats.innerHTML = "";
+      if (navCats) {
+        const esc = s => String(s).replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+        navCats.innerHTML = marcasCat.length > 1
+          ? `<span class="lbl">Marca:</span><button type="button" class="${marcaCat ? "" : "top"}" onclick="rbMarcaCat('')">Todas<small>${todasCat.length}</small></button>` +
+            marcasCat.map(m => `<button type="button" class="${m === marcaCat ? "top" : ""}" onclick="rbMarcaCat('${esc(m)}')">${m}<small>${cuentaM[m]}</small></button>`).join("")
+          : "";
+        const act = navCats.querySelector("button.top");
+        if (act && marcaCat) navCats.scrollLeft = act.offsetLeft - navCats.clientWidth / 2 + act.offsetWidth / 2;
+      }
       actualizarStatsFooter();
       return;
     }
@@ -1511,6 +1564,14 @@ const PRODUCTOS_INICIALES = [{"id":1,"codigo":"001","categoria":"Lámpara Delant
   }
 
   function verMas() { mostrarN += PAGINA_TAM; mostrar(); }
+  function rbMarcaCat(m) {
+    marcaCat = m; mostrarN = PAGINA_TAM; mostrar();
+    // si el cliente ya había bajado, lo regresa al inicio de la lista
+    const grid = document.getElementById("productos"), nav = document.getElementById("navCats");
+    const tope = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--barra")) || 52;
+    const y = grid.getBoundingClientRect().top + scrollY - tope - (nav ? nav.offsetHeight : 0) - 8;
+    if (scrollY > y) window.scrollTo({ top: y, behavior: "smooth" });
+  }
   function volverCategorias() {
     document.getElementById("categoria").value = "";
     mostrarN = PAGINA_TAM;
@@ -1588,7 +1649,7 @@ async function fichaDibujar(p){
   const im = new Image(); im.src = p.foto; await im.decode();
   const fw = cw - 40, fh = Math.round(fw * im.naturalHeight / im.naturalWidth);
   const titulo = `${p.marca || ''} ${p.modelo || ''}`.trim(), cond = fichaCond(p.condicion);
-  const filas = [['Código', String(p.codigo)], ['Pieza', p.categoria || '—']];
+  const filas = [['Código', String(p.codigo)], ['Pieza', catNom(p.categoria) || '—']];
   if (p.anio) filas.push(['Año', String(p.anio)]);
   if (p.lado && p.lado !== 'N/A') filas.push(['Lado', p.lado]);
   if (cond) filas.push(['Condición', cond]);
@@ -1662,10 +1723,10 @@ function abrirModal(id) {
     const cantTxt = (p.cantidad && p.cantidad > 1) ? ` · Disponibles: ${p.cantidad}` : "";
     const posTxt = (p.posicion && p.posicion !== "N/A") ? ` · ${p.posicion}` : "";
     { const ladoTxt = p.lado === "RH" ? "Lado derecho" : p.lado === "LH" ? "Lado izquierdo" : "";
-      document.getElementById("modalSub").textContent = [p.categoria, p.anio ? "Año " + p.anio : "", ladoTxt, condTexto].filter(Boolean).join(" · ") + posTxt + cantTxt; }
+      document.getElementById("modalSub").textContent = [catNom(p.categoria), p.anio ? "Año " + p.anio : "", ladoTxt, condTexto].filter(Boolean).join(" · ") + posTxt + cantTxt; }
     { const av = document.getElementById("modalAviso"), ab = document.getElementById("modalAvisoBtn");
       if (av && ab) { av.style.display = p.vendido ? "block" : "none";
-        ab.href = "https://wa.me/" + WHATSAPP_NUM + "?text=" + encodeURIComponent(`Hola, vi que ya se vendió la pieza ${p.categoria} ${p.marca} ${p.modelo} ${p.anio || ""} (código #${p.codigo}). Avísenme cuando les llegue otra igual, por favor.`); } }
+        ab.href = "https://wa.me/" + WHATSAPP_NUM + "?text=" + encodeURIComponent(`Hola, vi que ya se vendió la pieza ${catNom(p.categoria)} ${p.marca} ${p.modelo} ${p.anio || ""} (código #${p.codigo}). Avísenme cuando les llegue otra igual, por favor.`); } }
     document.getElementById("modalPrice").textContent = SINPRECIOS && p.categoria !== "Accesorio Nuevo" ? "Consultar" : `$${p.precio}` + (p.categoria === "Accesorio Nuevo" ? " · 4 por $60" : "");
     const detalleEl = document.getElementById("modalDetalle");
     if (p.detalle && p.detalle.trim() !== "") {
