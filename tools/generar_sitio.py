@@ -113,7 +113,7 @@ PLURAL = {'Disco de freno': 'Discos de freno', 'Parrilla': 'Parrillas', 'Lámpar
           'Defensa Delantera Inferior': 'Defensas delanteras inferiores', 'Defensa Trasera Inferior': 'Defensas traseras inferiores', 'Tapa Superior de Radiador': 'Tapas superiores de radiador',
           'Refuerzo Trasero': 'Refuerzos traseros', 'Copa': 'Copas', 'Moldura de Puerta': 'Molduras de puerta', 'Moldura Delantera': 'Molduras delanteras', 'Moldura Trasera': 'Molduras traseras', 'Extensión de Defensa Trasera': 'Extensiones de defensa trasera',
           'Protector Inferior': 'Protectores inferiores', 'Ventilador': 'Ventiladores', 'Depósito de Agua': 'Depósitos de agua', 'Extensión de Defensa Delantera': 'Extensiones de defensa delantera',
-          'Accesorio Nuevo': 'Accesorios nuevos', 'Soporte de Defensa': 'Soportes de defensa'}
+          'Accesorio Nuevo': 'Accesorios nuevos', 'Tablero': 'Tableros', 'Soporte de Defensa': 'Soportes de defensa'}
 def plural(c): return PLURAL.get(c, c)
 def mkey(m): return clave(m).replace('-', ' ')
 
