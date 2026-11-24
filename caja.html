@@ -131,7 +131,7 @@ main,nav{display:none}body.dentro main{display:block}body.dentro nav{display:fle
   </div>
 </section>
 <main>
-  <div class="yo"><span id="quienSoy"></span><button class="link" id="salir" style="margin:0">Cerrar sesión</button></div>
+  <div class="yo"><span id="quienSoy"></span><span><button class="link" id="probarAviso" style="margin:0 14px 0 0">Probar aviso</button><button class="link" id="salir" style="margin:0">Cerrar sesión</button></span></div>
   <div class="mes no-hoy"><button id="prev" aria-label="Mes anterior">‹</button><div class="lbl" id="mesLbl"></div><button id="next" aria-label="Mes siguiente">›</button></div>
   <div class="tot">
     <div><span id="tVl">Ventas</span><b id="tV">$0</b></div>
@@ -338,7 +338,7 @@ const AVISOS = 'rb-avisos-334c8ec66412'; // tema de la app ntfy para las notific
 /* manda el aviso al teléfono; si no sale (sin internet, ntfy caído o con límite), se avisa en pantalla en vez de callarse */
 function ntfy(q, body){
   const ir = () => fetch(`https://ntfy.sh/${AVISOS}?${q}`, {method: 'POST', body}).then(r => { if (!r.ok) throw new Error('ntfy respondió ' + r.status); });
-  return ir().catch(() => new Promise(ok => setTimeout(ok, 3000)).then(ir)).catch(e => { console.warn('Aviso al teléfono no enviado', e); avisoNoSalio(String(e && e.message || e)); });
+  return ir().catch(() => new Promise(ok => setTimeout(ok, 3000)).then(ir)).then(() => true).catch(e => { console.warn('Aviso al teléfono no enviado', e); avisoNoSalio(String(e && e.message || e)); return false; });
 }
 function avisoNoSalio(motivo){
   const b = document.createElement('div');
@@ -379,6 +379,11 @@ $('lOlv').onclick = async () => {
   catch(e) { $('lErr').textContent = 'No se pudo enviar el correo.'; }
 };
 $('salir').onclick = () => { if (confirm('¿Cerrar sesión en este dispositivo?')) signOut(auth); };
+$('probarAviso').onclick = async () => { const b = $('probarAviso'); b.disabled = true; b.textContent = 'Enviando…';
+  const q = new URLSearchParams({title: 'Prueba de la caja', tags: 'bell', priority: 'high', click: 'https://rastrobunker.github.io/caja.html'});
+  const ok = await ntfy(q, 'Desde ' + (NOMBRES[yo] || 'equipo') + ' · ' + new Date().toLocaleString('es-PA'));
+  b.disabled = false; b.textContent = 'Probar aviso';
+  if (ok) alert('✓ La caja mandó el aviso. Si no te sonó en el teléfono, el problema es la app ntfy del teléfono (suscripción o ahorro de batería).'); };
 
 let subs = [];
 onAuthStateChanged(auth, u => {
