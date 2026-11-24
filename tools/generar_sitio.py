@@ -121,8 +121,12 @@ try: V = json.load(open('vendidos.json', encoding='utf-8'))['d']
 except Exception: V = {}
 def vendida(p): return bool(p.get('vendido')) or V.get(str(p['codigo']), 0) >= (p.get('cantidad') or 1)
 disp = [p for p in prod if not vendida(p) and (p.get('marca') or '').strip()]
+# Nombre que ve el cliente para cada categoría (igual que RB_CATNOM en index.html; el dato guardado no cambia)
+CATNOM = {'Lámpara Delantera': 'Faro Delantero', 'Cover de Alógena': 'Cover de Halógena', 'Halógenas / Faros antiniebla': 'Halógena / Faro antiniebla',
+          'Guardafango': 'Guardafango Delantero', 'Copa': 'Copa de Rin', 'Ventilador': 'Electroventilador', 'Estribo': 'Estribo (Rolling Board)',
+          'Tapa Superior de Radiador': 'Tolva (Tapa Superior de Radiador)', 'Protector Inferior': 'Pechera (Protector Inferior)', 'Cover de Vagón': 'Cover de Vagón (Bedliner)'}
 def nombre_de(p):
-    return ' '.join(x for x in [p['categoria'], marca(p['marca']), modelo(p.get('modelo')), str(p.get('anio') or '')] if x).strip()
+    return ' '.join(x for x in [CATNOM.get(p['categoria'], p['categoria']), marca(p['marca']), modelo(p.get('modelo')), str(p.get('anio') or '')] if x).strip()
 
 # --- modelos: una pieza "Hilux / Fortuner" o "Hilux Revo" sale en la página de Hilux (y en la de Fortuner) ---
 ALIAS = [(r'\b(CR|HR|BR|WR)V\b', r'\1-V'), (r'\bCX(\d+)\b', r'CX-\1'), (r'\bXTRAIL\b', 'X-TRAIL'), (r'\bTCROSS\b', 'T-CROSS'), (r'\bDMAX\b', 'D-MAX')]
@@ -301,11 +305,11 @@ for p in prod:
     img = SITE + (f"o/{p['id']}.jpg" if tiene else 'og.jpg')
     url = SITE + f'p/{cod}.html'
     mk = mkey(p.get('marca')); nm = marca(p.get('marca')); km = modelo_de(p) if not vendida(p) else None
-    ld = {"@context": "https://schema.org", "@type": "Product", "name": nombre, "sku": cod, "image": img, "description": desc, "category": p['categoria'],
+    ld = {"@context": "https://schema.org", "@type": "Product", "name": nombre, "sku": cod, "image": img, "description": desc, "category": CATNOM.get(p['categoria'], p['categoria']),
           "brand": {"@type": "Brand", "name": nm}}
     wa = f"https://wa.me/{WA}?text=" + q(f"Hola, me interesa la pieza: {nombre} - Código #{cod} {url}")
-    miga = ([(nm, f'../m/{slug(mk)}.html')] if mk in pm else []) + ([(nmodelo(km), f'../mo/{smodelo(km)}.html')] if km else []) + [(f'{p["categoria"]} #{cod}', None)]
-    filas = [('Pieza', p['categoria']), ('Marca', nm), ('Modelo', modelo(p.get('modelo'))), ('Años', str(p.get('anio') or '')), ('Lado', LADO.get(p.get('lado') or '', '')),
+    miga = ([(nm, f'../m/{slug(mk)}.html')] if mk in pm else []) + ([(nmodelo(km), f'../mo/{smodelo(km)}.html')] if km else []) + [(f'{CATNOM.get(p["categoria"], p["categoria"])} #{cod}', None)]
+    filas = [('Pieza', CATNOM.get(p['categoria'], p['categoria'])), ('Marca', nm), ('Modelo', modelo(p.get('modelo'))), ('Años', str(p.get('anio') or '')), ('Lado', LADO.get(p.get('lado') or '', '')),
              ('Condición', COND.get((p.get('condicion') or '').upper(), '')), ('Código', '#' + cod)]
     dl = '<dl class="dl">' + ''.join(f'<dt>{e(a_)}</dt><dd>{e(b_[:1].upper() + b_[1:])}</dd>' for a_, b_ in filas if b_) + '</dl>'
     mas = (f'<a class="btn linea" href="../mo/{smodelo(km)}.html">Más piezas para {e(nm)} {e(nmodelo(km))}</a>' if km else
