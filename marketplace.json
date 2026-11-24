@@ -44040,26 +44040,6 @@
     "precio": 20
    }
   ],
-  "PCh027": [
-   {
-    "ref": "B1-829",
-    "vendedor": "Búnker Nº1",
-    "fecha": "2026-11-24",
-    "precio": 45
-   },
-   {
-    "ref": "B2-2375",
-    "vendedor": "Búnker Nº2",
-    "fecha": "2026-11-24",
-    "precio": 45
-   },
-   {
-    "ref": "B3-1436",
-    "vendedor": "Búnker Nº3",
-    "fecha": "2026-11-24",
-    "precio": 45
-   }
-  ],
   "PCh028": [
    {
     "ref": "B1-830",
