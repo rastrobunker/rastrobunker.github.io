@@ -42977,19 +42977,19 @@
     "ref": "B1-778",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-24",
-    "precio": 80
+    "precio": 90
    },
    {
     "ref": "B3-1385",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-24",
-    "precio": 80
+    "precio": 90
    },
    {
     "ref": "B2-2324",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-24",
-    "precio": 80
+    "precio": 90
    }
   ],
   "MLD004": [
@@ -42997,19 +42997,19 @@
     "ref": "B1-779",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-24",
-    "precio": 80
+    "precio": 150
    },
    {
     "ref": "B3-1386",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-24",
-    "precio": 80
+    "precio": 150
    },
    {
     "ref": "B2-2325",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-24",
-    "precio": 80
+    "precio": 150
    }
   ],
   "LD063": [
@@ -43017,19 +43017,19 @@
     "ref": "B1-780",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-24",
-    "precio": 220
+    "precio": 150
    },
    {
     "ref": "B3-1387",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-24",
-    "precio": 220
+    "precio": 150
    },
    {
     "ref": "B2-2326",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-24",
-    "precio": 220
+    "precio": 150
    }
   ],
   "LD064": [
@@ -43037,19 +43037,19 @@
     "ref": "B1-781",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-24",
-    "precio": 120
+    "precio": 350
    },
    {
     "ref": "B3-1388",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-24",
-    "precio": 120
+    "precio": 350
    },
    {
     "ref": "B2-2327",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-24",
-    "precio": 120
+    "precio": 350
    }
   ],
   "LD065": [
@@ -43057,19 +43057,19 @@
     "ref": "B1-782",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-24",
-    "precio": 220
+    "precio": 150
    },
    {
     "ref": "B3-1389",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-24",
-    "precio": 220
+    "precio": 150
    },
    {
     "ref": "B2-2328",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-24",
-    "precio": 220
+    "precio": 150
    }
   ],
   "LD066": [
@@ -43077,19 +43077,19 @@
     "ref": "B1-783",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-24",
-    "precio": 250
+    "precio": 380
    },
    {
     "ref": "B3-1390",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-24",
-    "precio": 250
+    "precio": 380
    },
    {
     "ref": "B2-2329",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-24",
-    "precio": 250
+    "precio": 380
    }
   ],
   "LD067": [
@@ -43097,19 +43097,19 @@
     "ref": "B1-784",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-24",
-    "precio": 180
+    "precio": 280
    },
    {
     "ref": "B3-1391",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-24",
-    "precio": 180
+    "precio": 280
    },
    {
     "ref": "B2-2330",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-24",
-    "precio": 180
+    "precio": 280
    }
   ],
   "LD068": [
@@ -43157,19 +43157,19 @@
     "ref": "B1-787",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-24",
-    "precio": 50
+    "precio": 60
    },
    {
     "ref": "B3-1394",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-24",
-    "precio": 50
+    "precio": 60
    },
    {
     "ref": "B2-2333",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-24",
-    "precio": 50
+    "precio": 60
    }
   ],
   "GFT019": [
@@ -43177,19 +43177,19 @@
     "ref": "B1-788",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-24",
-    "precio": 220
+    "precio": 240
    },
    {
     "ref": "B3-1395",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-24",
-    "precio": 220
+    "precio": 240
    },
    {
     "ref": "B2-2334",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-24",
-    "precio": 220
+    "precio": 240
    }
   ],
   "GFT020": [
@@ -43197,19 +43197,19 @@
     "ref": "B1-789",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-24",
-    "precio": 250
+    "precio": 350
    },
    {
     "ref": "B3-1396",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-24",
-    "precio": 250
+    "precio": 350
    },
    {
     "ref": "B2-2335",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-24",
-    "precio": 250
+    "precio": 350
    }
   ],
   "GFT021": [
@@ -43217,19 +43217,19 @@
     "ref": "B1-790",
     "vendedor": "Búnker Nº1",
     "fecha": "2026-11-24",
-    "precio": 180
+    "precio": 150
    },
    {
     "ref": "B3-1397",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-24",
-    "precio": 180
+    "precio": 150
    },
    {
     "ref": "B2-2336",
     "vendedor": "Búnker Nº2",
     "fecha": "2026-11-24",
-    "precio": 180
+    "precio": 150
    }
   ],
   "GFT022": [
