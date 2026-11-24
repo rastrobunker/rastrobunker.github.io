@@ -1176,6 +1176,18 @@
     "vendedor": "Búnker Nº2",
     "fecha": "2026-10-20",
     "precio": 70
+   },
+   {
+    "ref": "B1-861",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-24",
+    "precio": 70
+   },
+   {
+    "ref": "B3-1466",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-24",
+    "precio": 70
    }
   ],
   "RB040": [
@@ -8398,6 +8410,12 @@
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-27",
     "precio": 60
+   },
+   {
+    "ref": "B1-859",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-24",
+    "precio": 60
    }
   ],
   "GF063": [
@@ -12207,6 +12225,24 @@
     "ref": "SA-58",
     "vendedor": "Salomón",
     "fecha": "2026-10-22",
+    "precio": 25
+   },
+   {
+    "ref": "B1-863",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-24",
+    "precio": 25
+   },
+   {
+    "ref": "B2-2407",
+    "vendedor": "Búnker Nº2",
+    "fecha": "2026-11-24",
+    "precio": 25
+   },
+   {
+    "ref": "B3-1468",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-24",
     "precio": 25
    }
   ],
@@ -19369,6 +19405,18 @@
     "ref": "B3-128",
     "vendedor": "Búnker Nº3",
     "fecha": "2026-10-27",
+    "precio": 75
+   },
+   {
+    "ref": "B1-858",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-24",
+    "precio": 75
+   },
+   {
+    "ref": "B2-2404",
+    "vendedor": "Búnker Nº2",
+    "fecha": "2026-11-24",
     "precio": 75
    }
   ],
@@ -44570,6 +44618,66 @@
     "vendedor": "Búnker Nº3",
     "fecha": "2026-11-24",
     "precio": 25
+   }
+  ],
+  "481": [
+   {
+    "ref": "B1-860",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-24",
+    "precio": 18
+   },
+   {
+    "ref": "B2-2405",
+    "vendedor": "Búnker Nº2",
+    "fecha": "2026-11-24",
+    "precio": 18
+   },
+   {
+    "ref": "B3-1465",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-24",
+    "precio": 18
+   }
+  ],
+  "836": [
+   {
+    "ref": "B1-862",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-24",
+    "precio": 600
+   },
+   {
+    "ref": "B2-2406",
+    "vendedor": "Búnker Nº2",
+    "fecha": "2026-11-24",
+    "precio": 600
+   },
+   {
+    "ref": "B3-1467",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-24",
+    "precio": 600
+   }
+  ],
+  "GF088": [
+   {
+    "ref": "B1-864",
+    "vendedor": "Búnker Nº1",
+    "fecha": "2026-11-24",
+    "precio": 100
+   },
+   {
+    "ref": "B2-2408",
+    "vendedor": "Búnker Nº2",
+    "fecha": "2026-11-24",
+    "precio": 100
+   },
+   {
+    "ref": "B3-1469",
+    "vendedor": "Búnker Nº3",
+    "fecha": "2026-11-24",
+    "precio": 100
    }
   ]
  },
