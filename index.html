@@ -292,6 +292,10 @@
   .share-ficha:active{transform:scale(.94)}
   .share-ficha svg{width:24px;height:24px}
   .share-ficha.cargando{opacity:.5;pointer-events:none}
+
+  /* TARJETAS ALINEADAS: el botón de WhatsApp siempre abajo */
+  .grid .card{display:flex;flex-direction:column}
+  .grid .card>div[onclick^="rbTocar"]{flex:1 1 auto}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoPartsStore","name":"Rastro Búnker","url":"https://rastrobunker.github.io/","telephone":"+507 6160-1991","image":"https://rastrobunker.github.io/icon-512.png","geo":{"@type":"GeoCoordinates","latitude":8.9644588,"longitude":-79.5401215},"hasMap":"https://www.google.com/maps/search/?api=1&query=8.9644588,-79.5401215&query_place_id=ChIJ69qTipKprI8R8RCLV_wTA90","address":{"@type":"PostalAddress","addressCountry":"PA","addressLocality":"Panamá"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"08:00","closes":"17:00"}],"sameAs":["https://www.instagram.com/rastrobunker","https://www.tiktok.com/@autopartes.bunker"]}</script>
 </head>
@@ -814,7 +818,7 @@ function rbFin(){window.__rbPend--;if(window.__rbPend<=0){var t=document.getElem
 function RB_FOTOS(m){for(var k in m)window.__RBF[k]=m[k];rbFin();if(window.__rbFotosCb)window.__rbFotosCb();}
 function rbReintentar(el){if(el.dataset.r){rbFin();return;}var s=document.createElement('script');s.async=true;s.dataset.r='1';s.src=el.src+'&r='+Date.now();s.onerror=function(){rbReintentar(s)};document.body.appendChild(s);}
 </script>
-<script async src="fotos-idx.js?v=75ea6acb" onerror="rbReintentar(this)"></script>
+<script async src="fotos-idx.js?v=67aa0469" onerror="rbReintentar(this)"></script>
 <script async src="fotos-extra.js?v=d3ce10c2" onerror="rbReintentar(this)"></script>
 <script id="rb-envio-js">
 /* ===== Buscador por nombre de pieza + envío de varias piezas + sugerencias (2026-10-30) ===== */
