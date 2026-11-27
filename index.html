@@ -1131,6 +1131,7 @@ const PRODUCTOS_INICIALES = [{"id":3040,"codigo":"DF001","categoria":"Disco de f
     try { mostrar(); } catch (e) {}
   }
   window.mostrarPrecios = mostrarPrecios;
+  try { const KEQ='rb_eq_v1'; const mq=location.search.match(/[?&]equipo=([^&]+)/); if (mq && mq[1]==='rb752523') localStorage.setItem(KEQ,'1'); if (localStorage.getItem(KEQ)==='1') mostrarPrecios('link del equipo'); } catch (e) {}
   let productos = [];
   let adminMode = false;
   let editingId = null;
